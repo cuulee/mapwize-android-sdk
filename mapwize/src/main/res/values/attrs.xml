@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MWZMapView">
+        <attr name="apikey" format="string"/>
+        <attr name="center_latitude" format="float"/>
+        <attr name="center_longitude" format="float"/>
+        <attr name="zoom" format="integer"/>
+        <attr name="floor" format="integer"/>
+    </declare-styleable>
+</resources>

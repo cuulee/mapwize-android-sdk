@@ -3,8 +3,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="io.mapwize.example.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_accessKey"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="AccessKey"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setZoom"
+        android:orderInCategory="100"
+        android:title="SetZoom"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_centerOnCoordinates"
+        android:orderInCategory="100"
+        android:title="CenterOnCoordinates"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_centerOnCoordinatesWithFloor"
+        android:orderInCategory="100"
+        android:title="CenterOnCoordinatesWithFloor"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setFloor"
+        android:orderInCategory="100"
+        android:title="SetFloor"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_centerOnVenue"
+        android:orderInCategory="100"
+        android:title="CenterOnVenue"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_centerOnPlace"
+        android:orderInCategory="100"
+        android:title="CenterOnPlace"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_centerOnUser"
+        android:orderInCategory="100"
+        android:title="CenterOnUser"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_loadUrl"
+        android:orderInCategory="100"
+        android:title="LoadUrl"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_addMarker"
+        android:orderInCategory="100"
+        android:title="AddMarker"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_addMarkerOnPlace"
+        android:orderInCategory="100"
+        android:title="AddMarkerOnPlace"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_removeMarkers"
+        android:orderInCategory="100"
+        android:title="RemoveMarkers"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setFollowUserModeON"
+        android:orderInCategory="100"
+        android:title="SetFollowUserModeON"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setFollowUserModeOFF"
+        android:orderInCategory="100"
+        android:title="SetFollowUserModeOFF"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setUserPosition"
+        android:orderInCategory="100"
+        android:title="SetUserPosition"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setUserPositionWithFloor"
+        android:orderInCategory="100"
+        android:title="SetUserPositionWithFloor"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_unlockUserPosition"
+        android:orderInCategory="100"
+        android:title="UnlockUserPosition"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_showDirections"
+        android:orderInCategory="100"
+        android:title="ShowDirections"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_stopDirections"
+        android:orderInCategory="100"
+        android:title="StopDirections"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setStyle"
+        android:orderInCategory="100"
+        android:title="SetStyle"
+        app:showAsAction="never" />
+
+
 </menu>
