@@ -108,7 +108,7 @@ public class MWZMapView extends LinearLayout {
     }
 
     public void centerOnCoordinates(Double lat, Double lon, Integer floor, Integer zoom) {
-        this.webView.centerOnCoordinates(lat,lon,floor,zoom);
+        this.webView.centerOnCoordinates(lat, lon, floor, zoom);
     }
 
     public void setFloor(Integer floor) {
@@ -213,6 +213,13 @@ public class MWZMapView extends LinearLayout {
 
     public void setStyle(String placeId,MWZPlaceStyle style) {
         this.webView.setStyle(placeId, style);
+    }
+
+    public void setBottomMargin(Integer margin) {
+        this.webView.setBottomMargin(margin);
+    }
+    public void setTopMargin(Integer margin) {
+        this.webView.setTopMargin(margin);
     }
 
 }

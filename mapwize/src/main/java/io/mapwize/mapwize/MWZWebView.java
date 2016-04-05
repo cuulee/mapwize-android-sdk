@@ -369,6 +369,14 @@ public class MWZWebView extends WebView {
         this.executeJS("map.setPlaceStyle('"+placeId+"',"+style.toJSONString()+")");
     }
 
+    public void setBottomMargin(Integer margin) {
+        this.executeJS("map.setBottomMargin("+margin+")");
+    }
+
+    public void setTopMargin(Integer margin) {
+        this.executeJS("map.setTopMargin("+margin+")");
+    }
+
     /**
      * Add geolocation prompt to WebChromeClient
      */

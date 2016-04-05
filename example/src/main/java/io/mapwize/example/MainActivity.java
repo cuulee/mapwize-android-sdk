@@ -121,6 +121,15 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
             case R.id.action_setStyle:
                 this.setStyle();
                 break;
+            case R.id.action_setBottomMargin:
+                this.setBottomMargin();
+                break;
+            case R.id.action_setTopMargin:
+                this.setTopMargin();
+                break;
+            case R.id.action_resetMargin:
+                this.resetMargin();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -142,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     }
 
     public void centerOnCoordinatesWithFloor() {
-        this.mapview.centerOnCoordinates(49.74252973220731,4.599119424819946,2,18);
+        this.mapview.centerOnCoordinates(49.74252973220731, 4.599119424819946, 2, 18);
     }
 
     public void setFloor() {
@@ -190,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     }
 
     public void setUserPositionWithFloor() {
-        this.mapview.setUserPosition(49.74278626088478,4.5982933044,2, 15);
+        this.mapview.setUserPosition(49.74278626088478, 4.5982933044, 2, 15);
     }
 
     public void unlockUserPosition() {
@@ -216,7 +225,20 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
         style.setLabelBackgroundColor(Color.BLUE);
         style.setStrokeColor(Color.GRAY);
         style.setMarkerUrl("https://cdn4.iconfinder.com/data/icons/medical-soft-1/512/map_marker_pin_pointer_navigation_location_point_position-128.png");
-        this.mapview.setStyle("56c3426202275a0b00fb00b9",style);
+        this.mapview.setStyle("56c3426202275a0b00fb00b9", style);
+    }
+
+    public void setBottomMargin() {
+        this.mapview.setBottomMargin(60);
+    }
+
+    public void setTopMargin() {
+        this.mapview.setTopMargin(60);
+    }
+
+    public void resetMargin() {
+        this.mapview.setBottomMargin(0);
+        this.mapview.setTopMargin(0);
     }
 
     public void getFloor() {

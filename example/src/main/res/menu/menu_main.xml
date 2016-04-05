@@ -102,6 +102,21 @@
         android:orderInCategory="100"
         android:title="SetStyle"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setBottomMargin"
+        android:orderInCategory="100"
+        android:title="SetBottomMargin"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setTopMargin"
+        android:orderInCategory="100"
+        android:title="SetTopMargin"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_resetMargin"
+        android:orderInCategory="100"
+        android:title="ResetMargin"
+        app:showAsAction="never" />
 
 
 </menu>
