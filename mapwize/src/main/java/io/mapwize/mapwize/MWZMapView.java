@@ -3,6 +3,7 @@ package io.mapwize.mapwize;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
@@ -168,6 +169,10 @@ public class MWZMapView extends LinearLayout {
 
     public void setUserPosition(Double latitude, Double longitude, Integer floor) {
         this.webView.setUserPosition(latitude, longitude, floor);
+    }
+
+    public void setUserPosition(Double latitude, Double longitude, Integer floor, Integer accuracy) {
+        this.webView.setUserPosition(latitude, longitude, floor, accuracy);
     }
 
     public void newUserPositionMeasurement(MWZMeasurement measurement) {

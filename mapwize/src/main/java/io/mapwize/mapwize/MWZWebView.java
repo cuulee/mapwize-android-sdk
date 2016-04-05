@@ -318,11 +318,16 @@ public class MWZWebView extends WebView {
     }
 
     public void newUserPositionMeasurement(MWZMeasurement measurement) {
-        this.executeJS("map.newUserPositionMeasurement('"+measurement.toJSONString()+"')");
+        this.executeJS("map.newUserPositionMeasurement("+measurement.toJSONString()+")");
     }
 
     public void setUserPosition(Double latitude, Double longitude, Integer floor) {
         MWZLatLonFloor latLonFloor = new MWZLatLonFloor(latitude, longitude, floor);
+        Log.i("SetUserPosition", latLonFloor.toJSONString());
+        this.executeJS("map.setUserPosition("+latLonFloor.toJSONString()+")");
+    }
+    public void setUserPosition(Double latitude, Double longitude, Integer floor, Integer accuracy) {
+        MWZLatLonFloor latLonFloor = new MWZLatLonFloor(latitude, longitude, floor, accuracy);
         Log.i("SetUserPosition", latLonFloor.toJSONString());
         this.executeJS("map.setUserPosition("+latLonFloor.toJSONString()+")");
     }

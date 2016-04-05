@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     }
 
     public void setUserPositionWithFloor() {
-        this.mapview.setUserPosition(49.74278626088478,4.5982933044,2);
+        this.mapview.setUserPosition(49.74278626088478,4.5982933044,2, 15);
     }
 
     public void unlockUserPosition() {
