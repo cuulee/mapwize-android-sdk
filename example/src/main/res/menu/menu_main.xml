@@ -117,6 +117,16 @@
         android:orderInCategory="100"
         android:title="ResetMargin"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setUserHeading"
+        android:orderInCategory="100"
+        android:title="SetUserHeading"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_removeHeading"
+        android:orderInCategory="100"
+        android:title="RemoveHeading"
+        app:showAsAction="never" />
 
 
 </menu>

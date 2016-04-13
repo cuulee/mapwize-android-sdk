@@ -179,6 +179,10 @@ public class MWZMapView extends LinearLayout {
         this.webView.newUserPositionMeasurement(measurement);
     }
 
+    public void setUserHeading(Double heading) {
+        this.webView.setUserHeading(heading);
+    }
+
     public void unlockUserPosition() {
         this.webView.unlockUserPosition();
     }

@@ -21,6 +21,7 @@ import java.io.IOException;
 public class MWZWebView extends WebView {
 
     final private String SERVER_URL = "https://www.mapwize.io";
+    final private String SDK_VERSION = "1.4.x";
     private MWZMapViewListener listener;
     private Integer floor;
     private Integer[] floors;
@@ -62,7 +63,7 @@ public class MWZWebView extends WebView {
         webSettings.setJavaScriptEnabled(true);
         this.getSettings().setGeolocationEnabled(true);
         this.setWebChromeClient(new MWZWebView.GeoWebChromeClient());
-        this.loadUrl(SERVER_URL + "/sdk/mapwize-android-sdk/1.4.x/map.html");
+        this.loadUrl(SERVER_URL + "/sdk/mapwize-android-sdk/"+SDK_VERSION+"/map.html");
         final MWZWebView self = this;
 
         this.setWebViewClient(new WebViewClient() {
@@ -319,6 +320,10 @@ public class MWZWebView extends WebView {
 
     public void newUserPositionMeasurement(MWZMeasurement measurement) {
         this.executeJS("map.newUserPositionMeasurement("+measurement.toJSONString()+")");
+    }
+
+    public void setUserHeading(Double heading) {
+        this.executeJS("map.setUserHeading("+heading+")");
     }
 
     public void setUserPosition(Double latitude, Double longitude, Integer floor) {

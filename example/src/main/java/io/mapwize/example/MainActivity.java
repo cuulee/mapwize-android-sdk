@@ -1,21 +1,30 @@
 package io.mapwize.example;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Config;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import io.mapwize.mapwize.*;
 
-public class MainActivity extends AppCompatActivity implements MWZMapViewListener{
+public class MainActivity extends AppCompatActivity implements MWZMapViewListener, SensorEventListener{
 
     MWZMapView mapview;
+    private SensorManager mSensorManager;
+    private Sensor mCompass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +139,12 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
             case R.id.action_resetMargin:
                 this.resetMargin();
                 break;
+            case R.id.action_setUserHeading:
+                this.setUserHeading();
+                break;
+            case R.id.action_removeHeading:
+                this.removeHeading();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -241,6 +256,18 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
         this.mapview.setTopMargin(0);
     }
 
+    @SuppressWarnings("deprecation")
+    public void setUserHeading() {
+        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        mCompass = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        mSensorManager.registerListener(this, mCompass, SensorManager.SENSOR_DELAY_GAME);
+    }
+
+    public void removeHeading() {
+        mSensorManager.unregisterListener(this);
+        this.mapview.setUserHeading(null);
+    }
+
     public void getFloor() {
         Log.i("Floor", "" + this.mapview.getFloor());
     }
@@ -325,5 +352,20 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     @Override
     public void onMonitoredUuidsChange(String[] uuids) {
         Log.i("OnMonitoredUuidsChange", "" + uuids);
+    }
+
+    @Override
+    public final void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Do something here if sensor accuracy changes.
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public final void onSensorChanged(SensorEvent event) {
+        switch(event.sensor.getType()){
+            case Sensor.TYPE_ORIENTATION:
+                this.mapview.setUserHeading((new Double(event.values[0])));
+                break;
+        }
     }
 }
