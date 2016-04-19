@@ -22,6 +22,9 @@ public class MWZWebView extends WebView {
 
     final private String SERVER_URL = "https://www.mapwize.io";
     final private String SDK_VERSION = "1.4.x";
+    final private String ANDROID_SDK_VERSION = "1.4.2";
+    final private String ANDROID_SDK_NAME = "ANDROID SDK";
+    private static String CLIENT_APP_NAME;
     private MWZMapViewListener listener;
     private Integer floor;
     private Integer[] floors;
@@ -32,14 +35,18 @@ public class MWZWebView extends WebView {
 
     public MWZWebView(Context context) {
         super(context);
+        CLIENT_APP_NAME = context.getPackageName();
     }
 
     public MWZWebView(Context context, AttributeSet attrs) {
+
         super(context, attrs);
+        CLIENT_APP_NAME = context.getPackageName();
     }
 
     public MWZWebView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        CLIENT_APP_NAME = context.getPackageName();
     }
 
     public void setupMap(MWZMapOptions options) {
@@ -63,7 +70,7 @@ public class MWZWebView extends WebView {
         webSettings.setJavaScriptEnabled(true);
         this.getSettings().setGeolocationEnabled(true);
         this.setWebChromeClient(new MWZWebView.GeoWebChromeClient());
-        this.loadUrl(SERVER_URL + "/sdk/mapwize-android-sdk/"+SDK_VERSION+"/map.html");
+        this.loadUrl(SERVER_URL + "/sdk/mapwize-android-sdk/" + SDK_VERSION + "/map.html");
         final MWZWebView self = this;
 
         this.setWebViewClient(new WebViewClient() {
@@ -72,10 +79,16 @@ public class MWZWebView extends WebView {
                 self.initMap(options);
             }
         });
+
+
+
     }
 
     public void initMap(MWZMapOptions options) {
         this.executeJS("Mapwize.config.SERVER = '" + SERVER_URL + "';");
+        this.executeJS("Mapwize.config.SDK_NAME = '" + ANDROID_SDK_VERSION + "';");
+        this.executeJS("Mapwize.config.SDK_VERSION = '" + ANDROID_SDK_NAME + "';");
+        this.executeJS("Mapwize.config.CLIENT_APP_NAME = '" + CLIENT_APP_NAME + "';");
         this.executeJS("var map = Mapwize.map('map'," + options.toJSONString() + ");");
         this.addListeners();
     }

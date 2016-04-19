@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     }
 
     public void setBottomMargin() {
-        this.mapview.setBottomMargin(60);
+        this.mapview.setBottomMargin(300);
     }
 
     public void setTopMargin() {
