@@ -9,13 +9,20 @@ import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.HashMap;
 
 
 public class MWZWebView extends WebView {
@@ -32,6 +39,7 @@ public class MWZWebView extends WebView {
     private boolean followUserMode;
     private MWZLatLon center;
     private MWZMeasurement userPosition;
+    private HashMap<String, Object> callbackMemory;
 
     public MWZWebView(Context context) {
         super(context);
@@ -50,6 +58,7 @@ public class MWZWebView extends WebView {
     }
 
     public void setupMap(MWZMapOptions options) {
+        callbackMemory = new HashMap<>();
         this.setupWebView(options);
     }
 
@@ -78,10 +87,29 @@ public class MWZWebView extends WebView {
             public void onPageFinished(WebView view, String url) {
                 self.initMap(options);
             }
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                if ( Build.VERSION.SDK_INT < Build.VERSION_CODES.M ) {
+                    if (listener != null) {
+                        listener.onReceivedError(description);
+                    }
+                    self.loadUrl("about:blank");
+                }
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ) {
+                    if (listener != null) {
+                        listener.onReceivedError("" + error.getDescription());
+                    }
+                    self.loadUrl("about:blank");
+                }
+            }
+
         });
-
-
-
     }
 
     public void initMap(MWZMapOptions options) {
@@ -108,6 +136,7 @@ public class MWZWebView extends WebView {
         this.executeJS("map.on('directionsStart', function(e){android.onDirectionsStart((function(){return 'Directions loaded'})())});");
         this.executeJS("map.on('directionsStop', function(e){android.onDirectionsStop((function(){return 'Directions stopped'})())});");
         this.executeJS("map.on('monitoredUuidsChange', function(e){android.onMonitoredUuidsChange((function(){return JSON.stringify(e.uuids)})())});");
+        this.executeJS("map.on('apiResponse', function(e){android.onApiResponse((function(){return JSON.stringify({type:e.type, returnedType: e.returnedType, hash:e.hash, response:e.response})})())});");
     }
 
     protected void executeJS (String js) {
@@ -239,6 +268,49 @@ public class MWZWebView extends WebView {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @JavascriptInterface
+    public void onApiResponse(String value) {
+        try {
+
+            JSONObject jObject = new JSONObject(value);
+            JSONObject response = jObject.getJSONObject("response");
+            String hash = jObject.getString("hash");
+            String type = jObject.getString("returnedType");
+
+            if (type.equals("place")) {
+                PlaceCallbackInterface callback = (PlaceCallbackInterface)callbackMemory.get(hash);
+                if (!response.isNull("_id")) {
+                    MWZPlace place = MWZPlace.getMWZPlace(response.toString());
+                    callback.onResponse(place);
+                }
+                else {
+                    callback.onResponse(null);
+                }
+            }
+            if (type.equals("venue")) {
+                VenueCallbackInterface callback = (VenueCallbackInterface)callbackMemory.get(hash);
+                if (!response.isNull("_id")) {
+                    MWZVenue venue = MWZVenue.getMWZVenue(response.toString());
+                    callback.onResponse(venue);
+                }
+                else {
+                    callback.onResponse(null);
+                }
+            }
+
+            callbackMemory.remove(hash);
+
+
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 
@@ -395,6 +467,45 @@ public class MWZWebView extends WebView {
         this.executeJS("map.setTopMargin("+margin+")");
     }
 
+    public void getPlaceWithId (String placeId, PlaceCallbackInterface callback) {
+        String hash = new RandomString(16).nextString();
+        callbackMemory.put(hash, callback);
+        this.executeJS("Mapwize.api.getPlace('"+placeId+"', function(err, place){map.fire('apiResponse', {returnedType:'place', hash:'"+hash+"', response:err||place});});");
+    }
+
+    public void getPlaceWithName (String placeName, String venueId, PlaceCallbackInterface callback) {
+        String hash = new RandomString(16).nextString();
+        callbackMemory.put(hash, callback);
+        this.executeJS("Mapwize.api.getPlace({name:'"+placeName+"', venueId:'"+venueId+"'}, function(err, place){map.fire('apiResponse', {returnedType:'place', hash:'"+hash+"', response:err||place});});");
+    }
+
+    public void getPlaceWithAlias (String placeAlias, String venueId, PlaceCallbackInterface callback) {
+        String hash = new RandomString(16).nextString();
+        callbackMemory.put(hash, callback);
+        this.executeJS("Mapwize.api.getPlace({alias:'"+placeAlias+"', venueId:'"+venueId+"'}, function(err, place){map.fire('apiResponse', {returnedType:'place', hash:'"+hash+"', response:err||place});});");
+    }
+
+    public void getVenueWithId (String venueId, VenueCallbackInterface callback) {
+        String hash = new RandomString(16).nextString();
+        callbackMemory.put(hash, callback);
+        this.executeJS("Mapwize.api.getVenue('"+venueId+"', function(err, venue){map.fire('apiResponse', {returnedType:'venue', hash:'"+hash+"', response:err||venue});});");
+    }
+
+    public void getVenueWithName (String venueName, VenueCallbackInterface callback) {
+        String hash = new RandomString(16).nextString();
+        callbackMemory.put(hash, callback);
+        this.executeJS("Mapwize.api.getVenue({name:'"+venueName+"'}, function(err, venue){map.fire('apiResponse', {returnedType:'venue', hash:'"+hash+"', response:err||venue});});");
+    }
+
+    public void getVenueWithAlias (String venueAlias, VenueCallbackInterface callback) {
+        String hash = new RandomString(16).nextString();
+        callbackMemory.put(hash, callback);
+        this.executeJS("Mapwize.api.getVenue({alias:'"+venueAlias+"'}, function(err, venue){map.fire('apiResponse', {returnedType:'venue', hash:'"+hash+"', response:err||venue});});");
+    }
+
+    public void refresh() {
+        this.executeJS("map.refresh()");
+    }
     /**
      * Add geolocation prompt to WebChromeClient
      */

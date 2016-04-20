@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MWZPlace {
@@ -49,6 +50,14 @@ public class MWZPlace {
 
     public MWZPlace(){
         super();
+    }
+
+    public MWZPlace(HashMap<String, String> map) {
+        super();
+        this.identifier = map.get("_id");
+        this.name = map.get("name");
+        this.alias = map.get("alias");
+        this.venueId = map.get("venueId");
     }
 
     public static MWZPlace getMWZPlace(String json) {

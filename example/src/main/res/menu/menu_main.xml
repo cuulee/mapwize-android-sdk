@@ -127,6 +127,62 @@
         android:orderInCategory="100"
         android:title="RemoveHeading"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getFloor"
+        android:orderInCategory="100"
+        android:title="GetFloor"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getZoom"
+        android:orderInCategory="100"
+        android:title="GetZoom"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getUserPosition"
+        android:orderInCategory="100"
+        android:title="GetUserPosition"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getCenter"
+        android:orderInCategory="100"
+        android:title="GetCenter"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_refresh"
+        android:orderInCategory="100"
+        android:title="RefreshData"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getPlaceWithId"
+        android:orderInCategory="100"
+        android:title="GetPlaceWithId"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getPlaceWithName"
+        android:orderInCategory="100"
+        android:title="GetPlaceWithName"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getPlaceWithAlias"
+        android:orderInCategory="100"
+        android:title="GetPlaceWithAlias"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getVenueWithId"
+        android:orderInCategory="100"
+        android:title="GetVenueWithId"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getVenueWithName"
+        android:orderInCategory="100"
+        android:title="GetVenueWithName"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getVenueWithAlias"
+        android:orderInCategory="100"
+        android:title="GetVenueWithAlias"
+        app:showAsAction="never" />
 
 
 </menu>

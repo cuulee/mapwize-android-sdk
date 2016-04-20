@@ -2,6 +2,7 @@ package io.mapwize.mapwize;
 
 public interface MWZMapViewListener {
 
+    void onReceivedError(String error);
     void onZoomEnd(Integer zoom);
     void onClick(MWZLatLon latlon);
     void onContextMenu(MWZLatLon latlon);

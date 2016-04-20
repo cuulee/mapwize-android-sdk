@@ -18,6 +18,8 @@ import android.util.Config;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import io.mapwize.mapwize.*;
 
 public class MainActivity extends AppCompatActivity implements MWZMapViewListener, SensorEventListener{
@@ -145,6 +147,36 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
             case R.id.action_removeHeading:
                 this.removeHeading();
                 break;
+            case R.id.action_getFloor:
+                this.getFloor();
+                break;
+            case R.id.action_getZoom:
+                this.getZoom();
+                break;
+            case R.id.action_getUserPosition:
+                this.getUserPosition();
+                break;
+            case R.id.action_getCenter:
+                this.getCenter();
+                break;
+            case R.id.action_getPlaceWithId:
+                this.getPlaceWithId();
+                break;
+            case R.id.action_getPlaceWithName:
+                this.getPlaceWithName();
+                break;
+            case R.id.action_getPlaceWithAlias:
+                this.getPlaceWithAlias();
+                break;
+            case R.id.action_getVenueWithId:
+                this.getVenueWithId();
+                break;
+            case R.id.action_getVenueWithName:
+                this.getVenueWithName();
+                break;
+            case R.id.action_getVenueWithAlias:
+                this.getVenueWithAlias();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -268,20 +300,128 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
         this.mapview.setUserHeading(null);
     }
 
+    public void refresh() {
+        this.mapview.refresh();
+    }
+
+    public void getPlaceWithId() {
+        this.mapview.getPlaceWithId("56c3426202275a0b00fb00b9", new PlaceCallbackInterface() {
+            @Override
+            public void onResponse(MWZPlace place) {
+                Context context = getApplicationContext();
+                CharSequence text = "PlaceWithId :" + place;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+    }
+
+    public void getPlaceWithName() {
+        this.mapview.getPlaceWithName("Bakery", "56c2ea3402275a0b00fb00ac", new PlaceCallbackInterface() {
+            @Override
+            public void onResponse(MWZPlace place) {
+                Context context = getApplicationContext();
+                CharSequence text = "PlaceWithName :" + place;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+    }
+
+    public void getPlaceWithAlias() {
+        this.mapview.getPlaceWithAlias("bakery", "56c2ea3402275a0b00fb00ac", new PlaceCallbackInterface() {
+            @Override
+            public void onResponse(MWZPlace place) {
+                Context context = getApplicationContext();
+                CharSequence text = "PlaceWithAlias :" + place;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+    }
+
+    public void getVenueWithId() {
+        this.mapview.getVenueWithId("56c2ea3402275a0b00fb00ac", new VenueCallbackInterface() {
+            @Override
+            public void onResponse(MWZVenue venue) {
+                Context context = getApplicationContext();
+                CharSequence text = "VenueWithId :" + venue;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+    }
+
+    public void getVenueWithName() {
+        this.mapview.getVenueWithName("Demo", new VenueCallbackInterface() {
+            @Override
+            public void onResponse(MWZVenue venue) {
+                Context context = getApplicationContext();
+                CharSequence text = "VenueWithName :" + venue;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+    }
+
+    public void getVenueWithAlias() {
+        this.mapview.getVenueWithAlias("demo", new VenueCallbackInterface() {
+            @Override
+            public void onResponse(MWZVenue venue) {
+                Context context = getApplicationContext();
+                CharSequence text = "VenueWithAlias :" + venue;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+    }
+
     public void getFloor() {
-        Log.i("Floor", "" + this.mapview.getFloor());
+        Context context = getApplicationContext();
+        CharSequence text = "Floor :" + this.mapview.getFloor();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     public void getZoom() {
-        Log.i("Zoom", ""+this.mapview.getZoom());
+        Context context = getApplicationContext();
+        CharSequence text = "Zoom :" + this.mapview.getZoom();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     public void getUserPosition() {
-        Log.i("UserPosition", ""+this.mapview.getUserPosition());
+        Context context = getApplicationContext();
+        CharSequence text = "UserPosition :" + this.mapview.getUserPosition();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     public void getCenter() {
-        Log.i("Center", ""+this.mapview.getCenter());
+        Context context = getApplicationContext();
+        CharSequence text = "Center :" + this.mapview.getCenter();
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     @Override
@@ -355,9 +495,16 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     }
 
     @Override
+    public void onReceivedError(String error) {
+        Log.i("OnReceivedError", error);
+    }
+
+    @Override
     public final void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Do something here if sensor accuracy changes.
     }
+
+
 
     @Override
     @SuppressWarnings("deprecation")
