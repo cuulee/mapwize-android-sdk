@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Version 1.4.0
+## Version 1.4.1
 
 - Added method to stop showing directions.
 - Added method to set user position with accuracy.

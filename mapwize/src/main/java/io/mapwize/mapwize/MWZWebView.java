@@ -29,7 +29,7 @@ public class MWZWebView extends WebView {
 
     final private String SERVER_URL = "https://www.mapwize.io";
     final private String SDK_VERSION = "1.4.x";
-    final private String ANDROID_SDK_VERSION = "1.4.2";
+    final private String ANDROID_SDK_VERSION = "1.4.1";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
     private MWZMapViewListener listener;
