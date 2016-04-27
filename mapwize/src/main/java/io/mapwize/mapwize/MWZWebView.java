@@ -114,8 +114,8 @@ public class MWZWebView extends WebView {
 
     public void initMap(MWZMapOptions options) {
         this.executeJS("Mapwize.config.SERVER = '" + SERVER_URL + "';");
-        this.executeJS("Mapwize.config.SDK_NAME = '" + ANDROID_SDK_VERSION + "';");
-        this.executeJS("Mapwize.config.SDK_VERSION = '" + ANDROID_SDK_NAME + "';");
+        this.executeJS("Mapwize.config.SDK_NAME = '" + ANDROID_SDK_NAME + "';");
+        this.executeJS("Mapwize.config.SDK_VERSION = '" + ANDROID_SDK_VERSION + "';");
         this.executeJS("Mapwize.config.CLIENT_APP_NAME = '" + CLIENT_APP_NAME + "';");
         this.executeJS("var map = Mapwize.map('map'," + options.toJSONString() + ");");
         this.addListeners();
