@@ -6,5 +6,7 @@
         <attr name="center_longitude" format="float"/>
         <attr name="zoom" format="integer"/>
         <attr name="floor" format="integer"/>
+        <attr name="isLocationEnabled" format="boolean"/>
+        <attr name="isBeaconsEnabled" format="boolean"/>
     </declare-styleable>
 </resources>

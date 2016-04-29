@@ -177,6 +177,9 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
             case R.id.action_getVenueWithAlias:
                 this.getVenueWithAlias();
                 break;
+            case R.id.action_removeUserPosition:
+                this.removeUserPosition();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -247,6 +250,10 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
 
     public void setUserPositionWithFloor() {
         this.mapview.setUserPosition(49.74278626088478, 4.5982933044, 2, 15);
+    }
+
+    public void removeUserPosition() {
+        this.mapview.removeUserPosition();
     }
 
     public void unlockUserPosition() {

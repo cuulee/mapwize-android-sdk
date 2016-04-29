@@ -59,13 +59,8 @@ public class MWZMapView extends LinearLayout {
         try {
             String apiKey = a.getString(R.styleable.MWZMapView_apikey);
             options.setApiKey(apiKey);
-            /*float NWLat = a.getFloat(R.styleable.MapwizeView_bounds_northwest_latitude,Float.MAX_VALUE);
-            float NWLon = a.getFloat(R.styleable.MapwizeView_bounds_northwest_longitude,Float.MAX_VALUE);
-            float SELat = a.getFloat(R.styleable.MapwizeView_bounds_southeast_latitude,Float.MAX_VALUE);
-            float SELon = a.getFloat(R.styleable.MapwizeView_bounds_southeast_longitude,Float.MAX_VALUE);
-            if (NWLat != Float.MAX_VALUE && NWLon != Float.MAX_VALUE && SELat != Float.MAX_VALUE && SELon != Float.MAX_VALUE){
-                options.setMaxBounds(new MWZLatLonBounds(new MWZLatLon(new Double(NWLat), new Double(NWLon)),(new MWZLatLon(new Double(SELat), new Double(SELon)))));
-            }*/
+            options.setIsLocationEnabled(a.getBoolean(R.styleable.MWZMapView_isLocationEnabled, Boolean.TRUE));
+            options.setIsBeaconsEnabled(a.getBoolean(R.styleable.MWZMapView_isBeaconsEnabled, Boolean.TRUE));
             float centerLat = a.getFloat(R.styleable.MWZMapView_center_latitude, Float.MAX_VALUE);
             float centerLon = a.getFloat(R.styleable.MWZMapView_center_longitude, Float.MAX_VALUE);
             if (centerLat != Float.MAX_VALUE && centerLon != Float.MAX_VALUE) {
@@ -173,6 +168,10 @@ public class MWZMapView extends LinearLayout {
 
     public void setUserPosition(Double latitude, Double longitude, Integer floor, Integer accuracy) {
         this.webView.setUserPosition(latitude, longitude, floor, accuracy);
+    }
+
+    public void removeUserPosition() {
+        this.webView.removeUserPosition();
     }
 
     public void newUserPositionMeasurement(MWZMeasurement measurement) {

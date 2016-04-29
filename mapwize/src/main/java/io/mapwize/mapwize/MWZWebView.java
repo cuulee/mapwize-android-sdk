@@ -77,7 +77,7 @@ public class MWZWebView extends WebView {
         this.addJavascriptInterface(this, "android");
         WebSettings webSettings = this.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        this.getSettings().setGeolocationEnabled(true);
+        this.getSettings().setGeolocationEnabled(options.isLocationEnabled());
         this.setWebChromeClient(new MWZWebView.GeoWebChromeClient());
         this.loadUrl(SERVER_URL + "/sdk/mapwize-android-sdk/" + SDK_VERSION + "/map.html");
         final MWZWebView self = this;
@@ -118,10 +118,10 @@ public class MWZWebView extends WebView {
         this.executeJS("Mapwize.config.SDK_VERSION = '" + ANDROID_SDK_VERSION + "';");
         this.executeJS("Mapwize.config.CLIENT_APP_NAME = '" + CLIENT_APP_NAME + "';");
         this.executeJS("var map = Mapwize.map('map'," + options.toJSONString() + ");");
-        this.addListeners();
+        this.addListeners(options);
     }
 
-    private void addListeners() {
+    private void addListeners(MWZMapOptions options) {
         this.executeJS("map.on('zoomend', function(e){android.onZoomEnd((function(){return map.getZoom()})())});");
         this.executeJS("map.on('click', function(e){android.onClick((function(){return JSON.stringify(e.latlng)})())});");
         this.executeJS("map.on('contextmenu', function(e){android.onContextMenu((function(){return JSON.stringify(e.latlng)})())});");
@@ -135,8 +135,10 @@ public class MWZWebView extends WebView {
         this.executeJS("map.on('followUserModeChange', function(e){android.onFollowUserModeChange((function(){return JSON.stringify(e.active)})())});");
         this.executeJS("map.on('directionsStart', function(e){android.onDirectionsStart((function(){return 'Directions loaded'})())});");
         this.executeJS("map.on('directionsStop', function(e){android.onDirectionsStop((function(){return 'Directions stopped'})())});");
-        this.executeJS("map.on('monitoredUuidsChange', function(e){android.onMonitoredUuidsChange((function(){return JSON.stringify(e.uuids)})())});");
         this.executeJS("map.on('apiResponse', function(e){android.onApiResponse((function(){return JSON.stringify({type:e.type, returnedType: e.returnedType, hash:e.hash, response:e.response})})())});");
+        if (options.isBeaconsEnabled()) {
+            this.executeJS("map.on('monitoredUuidsChange', function(e){android.onMonitoredUuidsChange((function(){return JSON.stringify(e.uuids)})())});");
+        }
     }
 
     protected void executeJS (String js) {
@@ -412,14 +414,22 @@ public class MWZWebView extends WebView {
     }
 
     public void setUserPosition(Double latitude, Double longitude, Integer floor) {
+        if (latitude == null || longitude == null) {
+            return;
+        }
         MWZLatLonFloor latLonFloor = new MWZLatLonFloor(latitude, longitude, floor);
-        Log.i("SetUserPosition", latLonFloor.toJSONString());
         this.executeJS("map.setUserPosition("+latLonFloor.toJSONString()+")");
     }
     public void setUserPosition(Double latitude, Double longitude, Integer floor, Integer accuracy) {
+        if (latitude == null || longitude == null) {
+            return;
+        }
         MWZLatLonFloor latLonFloor = new MWZLatLonFloor(latitude, longitude, floor, accuracy);
-        Log.i("SetUserPosition", latLonFloor.toJSONString());
         this.executeJS("map.setUserPosition("+latLonFloor.toJSONString()+")");
+    }
+
+    public void removeUserPosition() {
+        this.executeJS("map.setUserPosition(null)");
     }
 
     public void unlockUserPosition() {

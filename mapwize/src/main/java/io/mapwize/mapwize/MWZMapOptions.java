@@ -14,15 +14,38 @@ public class MWZMapOptions {
     private int floor;
     private boolean zoomControl;
 
+    private boolean isLocationEnabled;
+    private boolean isBeaconsEnabled;
+
+
+
+    public MWZMapOptions() {
+        this.isBeaconsEnabled = true;
+        this.isLocationEnabled = true;
+    }
+
+    public boolean isLocationEnabled() {
+        return isLocationEnabled;
+    }
+
+    public void setIsLocationEnabled(boolean isLocationEnabled) {
+        this.isLocationEnabled = isLocationEnabled;
+    }
+
+    public boolean isBeaconsEnabled() {
+        return isBeaconsEnabled;
+    }
+
+    public void setIsBeaconsEnabled(boolean isBeaconsEnabled) {
+        this.isBeaconsEnabled = isBeaconsEnabled;
+    }
+
     public boolean isZoomControl() {
         return zoomControl;
     }
 
     public void setZoomControl(boolean zoomControl) {
         this.zoomControl = zoomControl;
-    }
-
-    public MWZMapOptions() {
     }
 
     public int getFloor() {

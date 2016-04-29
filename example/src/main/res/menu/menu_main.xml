@@ -83,6 +83,11 @@
         android:title="SetUserPositionWithFloor"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_removeUserPosition"
+        android:orderInCategory="100"
+        android:title="RemoveUserPosition"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_unlockUserPosition"
         android:orderInCategory="100"
         android:title="UnlockUserPosition"
