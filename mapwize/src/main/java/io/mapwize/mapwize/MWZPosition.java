@@ -16,6 +16,8 @@ public class MWZPosition {
     private String venueId;
     private String placeId;
 
+    private String placeListId;
+
     public Double getLatitude() {
         return latitude;
     }
@@ -69,6 +71,14 @@ public class MWZPosition {
 
     public void setPlaceId(String placeId) {
         this.placeId = placeId;
+    }
+
+    public String getPlaceListId() {
+        return placeListId;
+    }
+
+    public void setPlaceListId(String placeListId) {
+        this.placeListId = placeListId;
     }
 
     public MWZPosition () {

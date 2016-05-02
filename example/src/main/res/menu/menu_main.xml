@@ -98,6 +98,11 @@
         android:title="ShowDirections"
         app:showAsAction="never" />
     <item
+        android:id="@+id/actions_showDirectionsToAList"
+        android:orderInCategory="100"
+        android:title="ShowDirectionsToAList"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_stopDirections"
         android:orderInCategory="100"
         android:title="StopDirections"
@@ -187,6 +192,31 @@
         android:id="@+id/action_getVenueWithAlias"
         android:orderInCategory="100"
         android:title="GetVenueWithAlias"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getPlaceListWithId"
+        android:orderInCategory="100"
+        android:title="GetPlacelistWithId"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getPlaceListWithName"
+        android:orderInCategory="100"
+        android:title="GetPlaceListWithName"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getPlaceListWithAlias"
+        android:orderInCategory="100"
+        android:title="GetPlaceListWithAlias"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getPlaceListsForVenueId"
+        android:orderInCategory="100"
+        android:title="GetPlaceListsForVenueId"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_getPlacesWithPlaceListId"
+        android:orderInCategory="100"
+        android:title="GetPlacesWithPlaceListId"
         app:showAsAction="never" />
 
 

@@ -126,6 +126,9 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
             case R.id.action_showDirections:
                 this.showDirections();
                 break;
+            case R.id.actions_showDirectionsToAList:
+                this.showDirectionsToAList();
+                break;
             case R.id.action_stopDirections:
                 this.stopDirections();
                 break;
@@ -176,6 +179,21 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
                 break;
             case R.id.action_getVenueWithAlias:
                 this.getVenueWithAlias();
+                break;
+            case R.id.action_getPlaceListWithId:
+                this.getPlaceListWithId();
+                break;
+            case R.id.action_getPlaceListWithName:
+                this.getPlaceListWithName();
+                break;
+            case R.id.action_getPlaceListWithAlias:
+                this.getPlaceListWithAlias();
+                break;
+            case R.id.action_getPlaceListsForVenueId:
+                this.getPlaceListsForVenueId();
+                break;
+            case R.id.action_getPlacesWithPlaceListId:
+                this.getPlacesWithPlaceListId();
                 break;
             case R.id.action_removeUserPosition:
                 this.removeUserPosition();
@@ -266,6 +284,15 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
         from.setPlaceId("56c3426202275a0b00fb00b9");
         to = new MWZPosition();
         to.setPlaceId("56c3504102275a0b00fb00fa");
+        this.mapview.showDirections(from, to);
+    }
+
+    public void showDirectionsToAList() {
+        MWZPosition from, to;
+        from = new MWZPosition();
+        from.setPlaceId("56c3429c02275a0b00fb00bb");
+        to = new MWZPosition();
+        to.setPlaceListId("5728a351a3a26c0b0027d5cf");
         this.mapview.showDirections(from, to);
     }
 
@@ -387,6 +414,76 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
             public void onResponse(MWZVenue venue) {
                 Context context = getApplicationContext();
                 CharSequence text = "VenueWithAlias :" + venue;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+    }
+
+    public void getPlaceListWithId() {
+        this.mapview.getPlaceListWithId("5728a351a3a26c0b0027d5cf", new PlaceListCallbackInterface() {
+            @Override
+            public void onResponse(MWZPlaceList placeList) {
+                Context context = getApplicationContext();
+                CharSequence text = "PlaceListWithId :" + placeList;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+    }
+
+    public void getPlaceListWithName() {
+        this.mapview.getPlaceListWithName("MyPlaylist", "56c2ea3402275a0b00fb00ac", new PlaceListCallbackInterface() {
+            @Override
+            public void onResponse(MWZPlaceList placeList) {
+                Context context = getApplicationContext();
+                CharSequence text = "PlaceListWithName :" + placeList;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+    }
+
+    public void getPlaceListWithAlias() {
+        this.mapview.getPlaceListWithAlias("myplaylist", "56c2ea3402275a0b00fb00ac", new PlaceListCallbackInterface() {
+            @Override
+            public void onResponse(MWZPlaceList placeList) {
+                Context context = getApplicationContext();
+                CharSequence text = "PlaceListWithAlias :" + placeList;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+    }
+
+    public void getPlaceListsForVenueId() {
+        this.mapview.getPlaceListsForVenueId("56c2ea3402275a0b00fb00ac", new PlaceListsCallbackInterface() {
+            @Override
+            public void onResponse(MWZPlaceList[] placeLists) {
+                Context context = getApplicationContext();
+                CharSequence text = "PlaceListsForVenueId :" + placeLists.length;
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+    }
+
+    public void getPlacesWithPlaceListId() {
+        this.mapview.getPlacesWithPlaceListId("5728a351a3a26c0b0027d5cf", new PlacesCallbackInterface() {
+            @Override
+            public void onResponse(MWZPlace[] places) {
+                Context context = getApplicationContext();
+                CharSequence text = "PlacesWithPlaceListId :" + places;
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(context, text, duration);

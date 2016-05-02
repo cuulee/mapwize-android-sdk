@@ -242,6 +242,26 @@ public class MWZMapView extends LinearLayout {
         this.webView.getVenueWithAlias(venueAlias, callback);
     }
 
+    public void getPlaceListWithId (String placeListId, PlaceListCallbackInterface callback) {
+        this.webView.getPlaceListWithId(placeListId, callback);
+    }
+
+    public void getPlaceListWithName (String placeListName, String venueId, PlaceListCallbackInterface callback) {
+        this.webView.getPlaceListWithName(placeListName, venueId, callback);
+    }
+
+    public void getPlaceListWithAlias (String placeListAlias, String venueId, PlaceListCallbackInterface callback) {
+        this.webView.getPlaceListWithAlias(placeListAlias, venueId, callback);
+    }
+
+    public void getPlaceListsForVenueId (String venueId, PlaceListsCallbackInterface callback) {
+        this.webView.getPlaceListsForVenueId(venueId, callback);
+    }
+
+    public void getPlacesWithPlaceListId (String placeListId, PlacesCallbackInterface callback) {
+        this.webView.getPlacesWithPlaceListId(placeListId, callback);
+    }
+
     public void refresh() {
         this.webView.refresh();
     }
