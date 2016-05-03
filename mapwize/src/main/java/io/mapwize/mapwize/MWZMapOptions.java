@@ -89,7 +89,7 @@ public class MWZMapOptions {
     }
 
     public String toString() {
-        return "MWZMapOptions : ApiKey="+apiKey+" MaxBounds="+maxBounds+" Center="+center+"Zoom="+zoom+"Floor="+floor;
+        return "MWZMapOptions : ApiKey="+apiKey+" MaxBounds="+maxBounds+" Center="+center+" Zoom="+zoom+" Floor="+floor+" LocationEnabled="+this.isLocationEnabled+" BeaconEnabled="+this.isBeaconsEnabled;
     }
 
     public String toJSONString() {
