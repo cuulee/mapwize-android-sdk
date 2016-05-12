@@ -1,5 +1,7 @@
 package io.mapwize.mapwize;
 
+import android.webkit.ConsoleMessage;
+
 public interface MWZMapViewListener {
 
     void onReceivedError(String error);
@@ -18,4 +20,6 @@ public interface MWZMapViewListener {
     void onDirectionsStop(String info);
     void onMonitoredUuidsChange(String[] uuids);
 
+    void onMapLoaded();
+    void onJavascriptConsoleCallback(ConsoleMessage message);
 }

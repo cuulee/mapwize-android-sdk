@@ -18,6 +18,7 @@ import android.util.Config;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.ConsoleMessage;
 import android.widget.Toast;
 
 import io.mapwize.mapwize.*;
@@ -596,6 +597,16 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     @Override
     public void onMonitoredUuidsChange(String[] uuids) {
         Log.i("OnMonitoredUuidsChange", "" + uuids);
+    }
+
+    @Override
+    public void onMapLoaded() {
+        Log.i("onMapLoaded", "MapWize loaded !");
+    }
+
+    @Override
+    public void onJavascriptConsoleCallback(ConsoleMessage message) {
+        Log.d("onJsConsoleCallback", "Javascript console message - " + message.messageLevel() + " : " + message.message());
     }
 
     @Override
