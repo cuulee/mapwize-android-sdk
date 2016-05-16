@@ -83,6 +83,11 @@ public class MWZMapView extends LinearLayout {
     /**
      *  SDK Public methods
      */
+
+    public void destroy() {
+        if(this.webView != null) webView.destroy();
+    }
+
     public void setupMap(MWZMapOptions options) {
         this.webView = (MWZWebView)this.findViewById(R.id.webview);
         this.webView.setupMap(options);
