@@ -1,24 +1,19 @@
 package io.mapwize.mapwize;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.IOException;
-
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class MWZVenue {
 
-    String identifier;
-    String name;
-    String alias;
+    private String identifier;
+    private String name;
+    private String alias;
+
+    public MWZVenue(){
+        super();
+    }
 
     public String getIdentifier() {
         return identifier;
     }
 
-    @JsonSetter("_id")
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
@@ -37,21 +32,6 @@ public class MWZVenue {
 
     public void setAlias(String alias) {
         this.alias = alias;
-    }
-
-    public MWZVenue(){
-        super();
-    }
-
-    public static MWZVenue getMWZVenue(String json) {
-        MWZVenue result = null;
-        try {
-            result = new ObjectMapper().readValue(json, MWZVenue.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            return result;
-        }
     }
 
     public String toString() {

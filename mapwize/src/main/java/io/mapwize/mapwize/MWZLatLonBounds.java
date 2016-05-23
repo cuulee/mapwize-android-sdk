@@ -1,28 +1,9 @@
 package io.mapwize.mapwize;
 
-/**
- * Created by Etienne on 22/03/16.
- */
 public class MWZLatLonBounds {
 
     private MWZLatLon northEast;
     private MWZLatLon southWest;
-
-    public MWZLatLon getNorthEast() {
-        return northEast;
-    }
-
-    public void setNorthEast(MWZLatLon northEast) {
-        this.northEast = northEast;
-    }
-
-    public MWZLatLon getSouthWest() {
-        return southWest;
-    }
-
-    public void setSouthWest(MWZLatLon southWest) {
-        this.southWest = southWest;
-    }
 
     public MWZLatLonBounds (MWZLatLon northEast, MWZLatLon southWest) {
         super();
@@ -38,6 +19,22 @@ public class MWZLatLonBounds {
         result[1][1] = this.southWest.getLongitude();
 
         return result;
+    }
+
+    public MWZLatLon getNorthEast() {
+        return northEast;
+    }
+
+    public void setNorthEast(MWZLatLon northEast) {
+        this.northEast = northEast;
+    }
+
+    public MWZLatLon getSouthWest() {
+        return southWest;
+    }
+
+    public void setSouthWest(MWZLatLon southWest) {
+        this.southWest = southWest;
     }
 
     public String toString() {

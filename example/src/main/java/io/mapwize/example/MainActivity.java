@@ -484,7 +484,7 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
             @Override
             public void onResponse(MWZPlace[] places) {
                 Context context = getApplicationContext();
-                CharSequence text = "PlacesWithPlaceListId :" + places;
+                CharSequence text = "PlacesWithPlaceListId :" + places.length;
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(context, text, duration);

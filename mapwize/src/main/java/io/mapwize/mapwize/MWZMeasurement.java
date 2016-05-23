@@ -1,15 +1,8 @@
 package io.mapwize.mapwize;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MWZMeasurement {
 
     private Double latitude;
@@ -20,6 +13,28 @@ public class MWZMeasurement {
     private Integer valididy;
     private String source;
 
+    public MWZMeasurement() {
+        super();
+    }
+
+    public MWZMeasurement(Double latitude, Double longitude, Integer floor, Integer accuracy, Long validUntil, Integer valididy, String source) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.floor = floor;
+        this.accuracy = accuracy;
+        this.validUntil = validUntil;
+        this.valididy = valididy;
+        this.source = source;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
     public Double getLatitude() {
         return latitude;
     }
@@ -28,26 +43,11 @@ public class MWZMeasurement {
         this.latitude = latitude;
     }
 
-    @JsonSetter("lat")
-    public void setLatitudeWithLat(Double latitude) {
-        this.latitude = latitude;
-    }
-
     public Double getLongitude() {
         return longitude;
     }
 
     public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
-
-    @JsonSetter("lon")
-    public void setLongitudeWithLon(Double longitude) {
-        this.longitude = longitude;
-    }
-
-    @JsonSetter("lng")
-    public void setLongitudeWithLng(Double longitude) {
         this.longitude = longitude;
     }
 
@@ -81,40 +81,6 @@ public class MWZMeasurement {
 
     public void setValididy(Integer valididy) {
         this.valididy = valididy;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public MWZMeasurement() {
-        super();
-    }
-
-    public MWZMeasurement(Double latitude, Double longitude, Integer floor, Integer accuracy, Long validUntil, Integer valididy, String source) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.floor = floor;
-        this.accuracy = accuracy;
-        this.validUntil = validUntil;
-        this.valididy = valididy;
-        this.source = source;
-    }
-
-    public static MWZMeasurement getMWZMeasurement(String json) {
-        MWZMeasurement result = null;
-        try {
-            result = new ObjectMapper().readValue(json, MWZMeasurement.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            return result;
-        }
     }
 
     public String toString() {

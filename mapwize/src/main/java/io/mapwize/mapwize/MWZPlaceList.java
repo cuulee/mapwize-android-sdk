@@ -1,16 +1,12 @@
 package io.mapwize.mapwize;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class MWZPlaceList {
 
-    String identifier;
-    String name;
-    String alias;
-    String venueId;
-    String[] placeIds;
+    private String identifier;
+    private String name;
+    private String alias;
+    private String venueId;
+    private String[] placeIds;
 
     public MWZPlaceList() {
         super();
@@ -25,27 +21,44 @@ public class MWZPlaceList {
         this.placeIds = placeIds;
     }
 
-    public static MWZPlaceList getMWZPlaceList(String json) {
-        MWZPlaceList placeList = null;
-        try {
-            placeList = new MWZPlaceList();
-            JSONObject jObject = new JSONObject(json);
-            placeList.identifier = jObject.getString("_id");
-            placeList.name = jObject.getString("name");
-            placeList.alias = jObject.getString("alias");
-            placeList.venueId = jObject.getString("venueId");
+    public String getIdentifier() {
+        return identifier;
+    }
 
-            JSONArray places = jObject.getJSONArray("placeIds");
-            placeList.placeIds = new String[places.length()];
-            for (int i=0;i<places.length();i++) {
-                String place = places.getString(i);
-                placeList.placeIds[i] = place;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
 
-        return placeList;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public String getVenueId() {
+        return venueId;
+    }
+
+    public void setVenueId(String venueId) {
+        this.venueId = venueId;
+    }
+
+    public String[] getPlaceIds() {
+        return placeIds;
+    }
+
+    public void setPlaceIds(String[] placeIds) {
+        this.placeIds = placeIds;
     }
 
     public String toString() {

@@ -1,25 +1,31 @@
 package io.mapwize.mapwize;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.IOException;
 import java.util.HashMap;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class MWZPlace {
 
-    String identifier;
-    String name;
-    String alias;
-    String venueId;
+    private String identifier;
+    private String name;
+    private String alias;
+    private String venueId;
+    private MWZTranslation[] translations;
+
+    public MWZPlace(){
+        super();
+    }
+
+    public MWZPlace(HashMap<String, String> map) {
+        super();
+        this.identifier = map.get("_id");
+        this.name = map.get("name");
+        this.alias = map.get("alias");
+        this.venueId = map.get("venueId");
+    }
 
     public String getIdentifier() {
         return identifier;
     }
 
-    @JsonSetter("_id")
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
@@ -48,27 +54,12 @@ public class MWZPlace {
         this.venueId = venueId;
     }
 
-    public MWZPlace(){
-        super();
+    public MWZTranslation[] getTranslations() {
+        return translations;
     }
 
-    public MWZPlace(HashMap<String, String> map) {
-        super();
-        this.identifier = map.get("_id");
-        this.name = map.get("name");
-        this.alias = map.get("alias");
-        this.venueId = map.get("venueId");
-    }
-
-    public static MWZPlace getMWZPlace(String json) {
-        MWZPlace result = null;
-        try {
-            result = new ObjectMapper().readValue(json, MWZPlace.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            return result;
-        }
+    public void setTranslations(MWZTranslation[] translations) {
+        this.translations = translations;
     }
 
     public String toString() {

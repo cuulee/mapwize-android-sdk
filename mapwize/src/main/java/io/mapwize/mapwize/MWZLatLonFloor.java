@@ -1,8 +1,5 @@
 package io.mapwize.mapwize;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class MWZLatLonFloor extends MWZLatLon {
 
     private Integer floor;
@@ -24,15 +21,23 @@ public class MWZLatLonFloor extends MWZLatLon {
         this.accuracy = accuracy;
     }
 
-    public String toJSONString() {
-        return "{\"accuracy\":"+this.accuracy+",\"lat\":"+this.getLatitude()+",\"latitude\":"+this.getLatitude()+",\"lng\":"+this.getLongitude()+",\"longitude\":"+this.getLongitude()+",\"lon\":"+this.getLongitude()+",\"floor\":"+this.floor+"}";
-    }
-
     public Integer getFloor() {
         return floor;
     }
 
     public void setFloor(Integer floor) {
         this.floor = floor;
+    }
+
+    public Integer getAccuracy() {
+        return accuracy;
+    }
+
+    public void setAccuracy(Integer accuracy) {
+        this.accuracy = accuracy;
+    }
+
+    public String toJSONString() {
+        return "{\"accuracy\":"+this.accuracy+",\"lat\":"+this.getLatitude()+",\"latitude\":"+this.getLatitude()+",\"lng\":"+this.getLongitude()+",\"longitude\":"+this.getLongitude()+",\"lon\":"+this.getLongitude()+",\"floor\":"+this.floor+"}";
     }
 }

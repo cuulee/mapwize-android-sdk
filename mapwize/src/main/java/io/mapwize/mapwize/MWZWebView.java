@@ -12,7 +12,6 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -168,17 +167,17 @@ public class MWZWebView extends WebView {
 
     @JavascriptInterface
     public void onClick(String value) {
-        MWZLatLon latlng = MWZLatLon.getMWZLatLon(value);
+        MWZLatLon latLng = MWZJSONParser.getLatLon(value);
         if (this.listener != null) {
-            this.listener.onClick(latlng);
+            this.listener.onClick(latLng);
         }
     }
 
     @JavascriptInterface
     public void onContextMenu(String value) {
-        MWZLatLon latlng = MWZLatLon.getMWZLatLon(value);
+        MWZLatLon latLng = MWZJSONParser.getLatLon(value);
         if (this.listener != null) {
-            this.listener.onContextMenu(latlng);
+            this.listener.onContextMenu(latLng);
         }
     }
 
@@ -204,7 +203,7 @@ public class MWZWebView extends WebView {
 
     @JavascriptInterface
     public void onPlaceClick(String value) {
-        MWZPlace place = MWZPlace.getMWZPlace(value);
+        MWZPlace place = MWZJSONParser.getPlace(value);
         if (this.listener != null) {
             this.listener.onPlaceClick(place);
         }
@@ -212,7 +211,7 @@ public class MWZWebView extends WebView {
 
     @JavascriptInterface
     public void onVenueClick(String value) {
-        MWZVenue venue = MWZVenue.getMWZVenue(value);
+        MWZVenue venue = MWZJSONParser.getVenue(value);
         if (this.listener != null) {
             this.listener.onVenueClick(venue);
         }
@@ -220,7 +219,7 @@ public class MWZWebView extends WebView {
 
     @JavascriptInterface
     public void onMarkerClick(String value) {
-        MWZPosition position = MWZPosition.getMWZPosition(value);
+        MWZPosition position = MWZJSONParser.getPosition(value);
         if (this.listener != null) {
             this.listener.onMarkerClick(position);
         }
@@ -228,15 +227,15 @@ public class MWZWebView extends WebView {
 
     @JavascriptInterface
     public void onMoveEnd(String value) {
-        this.center = MWZLatLon.getMWZLatLon(value);
+        this.center = MWZJSONParser.getLatLon(value);
         if (this.listener != null) {
-            this.listener.onMoveEnd(center);
+            this.listener.onMoveEnd(this.center);
         }
     }
 
     @JavascriptInterface
     public void onUserPositionChange(String value) {
-        this.userPosition = MWZMeasurement.getMWZMeasurement(value);
+        this.userPosition = MWZJSONParser.getMeasurement(value);
         if (this.listener != null) {
             this.listener.onUserPositionChange(this.userPosition);
         }
@@ -280,7 +279,6 @@ public class MWZWebView extends WebView {
     @JavascriptInterface
     public void onApiResponse(String value) {
         try {
-
             JSONObject jObject = new JSONObject(value);
             String hash = jObject.getString("hash");
             String type = jObject.getString("returnedType");
@@ -293,7 +291,7 @@ public class MWZWebView extends WebView {
                 else {
                     JSONObject response = jObject.getJSONObject("response");
                     if (!response.isNull("_id")) {
-                        MWZPlace place = MWZPlace.getMWZPlace(response.toString());
+                        MWZPlace place = MWZJSONParser.getPlace(response);
                         callback.onResponse(place);
                     }
                     else {
@@ -308,17 +306,8 @@ public class MWZWebView extends WebView {
                 }
                 else {
                     JSONArray response = jObject.getJSONArray("response");
-                    if (response.length() > 0) {
-                        MWZPlace[] places = new MWZPlace[response.length()];
-                        for (int i=0;i<response.length();i++) {
-                            MWZPlace place = MWZPlace.getMWZPlace(response.get(i).toString());
-                            places[i] = place;
-                        }
-                        callback.onResponse(places);
-                    }
-                    else {
-                        callback.onResponse(null);
-                    }
+                    MWZPlace[] places = MWZJSONParser.getPlaces(response);
+                    callback.onResponse(places);
                 }
             }
             if (type.equals("venue")) {
@@ -329,7 +318,7 @@ public class MWZWebView extends WebView {
                 else {
                     JSONObject response = jObject.getJSONObject("response");
                     if (!response.isNull("_id")) {
-                        MWZVenue venue = MWZVenue.getMWZVenue(response.toString());
+                        MWZVenue venue = MWZJSONParser.getVenue(response);
                         callback.onResponse(venue);
                     }
                     else {
@@ -345,7 +334,7 @@ public class MWZWebView extends WebView {
                 else {
                     JSONObject response = jObject.getJSONObject("response");
                     if (!response.isNull("_id")) {
-                        MWZPlaceList placeList = MWZPlaceList.getMWZPlaceList(response.toString());
+                        MWZPlaceList placeList = MWZJSONParser.getPlaceList(response);
                         callback.onResponse(placeList);
                     }
                     else {
@@ -363,7 +352,7 @@ public class MWZWebView extends WebView {
                     if (response.length() > 0) {
                         MWZPlaceList[] placeLists = new MWZPlaceList[response.length()];
                         for (int i=0;i<response.length();i++) {
-                            MWZPlaceList placeList = MWZPlaceList.getMWZPlaceList(response.get(i).toString());
+                            MWZPlaceList placeList = MWZJSONParser.getPlaceList(response.getJSONObject(i));
                             placeLists[i] = placeList;
                         }
                         callback.onResponse(placeLists);
@@ -450,7 +439,7 @@ public class MWZWebView extends WebView {
     }
 
     public void centerOnVenue(MWZVenue venue) {
-        this.executeJS("map.centerOnVenue('"+venue.identifier+"')");
+        this.executeJS("map.centerOnVenue('"+venue.getIdentifier()+"')");
     }
 
     public void centerOnVenue(String id) {
@@ -458,7 +447,7 @@ public class MWZWebView extends WebView {
     }
 
     public void centerOnPlace(MWZPlace place) {
-        this.executeJS("map.centerOnPlace('"+place.identifier+"')");
+        this.executeJS("map.centerOnPlace('"+place.getIdentifier()+"')");
     }
 
     public void centerOnPlace(String id) {
