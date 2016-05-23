@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.StrictMode;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.webkit.ConsoleMessage;
 import android.webkit.CookieManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.JavascriptInterface;
@@ -87,6 +88,9 @@ public class MWZWebView extends WebView {
             @Override
             public void onPageFinished(WebView view, String url) {
                 self.initMap(options);
+                if(listener != null) {
+                    listener.onMapLoaded();
+                }
             }
 
             @SuppressWarnings("deprecation")
@@ -620,6 +624,12 @@ public class MWZWebView extends WebView {
             // Always grant permission since the app itself requires location
             // permission and the user has therefore already granted it
             callback.invoke(origin, true, false);
+        }
+
+        @Override
+        public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+            if (listener != null) listener.onJavascriptConsoleCallback(consoleMessage);
+            return super.onConsoleMessage(consoleMessage);
         }
     }
 

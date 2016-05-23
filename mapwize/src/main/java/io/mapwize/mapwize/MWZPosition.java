@@ -1,7 +1,7 @@
 package io.mapwize.mapwize;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,7 +26,11 @@ public class MWZPosition {
         this.latitude = latitude;
     }
 
-    @JsonSetter("lat")
+    @JsonProperty("lat")
+    public Double getLat() {
+        return latitude;
+    }
+
     public void setLatitudeWithLat(Double latitude) {
         this.latitude = latitude;
     }
@@ -35,16 +39,19 @@ public class MWZPosition {
         return longitude;
     }
 
+    @JsonProperty("lon")
+    public Double getLon() {
+        return longitude;
+    }
+
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    @JsonSetter("lon")
     public void setLongitudeWithLon(Double longitude) {
         this.longitude = longitude;
     }
 
-    @JsonSetter("lng")
     public void setLongitudeWithLng(Double longitude) {
         this.longitude = longitude;
     }
@@ -92,9 +99,7 @@ public class MWZPosition {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        finally {
-            return result;
-        }
+        return result;
     }
 
     public String toString() {
