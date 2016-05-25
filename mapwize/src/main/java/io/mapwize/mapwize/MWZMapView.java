@@ -215,8 +215,8 @@ public class MWZMapView extends LinearLayout {
         this.webView.stopDirections();
     }
 
-    public void access(String accesskey) {
-        this.webView.access(accesskey);
+    public void access(String accesskey, AccessCallbackInterface callback) {
+        this.webView.access(accesskey, callback);
     }
 
     public void setStyle(String placeId,MWZPlaceStyle style) {

@@ -400,6 +400,10 @@ public class MWZWebView extends WebView {
                     callback.onResponse(null);
                 }
             }
+            if (type.equals("access")) {
+                AccessCallbackInterface callback = (AccessCallbackInterface) callbackMemory.get(hash);
+                callback.onResponse(jObject.getBoolean("response"));
+            }
             callbackMemory.remove(hash);
 
         } catch (JSONException e) {
@@ -557,8 +561,10 @@ public class MWZWebView extends WebView {
         this.executeJS("map.stopDirections()");
     }
 
-    public void access(String accesskey) {
-        this.executeJS("map.access('"+accesskey+"')");
+    public void access(String accesskey, AccessCallbackInterface callback) {
+        String hash = new RandomString(16).nextString();
+        callbackMemory.put(hash, callback);
+        this.executeJS("map.access('"+accesskey+"', function(isValid){map.fire('apiResponse', {returnedType:'access', hash:'"+hash+"', response:isValid})})");
     }
 
     public void setStyle(String placeId, MWZPlaceStyle style) {

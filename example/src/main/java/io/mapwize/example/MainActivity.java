@@ -208,7 +208,17 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
      *  Test methods
      */
     public void accessKey () {
-        this.mapview.access("YOUR ACCESS KEY");
+        this.mapview.access("YOUR ACCESS KEY", new AccessCallbackInterface() {
+            @Override
+            public void onResponse(boolean isValid) {
+                Context context = getApplicationContext();
+                CharSequence text = "Access " + (isValid?"is valid": "is not valid");
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
     }
 
     public void setZoom(){
