@@ -404,6 +404,16 @@ public class MWZWebView extends WebView {
                 AccessCallbackInterface callback = (AccessCallbackInterface) callbackMemory.get(hash);
                 callback.onResponse(jObject.getBoolean("response"));
             }
+            if (type.equals("loadUrl")) {
+                LoadURLCallbackInterface callback = (LoadURLCallbackInterface) callbackMemory.get(hash);
+                if (!"".equals(jObject.getString("error"))){
+                    Error error = new Error("MWZErrorDomain");
+                    callback.onResponse(error);
+                }
+                else {
+                    callback.onResponse(null);
+                }
+            }
             callbackMemory.remove(hash);
 
         } catch (JSONException e) {
@@ -534,8 +544,10 @@ public class MWZWebView extends WebView {
         this.executeJS("map.unlockUserPosition()");
     }
 
-    public void loadURL(String url) {
-        this.executeJS("map.loadUrl('"+url+"')");
+    public void loadURL(String url, LoadURLCallbackInterface callback) {
+        String hash = new RandomString(16).nextString();
+        callbackMemory.put(hash, callback);
+        this.executeJS("map.loadUrl('"+url+"',function(err){map.fire('apiResponse', {returnedType:'loadUrl', hash:'"+hash+"', error:err?'error':''});})");
     }
 
     public void addMarker(Double latitude, Double longitude, Integer floor) {

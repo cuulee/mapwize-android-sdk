@@ -191,8 +191,8 @@ public class MWZMapView extends LinearLayout {
         this.webView.unlockUserPosition();
     }
 
-    public void loadURL(String url) {
-        this.webView.loadURL(url);
+    public void loadURL(String url, LoadURLCallbackInterface callback) {
+        this.webView.loadURL(url, callback);
     }
 
     public void addMarker(Double latitude, Double longitude, Integer floor) {

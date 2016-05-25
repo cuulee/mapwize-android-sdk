@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
             @Override
             public void onResponse(boolean isValid) {
                 Context context = getApplicationContext();
-                CharSequence text = "Access " + (isValid?"is valid": "is not valid");
+                CharSequence text = "Access " + (isValid ? "is valid" : "is not valid");
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(context, text, duration);
@@ -250,7 +250,19 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     }
 
     public void loadUrl() {
-        this.mapview.loadURL("http://mwz.io/aaa");
+        this.mapview.loadURL("http://mwz.io/aaa", new LoadURLCallbackInterface() {
+            @Override
+            public void onResponse(Error error) {
+                if (error != null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "LoadUrlError";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+            }
+        });
     }
 
     public void addMarker() {
