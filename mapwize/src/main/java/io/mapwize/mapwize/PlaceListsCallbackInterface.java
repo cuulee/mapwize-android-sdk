@@ -2,6 +2,6 @@ package io.mapwize.mapwize;
 
 public interface PlaceListsCallbackInterface {
 
-    void onResponse(MWZPlaceList[] placeLists);
+    void onResponse(MWZPlaceList[] placeLists, Error error);
 
 }

@@ -33,6 +33,7 @@ public class MWZWebView extends WebView {
     final private String ANDROID_SDK_VERSION = "1.5.0";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
+    private boolean isLoaded = false;
     private MWZMapViewListener listener;
     private Integer floor;
     private Integer[] floors;
@@ -99,7 +100,9 @@ public class MWZWebView extends WebView {
                     if (listener != null) {
                         listener.onReceivedError(description);
                     }
-                    self.loadUrl("about:blank");
+                    if (!self.isLoaded){
+                        self.loadUrl("about:blank");
+                    }
                 }
             }
 
@@ -109,11 +112,15 @@ public class MWZWebView extends WebView {
                     if (listener != null) {
                         listener.onReceivedError("" + error.getDescription());
                     }
-                    self.loadUrl("about:blank");
+                    if (!self.isLoaded){
+                        self.loadUrl("about:blank");
+                    }
                 }
             }
 
         });
+
+
     }
 
     public void initMap(MWZMapOptions options) {
@@ -123,6 +130,7 @@ public class MWZWebView extends WebView {
         this.executeJS("Mapwize.config.CLIENT_APP_NAME = '" + CLIENT_APP_NAME + "';");
         this.executeJS("var map = Mapwize.map('map'," + options.toJSONString() + ");");
         this.addListeners(options);
+        this.isLoaded = true;
     }
 
     private void addListeners(MWZMapOptions options) {
@@ -139,7 +147,7 @@ public class MWZWebView extends WebView {
         this.executeJS("map.on('followUserModeChange', function(e){android.onFollowUserModeChange((function(){return JSON.stringify(e.active)})())});");
         this.executeJS("map.on('directionsStart', function(e){android.onDirectionsStart((function(){return 'Directions loaded'})())});");
         this.executeJS("map.on('directionsStop', function(e){android.onDirectionsStop((function(){return 'Directions stopped'})())});");
-        this.executeJS("map.on('apiResponse', function(e){android.onApiResponse((function(){return JSON.stringify({type:e.type, returnedType: e.returnedType, hash:e.hash, response:e.response})})())});");
+        this.executeJS("map.on('apiResponse', function(e){android.onApiResponse((function(){return JSON.stringify({type:e.type, returnedType: e.returnedType, hash:e.hash, response:e.response, error:e.error})})())});");
         if (options.isBeaconsEnabled()) {
             this.executeJS("map.on('monitoredUuidsChange', function(e){android.onMonitoredUuidsChange((function(){return JSON.stringify(e.uuids)})())});");
         }
@@ -285,67 +293,87 @@ public class MWZWebView extends WebView {
 
             if (type.equals("place")) {
                 PlaceCallbackInterface callback = (PlaceCallbackInterface)callbackMemory.get(hash);
-                if (jObject.isNull("response")){
-                    callback.onResponse(null);
+                if (!"".equals(jObject.getString("error"))){
+                    Error error = new Error("MWZErrorDomain");
+                    callback.onResponse(null, error);
+                }
+                else if (jObject.isNull("response")){
+                    callback.onResponse(null, null);
                 }
                 else {
                     JSONObject response = jObject.getJSONObject("response");
                     if (!response.isNull("_id")) {
                         MWZPlace place = MWZJSONParser.getPlace(response);
-                        callback.onResponse(place);
+                        callback.onResponse(place, null);
                     }
                     else {
-                        callback.onResponse(null);
+                        callback.onResponse(null, null);
                     }
                 }
             }
             if (type.equals("places")) {
                 PlacesCallbackInterface callback = (PlacesCallbackInterface) callbackMemory.get(hash);
-                if (jObject.isNull("response")){
-                    callback.onResponse(null);
+                if (!"".equals(jObject.getString("error"))){
+                    Error error = new Error("MWZErrorDomain");
+                    callback.onResponse(null, error);
+                }
+                else if (jObject.isNull("response")){
+                    callback.onResponse(null, null);
                 }
                 else {
                     JSONArray response = jObject.getJSONArray("response");
                     MWZPlace[] places = MWZJSONParser.getPlaces(response);
-                    callback.onResponse(places);
+                    callback.onResponse(places, null);
                 }
             }
             if (type.equals("venue")) {
                 VenueCallbackInterface callback = (VenueCallbackInterface)callbackMemory.get(hash);
-                if (jObject.isNull("response")){
-                    callback.onResponse(null);
+                if (!"".equals(jObject.getString("error"))){
+                    Error error = new Error("MWZErrorDomain");
+                    callback.onResponse(null, error);
+                }
+                else if (jObject.isNull("response")){
+                    callback.onResponse(null, null);
                 }
                 else {
                     JSONObject response = jObject.getJSONObject("response");
                     if (!response.isNull("_id")) {
                         MWZVenue venue = MWZJSONParser.getVenue(response);
-                        callback.onResponse(venue);
+                        callback.onResponse(venue, null);
                     }
                     else {
-                        callback.onResponse(null);
+                        callback.onResponse(null, null);
                     }
                 }
             }
             if (type.equals("placeList")) {
                 PlaceListCallbackInterface callback = (PlaceListCallbackInterface) callbackMemory.get(hash);
-                if (jObject.isNull("response")){
-                    callback.onResponse(null);
+                if (!"".equals(jObject.getString("error"))){
+                    Error error = new Error("MWZErrorDomain");
+                    callback.onResponse(null, error);
+                }
+                else if (jObject.isNull("response")){
+                    callback.onResponse(null, null);
                 }
                 else {
                     JSONObject response = jObject.getJSONObject("response");
                     if (!response.isNull("_id")) {
                         MWZPlaceList placeList = MWZJSONParser.getPlaceList(response);
-                        callback.onResponse(placeList);
+                        callback.onResponse(placeList, null);
                     }
                     else {
-                        callback.onResponse(null);
+                        callback.onResponse(null, null);
                     }
                 }
             }
             if (type.equals("placeLists")) {
                 PlaceListsCallbackInterface callback = (PlaceListsCallbackInterface) callbackMemory.get(hash);
-                if (jObject.isNull("response")){
-                    callback.onResponse(null);
+                if (!"".equals(jObject.getString("error"))){
+                    Error error = new Error("MWZErrorDomain");
+                    callback.onResponse(null, error);
+                }
+                else if (jObject.isNull("response")){
+                    callback.onResponse(null, null);
                 }
                 else {
                     JSONArray response = jObject.getJSONArray("response");
@@ -355,14 +383,23 @@ public class MWZWebView extends WebView {
                             MWZPlaceList placeList = MWZJSONParser.getPlaceList(response.getJSONObject(i));
                             placeLists[i] = placeList;
                         }
-                        callback.onResponse(placeLists);
+                        callback.onResponse(placeLists, null);
                     }
                     else {
-                        callback.onResponse(null);
+                        callback.onResponse(null, null);
                     }
                 }
             }
-
+            if (type.equals("showDirections")) {
+                DirectionsCallbackInterface callback = (DirectionsCallbackInterface) callbackMemory.get(hash);
+                if (!"".equals(jObject.getString("error"))){
+                    Error error = new Error("MWZErrorDomain");
+                    callback.onResponse(error);
+                }
+                else {
+                    callback.onResponse(null);
+                }
+            }
             callbackMemory.remove(hash);
 
         } catch (JSONException e) {
@@ -510,8 +547,10 @@ public class MWZWebView extends WebView {
         this.executeJS("map.removeMarkers()");
     }
 
-    public void showDirections(MWZPosition from, MWZPosition to) {
-        this.executeJS("map.showDirections("+from.toJSONString()+","+to.toJSONString()+",null,function(){})");
+    public void showDirections(MWZPosition from, MWZPosition to, DirectionsCallbackInterface callback) {
+        String hash = new RandomString(16).nextString();
+        callbackMemory.put(hash, callback);
+        this.executeJS("map.showDirections("+from.toJSONString()+","+to.toJSONString()+",null,function(err){if (err) {map.fire('apiResponse', {returnedType:'showDirections', hash:'"+hash+"', response:{}, error:0});}})");
     }
 
     public void stopDirections() {
@@ -537,67 +576,67 @@ public class MWZWebView extends WebView {
     public void getPlaceWithId (String placeId, PlaceCallbackInterface callback) {
         String hash = new RandomString(16).nextString();
         callbackMemory.put(hash, callback);
-        this.executeJS("Mapwize.api.getPlace('"+placeId+"', function(err, place){map.fire('apiResponse', {returnedType:'place', hash:'"+hash+"', response:place});});");
+        this.executeJS("Mapwize.api.getPlace('"+placeId+"', function(err, place){map.fire('apiResponse', {returnedType:'place', hash:'"+hash+"', response:place, error:err?err.status:''});});");
     }
 
     public void getPlaceWithName (String placeName, String venueId, PlaceCallbackInterface callback) {
         String hash = new RandomString(16).nextString();
         callbackMemory.put(hash, callback);
-        this.executeJS("Mapwize.api.getPlace({name:'"+placeName+"', venueId:'"+venueId+"'}, function(err, place){map.fire('apiResponse', {returnedType:'place', hash:'"+hash+"', response:place});});");
+        this.executeJS("Mapwize.api.getPlace({name:'"+placeName+"', venueId:'"+venueId+"'}, function(err, place){map.fire('apiResponse', {returnedType:'place', hash:'"+hash+"', response:place, error:err?err.status:''});});");
     }
 
     public void getPlaceWithAlias (String placeAlias, String venueId, PlaceCallbackInterface callback) {
         String hash = new RandomString(16).nextString();
         callbackMemory.put(hash, callback);
-        this.executeJS("Mapwize.api.getPlace({alias:'"+placeAlias+"', venueId:'"+venueId+"'}, function(err, place){map.fire('apiResponse', {returnedType:'place', hash:'"+hash+"', response:place});});");
+        this.executeJS("Mapwize.api.getPlace({alias:'"+placeAlias+"', venueId:'"+venueId+"'}, function(err, place){map.fire('apiResponse', {returnedType:'place', hash:'"+hash+"', response:place, error:err?err.status:''});});");
     }
 
     public void getVenueWithId (String venueId, VenueCallbackInterface callback) {
         String hash = new RandomString(16).nextString();
         callbackMemory.put(hash, callback);
-        this.executeJS("Mapwize.api.getVenue('"+venueId+"', function(err, venue){map.fire('apiResponse', {returnedType:'venue', hash:'"+hash+"', response:venue});});");
+        this.executeJS("Mapwize.api.getVenue('"+venueId+"', function(err, venue){map.fire('apiResponse', {returnedType:'venue', hash:'"+hash+"', response:venue, error:err?err.status:''});});");
     }
 
     public void getVenueWithName (String venueName, VenueCallbackInterface callback) {
         String hash = new RandomString(16).nextString();
         callbackMemory.put(hash, callback);
-        this.executeJS("Mapwize.api.getVenue({name:'"+venueName+"'}, function(err, venue){map.fire('apiResponse', {returnedType:'venue', hash:'"+hash+"', response:venue});});");
+        this.executeJS("Mapwize.api.getVenue({name:'"+venueName+"'}, function(err, venue){map.fire('apiResponse', {returnedType:'venue', hash:'"+hash+"', response:venue, error:err?err.status:''});});");
     }
 
     public void getVenueWithAlias (String venueAlias, VenueCallbackInterface callback) {
         String hash = new RandomString(16).nextString();
         callbackMemory.put(hash, callback);
-        this.executeJS("Mapwize.api.getVenue({alias:'"+venueAlias+"'}, function(err, venue){map.fire('apiResponse', {returnedType:'venue', hash:'"+hash+"', response:venue});});");
+        this.executeJS("Mapwize.api.getVenue({alias:'"+venueAlias+"'}, function(err, venue){map.fire('apiResponse', {returnedType:'venue', hash:'"+hash+"', response:venue, error:err?err.status:''});});");
     }
 
     public void getPlaceListWithId (String placeListId, PlaceListCallbackInterface callback) {
         String hash = new RandomString(16).nextString();
         callbackMemory.put(hash, callback);
-        this.executeJS("Mapwize.api.getPlaceList('"+placeListId+"', function(err, placeList){map.fire('apiResponse', {returnedType:'placeList', hash:'"+hash+"', response:placeList});});");
+        this.executeJS("Mapwize.api.getPlaceList('"+placeListId+"', function(err, placeList){map.fire('apiResponse', {returnedType:'placeList', hash:'"+hash+"', response:placeList, error:err?err.status:''});});");
     }
 
     public void getPlaceListWithName (String placeListName, String venueId, PlaceListCallbackInterface callback) {
         String hash = new RandomString(16).nextString();
         callbackMemory.put(hash, callback);
-        this.executeJS("Mapwize.api.getPlaceList({name:'"+placeListName+"', venueId:'"+venueId+"'}, function(err, placeList){map.fire('apiResponse', {returnedType:'placeList', hash:'"+hash+"', response:placeList});});");
+        this.executeJS("Mapwize.api.getPlaceList({name:'"+placeListName+"', venueId:'"+venueId+"'}, function(err, placeList){map.fire('apiResponse', {returnedType:'placeList', hash:'"+hash+"', response:placeList, error:err?err.status:''});});");
     }
 
     public void getPlaceListWithAlias (String placeListAlias, String venueId, PlaceListCallbackInterface callback) {
         String hash = new RandomString(16).nextString();
         callbackMemory.put(hash, callback);
-        this.executeJS("Mapwize.api.getPlaceList({alias:'"+placeListAlias+"', venueId:'"+venueId+"'}, function(err, placeList){map.fire('apiResponse', {returnedType:'placeList', hash:'"+hash+"', response:placeList});});");
+        this.executeJS("Mapwize.api.getPlaceList({alias:'"+placeListAlias+"', venueId:'"+venueId+"'}, function(err, placeList){map.fire('apiResponse', {returnedType:'placeList', hash:'"+hash+"', response:placeList, error:err?err.status:''});});");
     }
 
     public void getPlaceListsForVenueId (String venueId, PlaceListsCallbackInterface callback) {
         String hash = new RandomString(16).nextString();
         callbackMemory.put(hash, callback);
-        this.executeJS("Mapwize.api.getPlaceLists({venueId:'"+venueId+"'}, function(err, placeLists){map.fire('apiResponse', {returnedType:'placeLists', hash:'"+hash+"', response:placeLists});});");
+        this.executeJS("Mapwize.api.getPlaceLists({venueId:'"+venueId+"'}, function(err, placeLists){map.fire('apiResponse', {returnedType:'placeLists', hash:'"+hash+"', response:placeLists, error:err?err.status:''});});");
     }
 
     public void getPlacesWithPlaceListId (String placeListId, PlacesCallbackInterface callback) {
         String hash = new RandomString(16).nextString();
         callbackMemory.put(hash, callback);
-        this.executeJS("Mapwize.api.getPlaces({placeListId:'"+placeListId+"'}, function(err, places){map.fire('apiResponse', {returnedType:'places', hash:'"+hash+"', response:places});});");
+        this.executeJS("Mapwize.api.getPlaces({placeListId:'"+placeListId+"'}, function(err, places){map.fire('apiResponse', {returnedType:'places', hash:'"+hash+"', response:places, error:err?err.status:''});});");
     }
 
     public void refresh() {

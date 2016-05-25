@@ -207,8 +207,8 @@ public class MWZMapView extends LinearLayout {
         this.webView.removeMarkers();
     }
 
-    public void showDirections(MWZPosition from, MWZPosition to) {
-        this.webView.showDirections(from, to);
+    public void showDirections(MWZPosition from, MWZPosition to, DirectionsCallbackInterface callback) {
+        this.webView.showDirections(from, to, callback);
     }
 
     public void stopDirections() {

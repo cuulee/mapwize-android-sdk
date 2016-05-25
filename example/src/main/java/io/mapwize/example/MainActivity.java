@@ -285,7 +285,17 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
         from.setPlaceId("56c3426202275a0b00fb00b9");
         to = new MWZPosition();
         to.setPlaceId("56c3504102275a0b00fb00fa");
-        this.mapview.showDirections(from, to);
+        this.mapview.showDirections(from, to, new DirectionsCallbackInterface() {
+            @Override
+            public void onResponse(Error error) {
+                Context context = getApplicationContext();
+                CharSequence text = "ShowDirectionError";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
     }
 
     public void showDirectionsToAList() {
@@ -294,7 +304,17 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
         from.setPlaceId("56c3429c02275a0b00fb00bb");
         to = new MWZPosition();
         to.setPlaceListId("5728a351a3a26c0b0027d5cf");
-        this.mapview.showDirections(from, to);
+        this.mapview.showDirections(from, to, new DirectionsCallbackInterface() {
+            @Override
+            public void onResponse(Error error) {
+                Context context = getApplicationContext();
+                CharSequence text = "ShowDirectionError";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
     }
 
     public void stopDirections() {
@@ -342,13 +362,22 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     public void getPlaceWithId() {
         this.mapview.getPlaceWithId("56c3426202275a0b00fb00b9", new PlaceCallbackInterface() {
             @Override
-            public void onResponse(MWZPlace place) {
-                Context context = getApplicationContext();
-                CharSequence text = "PlaceWithId :" + place;
-                int duration = Toast.LENGTH_SHORT;
+            public void onResponse(MWZPlace place, Error error) {
+                if (error == null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceWithId :" + place;
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceWithIdError";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
     }
@@ -356,13 +385,22 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     public void getPlaceWithName() {
         this.mapview.getPlaceWithName("Bakery", "56c2ea3402275a0b00fb00ac", new PlaceCallbackInterface() {
             @Override
-            public void onResponse(MWZPlace place) {
-                Context context = getApplicationContext();
-                CharSequence text = "PlaceWithName :" + place;
-                int duration = Toast.LENGTH_SHORT;
+            public void onResponse(MWZPlace place, Error error) {
+                if (error == null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceWithName :" + place;
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceWithNameError";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
     }
@@ -370,13 +408,22 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     public void getPlaceWithAlias() {
         this.mapview.getPlaceWithAlias("bakery", "56c2ea3402275a0b00fb00ac", new PlaceCallbackInterface() {
             @Override
-            public void onResponse(MWZPlace place) {
-                Context context = getApplicationContext();
-                CharSequence text = "PlaceWithAlias :" + place;
-                int duration = Toast.LENGTH_SHORT;
+            public void onResponse(MWZPlace place, Error error) {
+                if (error == null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceWithAlias :" + place;
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceWithAliasError";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
     }
@@ -384,13 +431,23 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     public void getVenueWithId() {
         this.mapview.getVenueWithId("56c2ea3402275a0b00fb00ac", new VenueCallbackInterface() {
             @Override
-            public void onResponse(MWZVenue venue) {
-                Context context = getApplicationContext();
-                CharSequence text = "VenueWithId :" + venue;
-                int duration = Toast.LENGTH_SHORT;
+            public void onResponse(MWZVenue venue, Error error) {
+                if (error == null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "VenueWithId :" + venue;
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "VenueWithIdError";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+
             }
         });
     }
@@ -398,13 +455,22 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     public void getVenueWithName() {
         this.mapview.getVenueWithName("Demo", new VenueCallbackInterface() {
             @Override
-            public void onResponse(MWZVenue venue) {
-                Context context = getApplicationContext();
-                CharSequence text = "VenueWithName :" + venue;
-                int duration = Toast.LENGTH_SHORT;
+            public void onResponse(MWZVenue venue, Error error) {
+                if (error == null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "VenueWithName :" + venue;
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "VenueWithNameError";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
     }
@@ -412,13 +478,22 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     public void getVenueWithAlias() {
         this.mapview.getVenueWithAlias("demo", new VenueCallbackInterface() {
             @Override
-            public void onResponse(MWZVenue venue) {
-                Context context = getApplicationContext();
-                CharSequence text = "VenueWithAlias :" + venue;
-                int duration = Toast.LENGTH_SHORT;
+            public void onResponse(MWZVenue venue, Error error) {
+                if (error == null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "VenueWithAlias :" + venue;
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "VenueWithAliasError";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
     }
@@ -426,13 +501,22 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     public void getPlaceListWithId() {
         this.mapview.getPlaceListWithId("5728a351a3a26c0b0027d5cf", new PlaceListCallbackInterface() {
             @Override
-            public void onResponse(MWZPlaceList placeList) {
-                Context context = getApplicationContext();
-                CharSequence text = "PlaceListWithId :" + placeList;
-                int duration = Toast.LENGTH_SHORT;
+            public void onResponse(MWZPlaceList placeList, Error error) {
+                if (error == null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceListWithId :" + placeList;
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceListWithIdError";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
     }
@@ -440,13 +524,22 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     public void getPlaceListWithName() {
         this.mapview.getPlaceListWithName("MyPlaylist", "56c2ea3402275a0b00fb00ac", new PlaceListCallbackInterface() {
             @Override
-            public void onResponse(MWZPlaceList placeList) {
-                Context context = getApplicationContext();
-                CharSequence text = "PlaceListWithName :" + placeList;
-                int duration = Toast.LENGTH_SHORT;
+            public void onResponse(MWZPlaceList placeList, Error error) {
+                if (error == null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceListWithName :" + placeList;
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceListWithNameError";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
     }
@@ -454,13 +547,22 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     public void getPlaceListWithAlias() {
         this.mapview.getPlaceListWithAlias("myplaylist", "56c2ea3402275a0b00fb00ac", new PlaceListCallbackInterface() {
             @Override
-            public void onResponse(MWZPlaceList placeList) {
-                Context context = getApplicationContext();
-                CharSequence text = "PlaceListWithAlias :" + placeList;
-                int duration = Toast.LENGTH_SHORT;
+            public void onResponse(MWZPlaceList placeList, Error error) {
+                if (error == null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceListWithAlias :" + placeList;
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceListWithAliasError";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
     }
@@ -468,13 +570,22 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     public void getPlaceListsForVenueId() {
         this.mapview.getPlaceListsForVenueId("56c2ea3402275a0b00fb00ac", new PlaceListsCallbackInterface() {
             @Override
-            public void onResponse(MWZPlaceList[] placeLists) {
-                Context context = getApplicationContext();
-                CharSequence text = "PlaceListsForVenueId :" + placeLists.length;
-                int duration = Toast.LENGTH_SHORT;
+            public void onResponse(MWZPlaceList[] placeLists, Error error) {
+                if (error == null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceListsForVenueId :" + placeLists.length;
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlaceListsForVenueIdError";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
     }
@@ -482,13 +593,23 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     public void getPlacesWithPlaceListId() {
         this.mapview.getPlacesWithPlaceListId("5728a351a3a26c0b0027d5cf", new PlacesCallbackInterface() {
             @Override
-            public void onResponse(MWZPlace[] places) {
-                Context context = getApplicationContext();
-                CharSequence text = "PlacesWithPlaceListId :" + places.length;
-                int duration = Toast.LENGTH_SHORT;
+            public void onResponse(MWZPlace[] places, Error error) {
+                if (error == null) {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlacesWithPlaceListId :" + places.length;
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
+                else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "PlacesWithPlaceListIdError";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
     }

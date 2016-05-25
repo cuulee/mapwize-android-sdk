@@ -67,7 +67,7 @@ public class MWZPosition {
     public void setPlaceListId(String placeListId) {
         this.placeListId = placeListId;
     }
-    
+
     public String toString() {
         return "VenueID="+this.venueId+" PlaceID="+this.placeId+" Latitude="+this.latitude+" Longitude="+this.longitude+" Floor="+this.floor +" PlaceListId="+this.placeListId;
     }
