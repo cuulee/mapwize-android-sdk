@@ -1,5 +1,7 @@
 package io.mapwize.mapwize;
 
+import java.util.Map;
+
 public class MWZPlaceList {
 
     private String identifier;
@@ -7,6 +9,7 @@ public class MWZPlaceList {
     private String alias;
     private String venueId;
     private String[] placeIds;
+    private Map<String, Object> data;
 
     public MWZPlaceList() {
         super();
@@ -59,6 +62,14 @@ public class MWZPlaceList {
 
     public void setPlaceIds(String[] placeIds) {
         this.placeIds = placeIds;
+    }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 
     public String toString() {

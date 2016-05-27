@@ -1,10 +1,13 @@
 package io.mapwize.mapwize;
 
+import java.util.Map;
+
 public class MWZVenue {
 
     private String identifier;
     private String name;
     private String alias;
+    private Map<String, Object> data;
 
     public MWZVenue(){
         super();
@@ -32,6 +35,14 @@ public class MWZVenue {
 
     public void setAlias(String alias) {
         this.alias = alias;
+    }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 
     public String toString() {

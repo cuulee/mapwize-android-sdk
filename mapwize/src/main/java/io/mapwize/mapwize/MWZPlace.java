@@ -1,6 +1,7 @@
 package io.mapwize.mapwize;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MWZPlace {
 
@@ -9,6 +10,7 @@ public class MWZPlace {
     private String alias;
     private String venueId;
     private MWZTranslation[] translations;
+    private Map<String, Object> data;
 
     public MWZPlace(){
         super();
@@ -60,6 +62,14 @@ public class MWZPlace {
 
     public void setTranslations(MWZTranslation[] translations) {
         this.translations = translations;
+    }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 
     public String toString() {
