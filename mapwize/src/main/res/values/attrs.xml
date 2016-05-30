@@ -8,5 +8,6 @@
         <attr name="floor" format="integer"/>
         <attr name="isLocationEnabled" format="boolean"/>
         <attr name="isBeaconsEnabled" format="boolean"/>
+        <attr name="accesskey" format="string"/>
     </declare-styleable>
 </resources>

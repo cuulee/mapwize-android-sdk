@@ -75,6 +75,10 @@ public class MWZMapView extends LinearLayout {
                 options.setZoom(zoom);
             }
             options.setZoomControl(false);
+            String accessKey = a.getString(R.styleable.MWZMapView_accesskey);
+            if (accessKey != null) {
+                options.setAccesskey(accessKey);
+            }
         } finally {
             a.recycle();
         }
