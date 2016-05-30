@@ -119,8 +119,6 @@ public class MWZWebView extends WebView {
             }
 
         });
-
-
     }
 
     public void initMap(MWZMapOptions options) {
@@ -128,7 +126,7 @@ public class MWZWebView extends WebView {
         this.executeJS("Mapwize.config.SDK_NAME = '" + ANDROID_SDK_NAME + "';");
         this.executeJS("Mapwize.config.SDK_VERSION = '" + ANDROID_SDK_VERSION + "';");
         this.executeJS("Mapwize.config.CLIENT_APP_NAME = '" + CLIENT_APP_NAME + "';");
-        this.executeJS("var map = Mapwize.map('map'," + options.toJSONString() + ");");
+        this.executeJS("var map = Mapwize.map('map'," + options.toJSONString() + ", android.onMapLoad());");
         this.addListeners(options);
         this.isLoaded = true;
     }
@@ -165,6 +163,14 @@ public class MWZWebView extends WebView {
     /**
      * Javascript interface for event listener
      */
+
+    @JavascriptInterface
+    public void onMapLoad() {
+        if (this.listener != null) {
+            this.listener.onMapLoad();
+        }
+    }
+
     @JavascriptInterface
     public void onZoomEnd(String value) {
         this.zoom = Integer.parseInt(value);

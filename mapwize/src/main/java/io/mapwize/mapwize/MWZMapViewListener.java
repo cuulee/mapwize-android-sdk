@@ -4,6 +4,7 @@ import android.webkit.ConsoleMessage;
 
 public interface MWZMapViewListener {
 
+    void onMapLoad();
     void onReceivedError(String error);
     void onZoomEnd(Integer zoom);
     void onClick(MWZLatLon latlon);

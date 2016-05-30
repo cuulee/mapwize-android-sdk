@@ -673,6 +673,11 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     }
 
     @Override
+    public void onMapLoad() {
+        Log.i("onMapLoad", "loaded");
+    }
+
+    @Override
     public void onZoomEnd(Integer zoom) {
         Log.i("Zoomend", "" + zoom);
     }
