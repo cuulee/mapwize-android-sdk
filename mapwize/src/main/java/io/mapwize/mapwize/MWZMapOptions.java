@@ -14,6 +14,7 @@ public class MWZMapOptions {
     private int floor;
     private boolean zoomControl;
     private String accesskey;
+    private String language;
 
     private boolean isLocationEnabled;
     private boolean isBeaconsEnabled;
@@ -95,6 +96,14 @@ public class MWZMapOptions {
 
     public void setAccesskey(String accesskey) {
         this.accesskey = accesskey;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public String toString() {

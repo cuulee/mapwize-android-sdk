@@ -223,6 +223,10 @@ public class MWZMapView extends LinearLayout {
         this.webView.access(accesskey, callback);
     }
 
+    public void setPreferredLanguage(String language) {
+        this.webView.setPreferredLanguage(language);
+    }
+
     public void setStyle(String placeId,MWZPlaceStyle style) {
         this.webView.setStyle(placeId, style);
     }

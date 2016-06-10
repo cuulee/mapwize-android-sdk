@@ -29,8 +29,8 @@ import java.util.HashMap;
 public class MWZWebView extends WebView {
 
     final private String SERVER_URL = "https://www.mapwize.io";
-    final private String SDK_VERSION = "1.5.x";
-    final private String ANDROID_SDK_VERSION = "1.5.0";
+    final private String SDK_VERSION = "1.6.x";
+    final private String ANDROID_SDK_VERSION = "1.6.0";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
     private boolean isLoaded = false;
@@ -587,6 +587,10 @@ public class MWZWebView extends WebView {
 
     public void setStyle(String placeId, MWZPlaceStyle style) {
         this.executeJS("map.setPlaceStyle('"+placeId+"',"+style.toJSONString()+")");
+    }
+
+    public void setPreferredLanguage(String language) {
+        this.executeJS("map.setPreferredLanguage('"+language+"');");
     }
 
     public void setBottomMargin(Integer margin) {

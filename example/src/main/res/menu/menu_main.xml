@@ -8,6 +8,16 @@
         android:title="AccessKey"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_setPreferredLanguageFR"
+        android:orderInCategory="100"
+        android:title="SetPreferredLanguageFR"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setPreferredLanguageEN"
+        android:orderInCategory="100"
+        android:title="SetPreferredLanguageEN"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_setZoom"
         android:orderInCategory="100"
         android:title="SetZoom"

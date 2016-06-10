@@ -76,6 +76,12 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
             case R.id.action_accessKey:
                 this.accessKey();
                 break;
+            case R.id.action_setPreferredLanguageFR:
+                this.setPreferredLanguageFR();
+                break;
+            case R.id.action_setPreferredLanguageEN:
+                this.setPreferredLanguageEN();
+                break;
             case R.id.action_setZoom:
                 this.setZoom();
                 break;
@@ -208,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
      *  Test methods
      */
     public void accessKey () {
-        this.mapview.access("YOUR ACCESS KEY", new AccessCallbackInterface() {
+        this.mapview.access("demo", new AccessCallbackInterface() {
             @Override
             public void onResponse(boolean isValid) {
                 Context context = getApplicationContext();
@@ -219,6 +225,14 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
                 toast.show();
             }
         });
+    }
+
+    public void setPreferredLanguageFR () {
+        this.mapview.setPreferredLanguage("fr");
+    }
+
+    public void setPreferredLanguageEN () {
+        this.mapview.setPreferredLanguage("en");
     }
 
     public void setZoom(){
