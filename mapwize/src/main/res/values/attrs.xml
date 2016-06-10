@@ -9,5 +9,6 @@
         <attr name="isLocationEnabled" format="boolean"/>
         <attr name="isBeaconsEnabled" format="boolean"/>
         <attr name="accesskey" format="string"/>
+        <attr name="language" format="string"/>
     </declare-styleable>
 </resources>

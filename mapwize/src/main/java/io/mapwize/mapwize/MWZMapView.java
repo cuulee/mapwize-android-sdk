@@ -61,6 +61,7 @@ public class MWZMapView extends LinearLayout {
             options.setApiKey(apiKey);
             options.setIsLocationEnabled(a.getBoolean(R.styleable.MWZMapView_isLocationEnabled, Boolean.TRUE));
             options.setIsBeaconsEnabled(a.getBoolean(R.styleable.MWZMapView_isBeaconsEnabled, Boolean.TRUE));
+            options.setLanguage(a.getString(R.styleable.MWZMapView_language));
             float centerLat = a.getFloat(R.styleable.MWZMapView_center_latitude, Float.MAX_VALUE);
             float centerLon = a.getFloat(R.styleable.MWZMapView_center_longitude, Float.MAX_VALUE);
             if (centerLat != Float.MAX_VALUE && centerLon != Float.MAX_VALUE) {
