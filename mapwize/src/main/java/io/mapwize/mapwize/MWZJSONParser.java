@@ -108,7 +108,9 @@ public class MWZJSONParser {
             place.setAlias(object.getString("alias"));
             place.setVenueId(object.getString("venueId"));
             place.setTranslations(MWZJSONParser.getTranslations(object.getJSONArray("translations")));
-            place.setData(MWZJSONParser.jsonToMap(object.getJSONObject("data")));
+            if (!object.isNull("data")) {
+                place.setData(MWZJSONParser.jsonToMap(object.getJSONObject("data")));
+            }
             return place;
         }
         catch (JSONException e) {
@@ -160,7 +162,9 @@ public class MWZJSONParser {
             venue.setIdentifier(object.getString("_id"));
             venue.setName(object.getString("name"));
             venue.setAlias(object.getString("alias"));
-            venue.setData(MWZJSONParser.jsonToMap(object.getJSONObject("data")));;
+            if (!object.isNull("data")) {
+                venue.setData(MWZJSONParser.jsonToMap(object.getJSONObject("data")));
+            }
             return venue;
         }
         catch (JSONException e) {
@@ -267,7 +271,9 @@ public class MWZJSONParser {
             placeList.setName(object.getString("name"));
             placeList.setAlias(object.getString("alias"));
             placeList.setVenueId(object.getString("venueId"));
-            placeList.setData(MWZJSONParser.jsonToMap(object.getJSONObject("data")));
+            if (!object.isNull("data")) {
+                placeList.setData(MWZJSONParser.jsonToMap(object.getJSONObject("data")));
+            }
 
             if (!object.isNull("placeIds")) {
                 JSONArray places = object.getJSONArray("placeIds");
