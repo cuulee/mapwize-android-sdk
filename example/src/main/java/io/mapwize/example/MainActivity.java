@@ -1,7 +1,9 @@
 package io.mapwize.example;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -9,6 +11,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -55,6 +58,22 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
         }
         mapview = (MWZMapView) this.findViewById(R.id.mwzview);
         mapview.setListener(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        // Android M Permission check 
+            if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("This app needs location access");
+                builder.setMessage("Please grant location access so this app can detect beacons.");
+                builder.setPositiveButton(android.R.string.ok, null);
+                builder.setOnDismissListener(new DialogInterface.OnDismissListener(){
+                    public void onDismiss(DialogInterface dialog) {
+                        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                    }
+                });
+                builder.show();
+            }
+        }
     }
 
     @Override
@@ -73,9 +92,6 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
 
         //noinspection SimplifiableIfStatement
         switch (id) {
-            case R.id.action_accessKey:
-                this.accessKey();
-                break;
             case R.id.action_setPreferredLanguageFR:
                 this.setPreferredLanguageFR();
                 break;
@@ -205,6 +221,12 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
             case R.id.action_removeUserPosition:
                 this.removeUserPosition();
                 break;
+            case R.id.action_startLocation:
+                this.startLocation();
+                break;
+            case R.id.action_stopLocation:
+                this.stopLocation();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -213,20 +235,6 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     /**
      *  Test methods
      */
-    public void accessKey () {
-        this.mapview.access("demo", new AccessCallbackInterface() {
-            @Override
-            public void onResponse(boolean isValid) {
-                Context context = getApplicationContext();
-                CharSequence text = "Access " + (isValid ? "is valid" : "is not valid");
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-            }
-        });
-    }
-
     public void setPreferredLanguageFR () {
         this.mapview.setPreferredLanguage("fr");
     }
@@ -684,6 +692,14 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+
+    public void startLocation() {
+        this.mapview.startLocation(true);
+    }
+
+    public void stopLocation() {
+        this.mapview.stopLocation();
     }
 
     @Override

@@ -1,5 +1,7 @@
 package io.mapwize.mapwize;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public class MWZLatLonBounds {
 
     private MWZLatLon northEast;
@@ -39,6 +41,11 @@ public class MWZLatLonBounds {
 
     public String toString() {
         return "NorthEast="+this.northEast+" SouthEast="+this.southWest;
+    }
+
+    @JsonValue
+    public Double[][] jsonString() {
+        return this.toArray();
     }
 
 }

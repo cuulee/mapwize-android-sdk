@@ -13,13 +13,17 @@ public class MWZMapOptions {
     private int zoom;
     private int floor;
     private boolean zoomControl;
-    private String accesskey;
+    private String accessKey;
     private String language;
+    private int minZoom;
 
     private boolean isLocationEnabled;
     private boolean isBeaconsEnabled;
+    private boolean useBrowserLocation = false;
 
-
+    public boolean isUseBrowserLocation() {
+        return useBrowserLocation;
+    }
 
     public MWZMapOptions() {
         this.isBeaconsEnabled = true;
@@ -90,12 +94,12 @@ public class MWZMapOptions {
         this.zoom = zoom;
     }
 
-    public String getAccesskey() {
-        return accesskey;
+    public String getAccessKey() {
+        return accessKey;
     }
 
-    public void setAccesskey(String accesskey) {
-        this.accesskey = accesskey;
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
     }
 
     public String getLanguage() {
@@ -104,6 +108,14 @@ public class MWZMapOptions {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public int getMinZoom() {
+        return minZoom;
+    }
+
+    public void setMinZoom(int minZoom) {
+        this.minZoom = minZoom;
     }
 
     public String toString() {

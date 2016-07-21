@@ -1,13 +1,16 @@
 package io.mapwize.mapwize;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
-public class MWZMapView extends LinearLayout {
+public class MWZMapView extends LinearLayout{
 
     private MWZWebView webView;
     public MWZMapOptions options;
@@ -29,7 +32,7 @@ public class MWZMapView extends LinearLayout {
                       int defStyle) {
         super(context, attrs, defStyle);
         this.options = new MWZMapOptions();
-        this.setupAttributes(context,attrs);
+        this.setupAttributes(context, attrs);
         initializeViews(context);
     }
 
@@ -78,8 +81,21 @@ public class MWZMapView extends LinearLayout {
             options.setZoomControl(false);
             String accessKey = a.getString(R.styleable.MWZMapView_accesskey);
             if (accessKey != null) {
-                options.setAccesskey(accessKey);
+                options.setAccessKey(accessKey);
             }
+            int minZoom = a.getInteger(R.styleable.MWZMapView_minZoom, 0);
+            options.setMinZoom(minZoom);
+
+            float latMin = a.getFloat(R.styleable.MWZMapView_maxBounds_latitudeMin, Float.MAX_VALUE);
+            float latMax = a.getFloat(R.styleable.MWZMapView_maxBounds_latitudeMax, Float.MAX_VALUE);
+            float lngMin = a.getFloat(R.styleable.MWZMapView_maxBounds_longitudeMin, Float.MAX_VALUE);
+            float lngMax = a.getFloat(R.styleable.MWZMapView_maxBounds_longitudeMax, Float.MAX_VALUE);
+
+            if (latMin != Float.MAX_VALUE && latMax != Float.MAX_VALUE && lngMin != Float.MAX_VALUE && lngMax != Float.MAX_VALUE) {
+                MWZLatLonBounds bounds = new MWZLatLonBounds(new MWZLatLon((double)latMin, (double)lngMin), new MWZLatLon((double)latMax,(double)lngMax));
+                options.setMaxBounds(bounds);
+            }
+
         } finally {
             a.recycle();
         }
@@ -95,12 +111,12 @@ public class MWZMapView extends LinearLayout {
 
     public void setupMap(MWZMapOptions options) {
         this.webView = (MWZWebView)this.findViewById(R.id.webview);
-        this.webView.setupMap(options);
+        this.webView.setupMap((Activity)getContext(), options);
     }
 
     public void setupMap(MWZMapOptions options, MWZMapViewListener listener) {
         this.webView = (MWZWebView)this.findViewById(R.id.webview);
-        this.webView.setupMap(options);
+        this.webView.setupMap((Activity)getContext(), options);
         this.webView.setListener(listener);
     }
 
@@ -287,4 +303,11 @@ public class MWZMapView extends LinearLayout {
         this.webView.setTopMargin(margin);
     }
 
+    public void startLocation(boolean useBeacon) {
+        this.webView.startLocation(useBeacon);
+    }
+
+    public void stopLocation() {
+        this.webView.stopLocation();
+    }
 }

@@ -3,11 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="io.mapwize.example.MainActivity">
     <item
-        android:id="@+id/action_accessKey"
-        android:orderInCategory="100"
-        android:title="AccessKey"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_setPreferredLanguageFR"
         android:orderInCategory="100"
         android:title="SetPreferredLanguageFR"
@@ -81,6 +76,16 @@
         android:id="@+id/action_setFollowUserModeOFF"
         android:orderInCategory="100"
         android:title="SetFollowUserModeOFF"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_startLocation"
+        android:orderInCategory="100"
+        android:title="StartLocation"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_stopLocation"
+        android:orderInCategory="100"
+        android:title="StopLocation"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_setUserPosition"

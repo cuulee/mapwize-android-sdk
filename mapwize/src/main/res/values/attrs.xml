@@ -10,5 +10,10 @@
         <attr name="isBeaconsEnabled" format="boolean"/>
         <attr name="accesskey" format="string"/>
         <attr name="language" format="string"/>
+        <attr name="minZoom" format="integer"/>
+        <attr name="maxBounds_latitudeMin" format="float"/>
+        <attr name="maxBounds_latitudeMax" format="float"/>
+        <attr name="maxBounds_longitudeMin" format="float"/>
+        <attr name="maxBounds_longitudeMax" format="float"/>
     </declare-styleable>
 </resources>
