@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Version 1.7.1
+
+- Improved location service. Requires bluetooth et bluetooth_admin permissions to use iBeacons.
+- Introduced startLocation and stopLocation methods in MWZMapView.
+- onMapLoad only then the map is fully loaded.
+- Added minZoom and maxBounds map options.
+
 ## Version 1.6.0
 
 - Added completionHandlers to all methods which can fail
