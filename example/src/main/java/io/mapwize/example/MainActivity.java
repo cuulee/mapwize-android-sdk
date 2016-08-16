@@ -59,21 +59,6 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
         mapview = (MWZMapView) this.findViewById(R.id.mwzview);
         mapview.setListener(this);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-        // Android M Permission check 
-            if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("This app needs location access");
-                builder.setMessage("Please grant location access so this app can detect beacons.");
-                builder.setPositiveButton(android.R.string.ok, null);
-                builder.setOnDismissListener(new DialogInterface.OnDismissListener(){
-                    public void onDismiss(DialogInterface dialog) {
-                        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-                    }
-                });
-                builder.show();
-            }
-        }
     }
 
     @Override

@@ -140,7 +140,6 @@ public class MWZWebView extends WebView implements LocationListener, BeaconConsu
         this.addJavascriptInterface(this, "android");
         WebSettings webSettings = this.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        this.getSettings().setGeolocationEnabled(options.isLocationEnabled());
         this.setWebChromeClient(new MWZWebView.GeoWebChromeClient());
         this.loadUrl(SERVER_URL+"/sdk/mapwize-android-sdk/" + SDK_VERSION + "/map.html");
         final MWZWebView self = this;
