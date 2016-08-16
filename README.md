@@ -201,6 +201,15 @@ If you want to force the map to refresh the cache and update itself, you can cal
 
 	public void refresh()
 
+### Proguard configuration
+
+If you are using Proguard, add the following lines in yours proguard rules
+
+	-keepclassmembers class io.mapwize.mapwize.* {*;}
+	-keepattributes *Annotation*,EnclosingMethod,Signature
+ 	-keepnames class com.fasterxml.jackson.** { *; }
+  	-dontwarn com.fasterxml.jackson.databind.**
+
 ## Contact
 
 If you need any help, please contact us at contact@mapwize.io
