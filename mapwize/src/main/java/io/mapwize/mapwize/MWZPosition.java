@@ -20,6 +20,8 @@ public class MWZPosition {
         return latitude;
     }
 
+    public Double getLat() { return latitude;}
+
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }

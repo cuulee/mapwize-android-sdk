@@ -352,7 +352,6 @@ public class MWZWebView extends WebView implements LocationListener, BeaconConsu
             JSONObject jObject = new JSONObject(value);
             String hash = jObject.getString("hash");
             String type = jObject.getString("returnedType");
-
             if (type.equals("place")) {
                 PlaceCallbackInterface callback = (PlaceCallbackInterface) callbackMemory.get(hash);
                 if (!"".equals(jObject.getString("error"))) {
@@ -441,8 +440,14 @@ public class MWZWebView extends WebView implements LocationListener, BeaconConsu
             if (type.equals("showDirections")) {
                 DirectionsCallbackInterface callback = (DirectionsCallbackInterface) callbackMemory.get(hash);
                 if (!"".equals(jObject.getString("error"))) {
-                    Error error = new Error("MWZErrorDomain");
-                    callback.onResponse(error);
+                    if (!jObject.getJSONObject("error").isNull("responseJSON")) {
+                        Error error = new Error(""+jObject.getJSONObject("error").getJSONObject("responseJSON").getString("message"));
+                        callback.onResponse(error);
+                    }
+                    else {
+                        Error error = new Error("MWZDomainError");
+                        callback.onResponse(error);
+                    }
                 } else {
                     callback.onResponse(null);
                 }
@@ -610,7 +615,7 @@ public class MWZWebView extends WebView implements LocationListener, BeaconConsu
     public void showDirections(MWZPosition from, MWZPosition to, DirectionsCallbackInterface callback) {
         String hash = new RandomString(16).nextString();
         callbackMemory.put(hash, callback);
-        this.executeJS("map.showDirections(" + from.toJSONString() + "," + to.toJSONString() + ",null,function(err){if (err) {map.fire('apiResponse', {returnedType:'showDirections', hash:'" + hash + "', response:{}, error:0});}})");
+        this.executeJS("map.showDirections(" + from.toJSONString() + "," + to.toJSONString() + ",null,function(err){if (err) {map.fire('apiResponse', {returnedType:'showDirections', hash:'" + hash + "', response:{}, error:err});}})");
     }
 
     public void stopDirections() {
