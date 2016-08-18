@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Version 1.7.2
+
+- Fixed bug related to measurement parsing and directions
+- Added proguard rules
+
 ## Version 1.7.1
 
 - Improved location service. Requires bluetooth et bluetooth_admin permissions to use iBeacons.
