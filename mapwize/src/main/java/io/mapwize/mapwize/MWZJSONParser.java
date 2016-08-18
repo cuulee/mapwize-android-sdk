@@ -54,7 +54,7 @@ public class MWZJSONParser {
         try {
             Double longitude = null;
             if (!object.isNull("longitude")) {
-                longitude = object.getDouble("latitude");
+                longitude = object.getDouble("longitude");
             }
             else if (!object.isNull("lon")) {
                 longitude = object.getDouble("lon");
