@@ -8,6 +8,24 @@ It allows you to display and interact with Mapwize venue maps.
 
 Android API Level 15 (Android 4.0.3) or higher.
 
+## Installation
+
+Add in build.gradle
+
+	repositories {
+		maven {
+			url "https://jitpack.io"
+		}
+	}
+
+and 
+
+	dependencies {
+		compile 'com.github.Mapwize:mapwize-android-sdk:X.X.X'
+	}
+
+substitute x.x.x with ultimate version released
+
 ## Example application
 
 An example application is provided in this repository, inside de example directory.
