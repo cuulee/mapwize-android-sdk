@@ -33,11 +33,6 @@
         android:title="SetFloor"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_centerOnVenue"
-        android:orderInCategory="100"
-        android:title="CenterOnVenue"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_centerOnPlace"
         android:orderInCategory="100"
         android:title="CenterOnPlace"
@@ -56,11 +51,6 @@
         android:id="@+id/action_addMarker"
         android:orderInCategory="100"
         android:title="AddMarker"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_addMarkerOnPlace"
-        android:orderInCategory="100"
-        android:title="AddMarkerOnPlace"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_removeMarkers"
@@ -93,11 +83,6 @@
         android:title="SetUserPosition"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_setUserPositionWithFloor"
-        android:orderInCategory="100"
-        android:title="SetUserPositionWithFloor"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_removeUserPosition"
         android:orderInCategory="100"
         android:title="RemoveUserPosition"
@@ -111,11 +96,6 @@
         android:id="@+id/action_showDirections"
         android:orderInCategory="100"
         android:title="ShowDirections"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/actions_showDirectionsToAList"
-        android:orderInCategory="100"
-        android:title="ShowDirectionsToAList"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_stopDirections"
@@ -178,61 +158,5 @@
         android:orderInCategory="100"
         android:title="RefreshData"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_getPlaceWithId"
-        android:orderInCategory="100"
-        android:title="GetPlaceWithId"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_getPlaceWithName"
-        android:orderInCategory="100"
-        android:title="GetPlaceWithName"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_getPlaceWithAlias"
-        android:orderInCategory="100"
-        android:title="GetPlaceWithAlias"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_getVenueWithId"
-        android:orderInCategory="100"
-        android:title="GetVenueWithId"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_getVenueWithName"
-        android:orderInCategory="100"
-        android:title="GetVenueWithName"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_getVenueWithAlias"
-        android:orderInCategory="100"
-        android:title="GetVenueWithAlias"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_getPlaceListWithId"
-        android:orderInCategory="100"
-        android:title="GetPlacelistWithId"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_getPlaceListWithName"
-        android:orderInCategory="100"
-        android:title="GetPlaceListWithName"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_getPlaceListWithAlias"
-        android:orderInCategory="100"
-        android:title="GetPlaceListWithAlias"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_getPlaceListsForVenueId"
-        android:orderInCategory="100"
-        android:title="GetPlaceListsForVenueId"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_getPlacesWithPlaceListId"
-        android:orderInCategory="100"
-        android:title="GetPlacesWithPlaceListId"
-        app:showAsAction="never" />
-
 
 </menu>

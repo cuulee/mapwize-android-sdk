@@ -8,15 +8,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MWZMapOptions {
 
     private String apiKey;
-    private MWZLatLonBounds maxBounds;
-    private MWZLatLon center;
+    private MWZBounds maxBounds;
+    private MWZCoordinate center;
     private int zoom;
     private int floor;
     private boolean zoomControl;
     private String accessKey;
     private String language;
     private int minZoom;
-
+    private String outdoorMapProvider;
     private boolean isLocationEnabled;
     private boolean isBeaconsEnabled;
     private boolean useBrowserLocation = false;
@@ -70,19 +70,19 @@ public class MWZMapOptions {
         this.apiKey = apiKey;
     }
 
-    public MWZLatLonBounds getMaxBounds() {
+    public MWZBounds getMaxBounds() {
         return maxBounds;
     }
 
-    public void setMaxBounds(MWZLatLonBounds maxBounds) {
+    public void setMaxBounds(MWZBounds maxBounds) {
         this.maxBounds = maxBounds;
     }
 
-    public MWZLatLon getCenter() {
+    public MWZCoordinate getCenter() {
         return center;
     }
 
-    public void setCenter(MWZLatLon center) {
+    public void setCenter(MWZCoordinate center) {
         this.center = center;
     }
 
@@ -116,6 +116,14 @@ public class MWZMapOptions {
 
     public void setMinZoom(int minZoom) {
         this.minZoom = minZoom;
+    }
+
+    public String getOutdoorMapProvider() {
+        return outdoorMapProvider;
+    }
+
+    public void setOutdoorMapProvider(String outdoorMapProvider) {
+        this.outdoorMapProvider = outdoorMapProvider;
     }
 
     public String toString() {

@@ -1,9 +1,9 @@
 package io.mapwize.mapwize;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class MWZPosition {
+public class MWZDirectionPointWrapper {
 
     private Double latitude;
     private Double longitude;
@@ -12,28 +12,26 @@ public class MWZPosition {
     private String placeId;
     private String placeListId;
 
-    public MWZPosition () {
+    public MWZDirectionPointWrapper() {
         super();
     }
 
+    @JsonGetter("lat")
     public Double getLatitude() {
         return latitude;
     }
 
-    public Double getLat() { return latitude;}
-
+    @JsonSetter("lat")
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
+    @JsonGetter("lon")
     public Double getLongitude() {
         return longitude;
     }
 
-    public Double getLon() {
-        return longitude;
-    }
-
+    @JsonSetter("lon")
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
@@ -71,17 +69,6 @@ public class MWZPosition {
     }
 
     public String toString() {
-        return "VenueID="+this.venueId+" PlaceID="+this.placeId+" Latitude="+this.latitude+" Longitude="+this.longitude+" Floor="+this.floor +" PlaceListId="+this.placeListId;
-    }
-
-    public String toJSONString() {
-        String jsonInString = null;
-        try {
-            jsonInString = new ObjectMapper().writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return jsonInString;
+        return "lat="+latitude+" lon="+longitude+" floor="+floor+" venueId="+venueId+" placeId="+placeId+" placelistId="+placeListId;
     }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,12 +12,11 @@
         android:id="@+id/mwzview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        custom:center_latitude="49.742851692813445652"
-        custom:center_longitude="4.5997658371925345122"
-        custom:zoom="15"
-        custom:floor="1"
-        custom:apikey="1f04d780dc30b774c0c10f53e3c7d4ea"
-        custom:language="en"
-        custom:accesskey="demo"
+        app:center_latitude="49.742851692813445652"
+        app:center_longitude="4.5997658371925345122"
+        app:zoom="15"
+        app:floor="1"
+        app:language="en"
+        app:accesskey="demo"
         /> <!-- PASTE YOU API KEY HERE !!! This is a demo key. It is not allowed to use it for production. The key might change at any time without notice.-->
 </RelativeLayout>

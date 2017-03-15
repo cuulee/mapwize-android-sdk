@@ -1,33 +1,51 @@
 package io.mapwize.mapwize;
 
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
+import java.util.List;
 import java.util.Map;
 
-public class MWZPlace {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
 
     private String identifier;
     private String name;
     private String alias;
     private String venueId;
-    private MWZTranslation[] translations;
+    private Integer floor;
+    private List<MWZTranslation> translations;
+    private Integer order;
+    private String placeTypeId;
+    private Boolean isPublished;
+    private Boolean isSearchable;
+    private Boolean isVisible;
+    private Boolean isClickable;
+    private List<String> tags;
+    private MWZStyle style;
+    private MWZCoordinate marker;
+    private MWZCoordinate entrance;
+    private MWZGeometry geometry;
     private Map<String, Object> data;
 
     public MWZPlace(){
         super();
     }
 
-    public MWZPlace(HashMap<String, String> map) {
-        super();
-        this.identifier = map.get("_id");
-        this.name = map.get("name");
-        this.alias = map.get("alias");
-        this.venueId = map.get("venueId");
+    @Override
+    public MWZDirectionPointWrapper toDirectionWrapper() {
+        MWZDirectionPointWrapper wrapper = new MWZDirectionPointWrapper();
+        wrapper.setPlaceId(identifier);
+        return wrapper;
     }
 
     public String getIdentifier() {
         return identifier;
     }
 
+    @JsonSetter("_id")
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
@@ -56,11 +74,11 @@ public class MWZPlace {
         this.venueId = venueId;
     }
 
-    public MWZTranslation[] getTranslations() {
+    public List<MWZTranslation> getTranslations() {
         return translations;
     }
 
-    public void setTranslations(MWZTranslation[] translations) {
+    public void setTranslations(List<MWZTranslation> translations) {
         this.translations = translations;
     }
 
@@ -72,7 +90,105 @@ public class MWZPlace {
         this.data = data;
     }
 
-    public String toString() {
-        return "Identifier="+this.identifier+" Name="+this.name+" Alias="+this.alias+" VenueId="+this.venueId;
+    public Integer getFloor() {
+        return floor;
     }
+
+    public void setFloor(Integer floor) {
+        this.floor = floor;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public String getPlaceTypeId() {
+        return placeTypeId;
+    }
+
+    public void setPlaceTypeId(String placeTypeId) {
+        this.placeTypeId = placeTypeId;
+    }
+
+    public Boolean getPublished() {
+        return isPublished;
+    }
+
+    public void setPublished(Boolean published) {
+        isPublished = published;
+    }
+
+    public Boolean getSearchable() {
+        return isSearchable;
+    }
+
+    public void setSearchable(Boolean searchable) {
+        isSearchable = searchable;
+    }
+
+    public Boolean getVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(Boolean visible) {
+        isVisible = visible;
+    }
+
+    public Boolean getClickable() {
+        return isClickable;
+    }
+
+    public void setClickable(Boolean clickable) {
+        isClickable = clickable;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public MWZStyle getStyle() {
+        return style;
+    }
+
+    public void setStyle(MWZStyle style) {
+        this.style = style;
+    }
+
+    public MWZCoordinate getMarker() {
+        return marker;
+    }
+
+    public void setMarker(MWZCoordinate marker) {
+        this.marker = marker;
+    }
+
+    public MWZGeometry getGeometry() {
+        return geometry;
+    }
+
+    public void setGeometry(MWZGeometry geometry) {
+        this.geometry = geometry;
+    }
+
+    public MWZCoordinate getEntrance() {
+        return entrance;
+    }
+
+    public void setEntrance(MWZCoordinate entrance) {
+        this.entrance = entrance;
+    }
+
+    public String toString() {
+        return "ObjectType="+this.getClass()+" Identifier="+this.identifier+" Name="+this.name+" Alias="+this.alias+" VenueId="+this.venueId+" Geometry="+this.geometry.getCoordinates();
+    }
+
+
 }

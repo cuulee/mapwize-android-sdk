@@ -1,13 +1,20 @@
 package io.mapwize.mapwize;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
+import java.util.List;
 import java.util.Map;
 
-public class MWZVenue {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class MWZVenue implements MWZSearchable {
 
     private String identifier;
     private String name;
     private String alias;
     private Map<String, Object> data;
+    private List<MWZTranslation> translations;
+    private MWZGeometry geometry;
 
     public MWZVenue(){
         super();
@@ -17,6 +24,7 @@ public class MWZVenue {
         return identifier;
     }
 
+    @JsonSetter("_id")
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }
@@ -45,7 +53,19 @@ public class MWZVenue {
         this.data = data;
     }
 
-    public String toString() {
-        return "Identifier="+this.identifier+" Name="+this.name+" Alias="+this.alias;
+    public List<MWZTranslation> getTranslations() {
+        return translations;
+    }
+
+    public void setTranslations(List<MWZTranslation> translations) {
+        this.translations = translations;
+    }
+
+    public MWZGeometry getGeometry() {
+        return geometry;
+    }
+
+    public void setGeometry(MWZGeometry geometry) {
+        this.geometry = geometry;
     }
 }

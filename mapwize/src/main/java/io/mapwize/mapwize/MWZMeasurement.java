@@ -3,6 +3,9 @@ package io.mapwize.mapwize;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MWZMeasurement {
 
     private Double latitude;
@@ -12,10 +15,6 @@ public class MWZMeasurement {
     private Long validUntil;
     private Integer valididy;
     private String source;
-
-    public MWZMeasurement() {
-        super();
-    }
 
     public MWZMeasurement(Double latitude, Double longitude, Integer floor, Integer accuracy, Long validUntil, Integer valididy, String source) {
         this.latitude = latitude;

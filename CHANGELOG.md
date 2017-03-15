@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## Version 2.1.0
+
+- showdirection is deprecated. Use MWZApi.getDirections and MWZMapView.startDirections methods instead.
+- MWZLatLon and MWZLatLonBounds are replaced by MWZCoordinate and MWZBounds.
+- MWZPosition has been removed. MWZPlace, MWZPlaceList and MWZCoordinate now implement the MWZDirectionPoint interface.
+- Introduced MWZApi, a wrapper to easily retrieve Mapwize data. All API methods that were previously linked to the map have been moved to MWZApi.
+- Introduced MWZAccountManager to share API Key between MWZApi and MWZMapView
+- The MWZPlace object now includes the geometry
+- MWZPlaceStyle has been renamed in MWZStyle
+
 ## Version 1.7.2
 
 - Fixed bug related to measurement parsing and directions
