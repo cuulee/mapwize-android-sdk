@@ -118,6 +118,7 @@ public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
         return isPublished;
     }
 
+    @JsonSetter("isPublished")
     public void setPublished(Boolean published) {
         isPublished = published;
     }
@@ -126,6 +127,7 @@ public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
         return isSearchable;
     }
 
+    @JsonSetter("isSearchable")
     public void setSearchable(Boolean searchable) {
         isSearchable = searchable;
     }
@@ -134,6 +136,7 @@ public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
         return isVisible;
     }
 
+    @JsonSetter("isVisible")
     public void setVisible(Boolean visible) {
         isVisible = visible;
     }
@@ -142,6 +145,7 @@ public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
         return isClickable;
     }
 
+    @JsonSetter("isClickable")
     public void setClickable(Boolean clickable) {
         isClickable = clickable;
     }

@@ -286,6 +286,7 @@ Venues have properties name and alias that allow to identify them in a more huma
 
 ```java
 public static void getVenues(Map<String,String> options, final MWZCallback<List<MWZVenue>> callback)
+public static void getVenuesWithOrganizationId(@NonNull String organizationId, @NonNull final MWZCallback<List<MWZVenue>> callback)
 public static void getVenueWithId(String id, final MWZCallback<MWZVenue> callback)
 public static void getVenueWithName(String name, final MWZCallback<MWZVenue> callback)
 public static void getVenueWithAlias(String alias, final MWZCallback<MWZVenue> callback)

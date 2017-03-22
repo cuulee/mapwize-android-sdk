@@ -62,6 +62,12 @@ public class MWZApi {
         getVenues(new HashMap<String, String>(), callback);
     }
 
+    public static void getVenuesWithOrganizationId(@NonNull String organizationId, @NonNull final MWZCallback<List<MWZVenue>> callback) {
+        Map<String,String> opts = new HashMap<>();
+        opts.put("organizationId", organizationId);
+        getVenues(opts, callback);
+    }
+
     public static void getVenues(@NonNull Map<String,String> options, @NonNull final MWZCallback<List<MWZVenue>> callback) {
         Call<List<MWZVenue>> call = sApiInterface.getVenues(options, sApiKey);
         call.enqueue(new Callback<List<MWZVenue>>() {

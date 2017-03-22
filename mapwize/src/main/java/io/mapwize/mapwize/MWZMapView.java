@@ -53,7 +53,7 @@ import java.util.HashMap;
 public class MWZMapView extends WebView implements LocationListener, BeaconConsumer, SensorEventListener {
 
     final private String SERVER_URL = "https://www.mapwize.io";
-    final private String ANDROID_SDK_VERSION = "2.1.0";
+    final private String ANDROID_SDK_VERSION = "2.1.1";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
     private boolean isLoaded = false;
