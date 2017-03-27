@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Version 2.1.2
+
+- Added get methods to MWZSearchable
+- Added search bar example in demo app
+
 ## Version 2.1.1
 
 - Added API methods to get venues, places and placeLists

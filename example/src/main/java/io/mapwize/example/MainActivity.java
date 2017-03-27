@@ -9,6 +9,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,18 +23,17 @@ import java.util.Map;
 
 import io.mapwize.mapwize.*;
 
-public class MainActivity extends AppCompatActivity implements MWZMapViewListener, SensorEventListener{
+public class MainActivity extends AppCompatActivity implements MWZMapViewListener, SensorEventListener, SearchListener{
 
     MWZMapView mapview;
     private SensorManager mSensorManager;
     private Sensor mCompass;
+    private SearchFragment mSearchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 5);
@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
         }
         mapview = (MWZMapView) this.findViewById(R.id.mwzview);
         mapview.setListener(this);
+        mSearchFragment = (SearchFragment)getSupportFragmentManager().findFragmentById(R.id.search_fragment);
+        mSearchFragment.setSearchListener(this);
+
 
     }
 
@@ -327,6 +330,19 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
 
     public void stopLocation() {
         this.mapview.stopLocation();
+    }
+
+
+    @Override
+    public void onVenueSuggestionClicked(MWZVenue venue) {
+        MWZCoordinate center = venue.getMarker();
+        mapview.centerOnCoordinates(center, 17);
+    }
+
+    @Override
+    public void onPlaceSuggestionClicked(final MWZPlace place) {
+        MWZCoordinate center = place.getMarker();
+        mapview.centerOnCoordinates(center, 21);
     }
 
     @Override
