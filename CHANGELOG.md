@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Version 2.1.3
+
+- Fixed bug with the search menu in the demo app
+- Added API call to retrieve universes for an organization, MWZMapView.setUniverseForVenue can now take a MWZUniverse 
+- Deprecated onMapLoad method, even if still fired for now; Use onMapLoaded instead 
+- Added getBounds method for geometries
+
 ## Version 2.1.2
 
 - Added get methods to MWZSearchable

@@ -14,4 +14,9 @@ public class MWZGeometryPoint extends MWZGeometry {
     public void setCoordinates(List<Double> coordinates) {
         this.coordinates = coordinates;
     }
+
+    public MWZBounds getBounds() {
+        MWZCoordinate coord = new MWZCoordinate(getCoordinates().get(1), getCoordinates().get(0));
+        return new MWZBounds(coord, coord);
+    }
 }

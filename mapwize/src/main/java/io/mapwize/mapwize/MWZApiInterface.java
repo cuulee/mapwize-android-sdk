@@ -20,6 +20,12 @@ interface MWZApiInterface {
     Call<Map<String,Object>[]> getAccess(@Path("key") String accessKey, @Query("api_key") String apiKey);
 
     /*
+      Universes request related method
+     */
+    @GET("universes")
+    Call<List<MWZUniverse>> getUniverses(@QueryMap Map<String,String> options, @Query("api_key") String apiKey);
+
+    /*
       Venues request related methods
     */
     @GET("venues")

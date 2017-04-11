@@ -190,6 +190,10 @@ public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
         this.entrance = entrance;
     }
 
+    public MWZBounds getBounds() {
+        return geometry.getBounds();
+    }
+
     public String toString() {
         return "ObjectType="+this.getClass()+" Identifier="+this.identifier+" Name="+this.name+" Alias="+this.alias+" VenueId="+this.venueId+" Geometry="+this.geometry.getCoordinates();
     }

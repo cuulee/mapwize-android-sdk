@@ -30,8 +30,6 @@ public class MWZApi {
         catch (Exception e) {
             throw new IllegalStateException("MWZApi is called before MWZAccountManager is configured");
         }
-
-
     }
 
     public static void getAccess(@NonNull String access, @NonNull final MWZCallback<Map<String,Object>[]> callback) {
@@ -56,6 +54,37 @@ public class MWZApi {
                 callback.onFailure(t);
             }
         });
+    }
+
+    public static void getUniversesForOrganizationId(@NonNull String organizationId, @NonNull final MWZCallback<List<MWZUniverse>> callback) {
+        if (organizationId == null || "".equals(organizationId)) {
+            callback.onFailure(new Throwable("An organizationId must be provided"));
+        }
+        else {
+            Map<String,String> opts = new HashMap<>();
+            opts.put("organizationId", organizationId);
+            Call<List<MWZUniverse>> call = sApiInterface.getUniverses(opts, sApiKey);
+            call.enqueue(new Callback<List<MWZUniverse>>() {
+                @Override
+                public void onResponse(Call<List<MWZUniverse>> call, Response<List<MWZUniverse>> response) {
+                    if (response.isSuccessful()) {
+                        callback.onSuccess(response.body());
+                    }
+                    else {
+                        try {
+                            callback.onFailure(new Throwable(response.errorBody().string()));
+                        } catch (IOException e) {
+                            callback.onFailure(new Throwable("Mapwize request error"));
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<MWZUniverse>> call, Throwable t) {
+                    callback.onFailure(t);
+                }
+            });
+        }
     }
 
     public static void getVenues(@NonNull final MWZCallback<List<MWZVenue>> callback) {

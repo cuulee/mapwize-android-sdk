@@ -15,7 +15,9 @@ public abstract class MWZGeometry {
         return null;
     }
 
-    public void setCoordinates(Object coordinates) {
+    public void setCoordinates(Object coordinates) {}
 
+    public MWZBounds getBounds() {
+        return null;
     }
 }

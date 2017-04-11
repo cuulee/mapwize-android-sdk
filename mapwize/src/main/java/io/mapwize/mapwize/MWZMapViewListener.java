@@ -2,6 +2,7 @@ package io.mapwize.mapwize;
 
 public interface MWZMapViewListener {
 
+    @Deprecated
     void onMapLoad();
     void onReceivedError(String error);
     void onZoomEnd(Integer zoom);

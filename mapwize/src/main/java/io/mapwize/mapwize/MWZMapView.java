@@ -53,7 +53,7 @@ import java.util.HashMap;
 public class MWZMapView extends WebView implements LocationListener, BeaconConsumer, SensorEventListener {
 
     final private String SERVER_URL = "https://www.mapwize.io";
-    final private String ANDROID_SDK_VERSION = "2.1.2";
+    final private String ANDROID_SDK_VERSION = "2.1.3";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
     private boolean isLoaded = false;
@@ -219,9 +219,6 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
             @Override
             public void onPageFinished(WebView view, String url) {
                 initHtmlMap(options);
-                if (listener != null) {
-                    listener.onMapLoaded();
-                }
             }
 
             @SuppressWarnings("deprecation")
@@ -285,6 +282,7 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
     public void onMapLoad() {
         if (this.listener != null) {
             this.listener.onMapLoad();
+            this.listener.onMapLoaded();
         }
         if (this.options.isLocationEnabled()) {
             if (ActivityCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -646,6 +644,9 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
         this.executeJS("map.setUniverseForVenue('"+universeId+"','"+venue.getIdentifier()+"');");
     }
 
+    public void setUniverseForVenue(MWZUniverse universe, MWZVenue venue) {
+        this.setUniverseForVenue(universe.getIdentifier(), venue);
+    }
 
     public void setBottomMargin(@NonNull Integer margin) {
         this.executeJS("map.setBottomMargin(" + margin + ")");

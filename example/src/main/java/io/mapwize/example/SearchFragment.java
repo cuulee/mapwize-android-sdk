@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -45,7 +44,6 @@ public class SearchFragment extends Fragment {
     private FloatingSearchView mSearchView;
     private SearchResultsListAdapter mSearchResultsAdapter;
     private SearchListener mSearchListener;
-    private RecyclerView mSearchResultsList;
     private Stack<Handler> handlerStack = new Stack<>();
 
     @Override
@@ -69,6 +67,10 @@ public class SearchFragment extends Fragment {
 
     public void setSearchListener(SearchListener sl) {
         mSearchListener = sl;
+    }
+
+    public void setMenuListener(FloatingSearchView.OnMenuItemClickListener l) {
+        mSearchView.setOnMenuItemClickListener(l);
     }
 
     private void setupResultsList() {

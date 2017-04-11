@@ -132,4 +132,8 @@ public class MWZVenue implements MWZSearchable {
     public void setAreIbeaconsDeployed(Boolean areIbeaconsDeployed) {
         this.areIbeaconsDeployed = areIbeaconsDeployed;
     }
+
+    public MWZBounds getBounds() {
+        return geometry.getBounds();
+    }
 }

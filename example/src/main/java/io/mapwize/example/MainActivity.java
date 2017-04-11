@@ -17,13 +17,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import io.mapwize.mapwize.*;
 
-public class MainActivity extends AppCompatActivity implements MWZMapViewListener, SensorEventListener, SearchListener{
+public class MainActivity extends AppCompatActivity implements MWZMapViewListener, SensorEventListener, SearchListener, FloatingSearchView.OnMenuItemClickListener{
 
     MWZMapView mapview;
     private SensorManager mSensorManager;
@@ -43,116 +45,8 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
         mapview.setListener(this);
         mSearchFragment = (SearchFragment)getSupportFragmentManager().findFragmentById(R.id.search_fragment);
         mSearchFragment.setSearchListener(this);
+        mSearchFragment.setMenuListener(this);
 
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.action_setPreferredLanguageFR:
-                this.setPreferredLanguageFR();
-                break;
-            case R.id.action_setPreferredLanguageEN:
-                this.setPreferredLanguageEN();
-                break;
-            case R.id.action_setZoom:
-                this.setZoom();
-                break;
-            case R.id.action_centerOnCoordinates:
-                this.centerOnCoordinates();
-                break;
-            case R.id.action_centerOnCoordinatesWithFloor:
-                this.centerOnCoordinatesWithFloor();
-                break;
-            case R.id.action_setFloor:
-                this.setFloor();
-                break;
-            case R.id.action_centerOnPlace:
-                this.centerOnPlace();
-                break;
-            case R.id.action_centerOnUser:
-                this.centerOnUser();
-                break;
-            case R.id.action_loadUrl:
-                this.loadUrl();
-                break;
-            case R.id.action_addMarker:
-                this.addMarker();
-                break;
-            case R.id.action_removeMarkers:
-                this.removeMarkers();
-                break;
-            case R.id.action_setFollowUserModeON:
-                this.setFollowUserModeON();
-                break;
-            case R.id.action_setFollowUserModeOFF:
-                this.setFollowUserModeOFF();
-                break;
-            case R.id.action_setUserPosition:
-                this.setUserPosition();
-                break;
-            case R.id.action_unlockUserPosition:
-                this.unlockUserPosition();
-                break;
-            case R.id.action_showDirections:
-                this.showDirections();
-                break;
-            case R.id.action_stopDirections:
-                this.stopDirections();
-                break;
-            case R.id.action_setStyle:
-                this.setStyle();
-                break;
-            case R.id.action_setBottomMargin:
-                this.setBottomMargin();
-                break;
-            case R.id.action_setTopMargin:
-                this.setTopMargin();
-                break;
-            case R.id.action_resetMargin:
-                this.resetMargin();
-                break;
-            case R.id.action_setUserHeading:
-                this.setUserHeading();
-                break;
-            case R.id.action_removeHeading:
-                this.removeHeading();
-                break;
-            case R.id.action_getFloor:
-                this.getFloor();
-                break;
-            case R.id.action_getZoom:
-                this.getZoom();
-                break;
-            case R.id.action_getUserPosition:
-                this.getUserPosition();
-                break;
-            case R.id.action_getCenter:
-                this.getCenter();
-                break;
-            case R.id.action_removeUserPosition:
-                this.removeUserPosition();
-                break;
-            case R.id.action_startLocation:
-                this.startLocation();
-                break;
-            case R.id.action_stopLocation:
-                this.stopLocation();
-                break;
-            case R.id.action_refresh:
-                this.refresh();
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void showToast(String text) {
@@ -448,5 +342,105 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
+    public void onActionMenuItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_setPreferredLanguageFR:
+                this.setPreferredLanguageFR();
+                break;
+            case R.id.action_setPreferredLanguageEN:
+                this.setPreferredLanguageEN();
+                break;
+            case R.id.action_setZoom:
+                this.setZoom();
+                break;
+            case R.id.action_centerOnCoordinates:
+                this.centerOnCoordinates();
+                break;
+            case R.id.action_centerOnCoordinatesWithFloor:
+                this.centerOnCoordinatesWithFloor();
+                break;
+            case R.id.action_setFloor:
+                this.setFloor();
+                break;
+            case R.id.action_centerOnPlace:
+                this.centerOnPlace();
+                break;
+            case R.id.action_centerOnUser:
+                this.centerOnUser();
+                break;
+            case R.id.action_loadUrl:
+                this.loadUrl();
+                break;
+            case R.id.action_addMarker:
+                this.addMarker();
+                break;
+            case R.id.action_removeMarkers:
+                this.removeMarkers();
+                break;
+            case R.id.action_setFollowUserModeON:
+                this.setFollowUserModeON();
+                break;
+            case R.id.action_setFollowUserModeOFF:
+                this.setFollowUserModeOFF();
+                break;
+            case R.id.action_setUserPosition:
+                this.setUserPosition();
+                break;
+            case R.id.action_unlockUserPosition:
+                this.unlockUserPosition();
+                break;
+            case R.id.action_showDirections:
+                this.showDirections();
+                break;
+            case R.id.action_stopDirections:
+                this.stopDirections();
+                break;
+            case R.id.action_setStyle:
+                this.setStyle();
+                break;
+            case R.id.action_setBottomMargin:
+                this.setBottomMargin();
+                break;
+            case R.id.action_setTopMargin:
+                this.setTopMargin();
+                break;
+            case R.id.action_resetMargin:
+                this.resetMargin();
+                break;
+            case R.id.action_setUserHeading:
+                this.setUserHeading();
+                break;
+            case R.id.action_removeHeading:
+                this.removeHeading();
+                break;
+            case R.id.action_getFloor:
+                this.getFloor();
+                break;
+            case R.id.action_getZoom:
+                this.getZoom();
+                break;
+            case R.id.action_getUserPosition:
+                this.getUserPosition();
+                break;
+            case R.id.action_getCenter:
+                this.getCenter();
+                break;
+            case R.id.action_removeUserPosition:
+                this.removeUserPosition();
+                break;
+            case R.id.action_startLocation:
+                this.startLocation();
+                break;
+            case R.id.action_stopLocation:
+                this.stopLocation();
+                break;
+            case R.id.action_refresh:
+                this.refresh();
+                break;
+            }
     }
 }
