@@ -13,6 +13,7 @@ public class MWZMapOptions {
     private int zoom;
     private int floor;
     private boolean zoomControl;
+    private boolean showUserPositionControl = true;
     private String accessKey;
     private String language;
     private int minZoom;
@@ -36,6 +37,14 @@ public class MWZMapOptions {
 
     public void setIsLocationEnabled(boolean isLocationEnabled) {
         this.isLocationEnabled = isLocationEnabled;
+    }
+
+    public boolean getShowUserPositionControl() {
+        return showUserPositionControl;
+    }
+
+    public void setShowUserPositionControl(boolean showUserPositionControl) {
+        this.showUserPositionControl = showUserPositionControl;
     }
 
     public boolean isBeaconsEnabled() {

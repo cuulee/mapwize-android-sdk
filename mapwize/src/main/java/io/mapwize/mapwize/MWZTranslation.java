@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class MWZTranslation {
 
     private String title;
-    private String subtitle;
+    private String subTitle;
     private String details;
     private String language;
 
@@ -19,7 +19,7 @@ public class MWZTranslation {
     public MWZTranslation(String title, String subtitle, String details, String language) {
         super();
         this.title = title;
-        this.subtitle = subtitle;
+        this.subTitle = subtitle;
         this.details = details;
         this.language = language;
     }
@@ -32,12 +32,12 @@ public class MWZTranslation {
         this.title = title;
     }
 
-    public String getSubtitle() {
-        return subtitle;
+    public String getSubTitle() {
+        return subTitle;
     }
 
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
     }
 
     public String getDetails() {
@@ -57,6 +57,6 @@ public class MWZTranslation {
     }
 
     public String toString() {
-        return "Title="+title+" Subtitle="+subtitle+" Details="+details+" Language="+language;
+        return "Title="+title+" Subtitle="+subTitle+" Details="+details+" Language="+language;
     }
 }

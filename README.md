@@ -70,6 +70,7 @@ The following custom attributes can be use :
 <attr name="floor" format="integer"/>
 <attr name="isLocationEnabled" format="boolean"/>
 <attr name="isBeaconsEnabled" format="boolean"/>
+<attr name="showUserPositionControl" format="boolean"/>
 <attr name="accesskey" format="string"/>
 <attr name="language" format="string"/>
 <attr name="minZoom" format="integer"/>
@@ -166,6 +167,17 @@ public void addMarker(Double latitude, Double longitude, Integer floor)
 public void addMarker(String placeId)
 public void removeMarkers()
 ```
+
+### Universes
+
+You can change the universe of a venue with the following methods.
+
+```java
+public void setUniverseForVenue(String universeId, MWZVenue venue)
+public void setUniverseForVenue(MWZUniverse universe, MWZVenue venue)
+```
+
+
 
 ### Showing directions
 

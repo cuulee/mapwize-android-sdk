@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 2.1.4
+
+- Added documentation for setUniverseForVenue methods
+- Added map option to hide user position button
+- Fixed bug with translation subTitle
+
 ## Version 2.1.3
 
 - Fixed bug with the search menu in the demo app

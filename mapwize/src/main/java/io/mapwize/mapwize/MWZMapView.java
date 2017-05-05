@@ -53,7 +53,7 @@ import java.util.HashMap;
 public class MWZMapView extends WebView implements LocationListener, BeaconConsumer, SensorEventListener {
 
     final private String SERVER_URL = "https://www.mapwize.io";
-    final private String ANDROID_SDK_VERSION = "2.1.3";
+    final private String ANDROID_SDK_VERSION = "2.1.4";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
     private boolean isLoaded = false;
@@ -143,6 +143,7 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
             }
             opts.setIsLocationEnabled(a.getBoolean(R.styleable.MWZMapView_isLocationEnabled, Boolean.TRUE));
             opts.setIsBeaconsEnabled(a.getBoolean(R.styleable.MWZMapView_isBeaconsEnabled, Boolean.TRUE));
+            opts.setShowUserPositionControl(a.getBoolean(R.styleable.MWZMapView_showUserPositionControl, Boolean.TRUE));
             opts.setLanguage(a.getString(R.styleable.MWZMapView_language));
             float centerLat = a.getFloat(R.styleable.MWZMapView_center_latitude, Float.MAX_VALUE);
             float centerLon = a.getFloat(R.styleable.MWZMapView_center_longitude, Float.MAX_VALUE);
