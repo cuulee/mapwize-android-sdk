@@ -9,6 +9,7 @@ public class MWZMapOptions {
 
     private String apiKey;
     private MWZBounds maxBounds;
+    private MWZBounds bounds;
     private MWZCoordinate center;
     private int zoom;
     private int floor;
@@ -37,6 +38,14 @@ public class MWZMapOptions {
 
     public void setIsLocationEnabled(boolean isLocationEnabled) {
         this.isLocationEnabled = isLocationEnabled;
+    }
+
+    public MWZBounds getBounds() {
+        return bounds;
+    }
+
+    public void setBounds(MWZBounds bounds) {
+        this.bounds = bounds;
     }
 
     public boolean getShowUserPositionControl() {

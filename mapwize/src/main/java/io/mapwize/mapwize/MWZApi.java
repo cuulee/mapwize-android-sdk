@@ -153,7 +153,12 @@ public class MWZApi {
         getVenues(options, new MWZCallback<List<MWZVenue>>() {
             @Override
             public void onSuccess(List<MWZVenue> object) {
-                callback.onSuccess(object.get(0));
+                if (object.size() > 0) {
+                    callback.onSuccess(object.get(0));
+                }
+                else {
+                    callback.onFailure(new Throwable("Object not found"));
+                }
             }
 
             @Override
@@ -169,7 +174,12 @@ public class MWZApi {
         getVenues(options, new MWZCallback<List<MWZVenue>>() {
             @Override
             public void onSuccess(List<MWZVenue> object) {
-                callback.onSuccess(object.get(0));
+                if (object.size() > 0) {
+                    callback.onSuccess(object.get(0));
+                }
+                else {
+                    callback.onFailure(new Throwable("Object not found"));
+                }
             }
 
             @Override
@@ -240,7 +250,12 @@ public class MWZApi {
         getPlaces(options, new MWZCallback<List<MWZPlace>>() {
             @Override
             public void onSuccess(List<MWZPlace> object) {
-                callback.onSuccess(object.get(0));
+                if (object.size() > 0) {
+                    callback.onSuccess(object.get(0));
+                }
+                else {
+                    callback.onFailure(new Throwable("Object not found"));
+                }
             }
 
             @Override
@@ -257,7 +272,12 @@ public class MWZApi {
         getPlaces(options, new MWZCallback<List<MWZPlace>>() {
             @Override
             public void onSuccess(List<MWZPlace> object) {
-                callback.onSuccess(object.get(0));
+                if (object.size() > 0) {
+                    callback.onSuccess(object.get(0));
+                }
+                else {
+                    callback.onFailure(new Throwable("Object not found"));
+                }
             }
 
             @Override
@@ -334,7 +354,12 @@ public class MWZApi {
         getPlaceLists(options, new MWZCallback<List<MWZPlaceList>>() {
             @Override
             public void onSuccess(List<MWZPlaceList> object) {
-                callback.onSuccess(object.get(0));
+                if (object.size() > 0) {
+                    callback.onSuccess(object.get(0));
+                }
+                else {
+                    callback.onFailure(new Throwable("Object not found"));
+                }
             }
 
             @Override
@@ -351,7 +376,12 @@ public class MWZApi {
         getPlaceLists(options, new MWZCallback<List<MWZPlaceList>>() {
             @Override
             public void onSuccess(List<MWZPlaceList> object) {
-                callback.onSuccess(object.get(0));
+                if (object.size() > 0) {
+                    callback.onSuccess(object.get(0));
+                }
+                else {
+                    callback.onFailure(new Throwable("Object not found"));
+                }
             }
 
             @Override

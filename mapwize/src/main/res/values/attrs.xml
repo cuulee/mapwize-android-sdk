@@ -16,5 +16,9 @@
         <attr name="maxBounds_latitudeMax" format="float"/>
         <attr name="maxBounds_longitudeMin" format="float"/>
         <attr name="maxBounds_longitudeMax" format="float"/>
+        <attr name="bounds_latitudeMin" format="float"/>
+        <attr name="bounds_latitudeMax" format="float"/>
+        <attr name="bounds_longitudeMin" format="float"/>
+        <attr name="bounds_longitudeMax" format="float"/>
     </declare-styleable>
 </resources>

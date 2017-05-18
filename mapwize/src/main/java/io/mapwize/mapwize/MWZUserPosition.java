@@ -18,6 +18,10 @@ public class MWZUserPosition extends MWZCoordinate implements  MWZDirectionPoint
         this.accuracy = accuracy;
     }
 
+    public MWZUserPosition(MWZCoordinate coordinate, Integer accuracy) {
+        this(coordinate.getLatitude(), coordinate.getLongitude(), coordinate.getFloor(), accuracy);
+    }
+
     public Integer getAccuracy() {
         return accuracy;
     }

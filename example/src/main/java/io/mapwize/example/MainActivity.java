@@ -443,4 +443,10 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
                 break;
             }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapview.onDestroy();
+    }
 }

@@ -31,6 +31,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.altbeacon.beacon.Beacon;
@@ -46,14 +47,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class MWZMapView extends WebView implements LocationListener, BeaconConsumer, SensorEventListener {
 
     final private String SERVER_URL = "https://www.mapwize.io";
-    final private String ANDROID_SDK_VERSION = "2.1.4";
+    final private String ANDROID_SDK_VERSION = "2.2.0";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
     private boolean isLoaded = false;
@@ -175,6 +178,17 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
                 MWZBounds bounds = new MWZBounds(new MWZCoordinate((double)latMin, (double)lngMin), new MWZCoordinate((double)latMax,(double)lngMax));
                 opts.setMaxBounds(bounds);
             }
+
+            float latMinBounds = a.getFloat(R.styleable.MWZMapView_bounds_latitudeMin, Float.MAX_VALUE);
+            float latMaxBounds = a.getFloat(R.styleable.MWZMapView_bounds_latitudeMax, Float.MAX_VALUE);
+            float lngMinBounds = a.getFloat(R.styleable.MWZMapView_bounds_longitudeMin, Float.MAX_VALUE);
+            float lngMaxBounds = a.getFloat(R.styleable.MWZMapView_bounds_longitudeMax, Float.MAX_VALUE);
+
+            if (latMinBounds != Float.MAX_VALUE && latMaxBounds != Float.MAX_VALUE && lngMinBounds != Float.MAX_VALUE && lngMaxBounds != Float.MAX_VALUE) {
+                MWZBounds bounds = new MWZBounds(new MWZCoordinate((double)latMinBounds, (double)lngMinBounds), new MWZCoordinate((double)latMaxBounds,(double)lngMaxBounds));
+                opts.setBounds(bounds);
+            }
+
 
         } finally {
             a.recycle();
@@ -608,6 +622,11 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
         this.executeJS("map.loadUrl('" + url + "',function(err){map.fire('apiResponse', {returnedType:'loadUrl', hash:'" + hash + "', error:err?'error':''});})");
     }
 
+    public void addMarker(@NonNull MWZCoordinate coordinate) {
+        this.executeJS("map.addMarker(" + coordinate.toJSONString() + ")");
+    }
+
+    @Deprecated
     public void addMarker(@NonNull Double latitude, @NonNull Double longitude, @Nullable Integer floor) {
         MWZCoordinate latLonFloor = new MWZCoordinate(latitude, longitude, floor);
         this.executeJS("map.addMarker(" + latLonFloor.toJSONString() + ")");
@@ -649,12 +668,121 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
         this.setUniverseForVenue(universe.getIdentifier(), venue);
     }
 
+    /* Promote place */
+    public void setPromotedPlaces(List<MWZPlace> places) {
+        if (places == null) {
+            this.setPromotedPlacesWithIds(null);
+        }
+        else {
+            List<String> placeIds = new ArrayList<>();
+            for (MWZPlace place : places) {
+                placeIds.add(place.getIdentifier());
+            }
+            setPromotedPlacesWithIds(placeIds);
+        }
+    }
+
+    public void setPromotedPlacesWithIds(List<String> placeIds) {
+        if (placeIds == null) {
+            this.executeJS("map.setPromotePlaces(null);");
+        }
+        else {
+            try {
+                String jsonInString = new ObjectMapper().writeValueAsString(placeIds);
+                this.executeJS("map.setPromotePlaces("+jsonInString+");");
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void addPromotedPlace(MWZPlace place) {
+        this.addPromotedPlaceWithId(place.getIdentifier());
+    }
+
+    public void addPromotedPlaceWithId(String placeId) {
+        this.executeJS("map.addPromotePlace('"+placeId+"');");
+    }
+
+    public void addPromotedPlaces(List<MWZPlace> places) {
+        if (places != null) {
+            List<String> placeIds = new ArrayList<>();
+            for (MWZPlace place : places) {
+                placeIds.add(place.getIdentifier());
+            }
+            addPromotedPlacesWithIds(placeIds);
+        }
+    }
+
+    public void addPromotedPlacesWithIds(List<String> placeIds) {
+        if (placeIds != null) {
+            try {
+                String jsonInString = new ObjectMapper().writeValueAsString(placeIds);
+                this.executeJS("map.addPromotePlaces("+jsonInString+");");
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void removePromotedPlace(MWZPlace place) {
+        this.removePromotedPlaceWithId(place.getIdentifier());
+    }
+
+    public void removePromotedPlaceWithId(String placeId) {
+        this.executeJS("map.removePromotePlace('"+placeId+"');");
+    }
+
+    /* Ignore place */
+    public void addIgnoredPlace(MWZPlace place) {
+        this.addIgnoredPlaceWithId(place.getIdentifier());
+    }
+
+    public void addIgnoredPlaceWithId(String identifier) {
+        this.executeJS("map.addIgnorePlace('"+identifier+"');");
+    }
+
+    public void removeIgnoredPlace(MWZPlace place) {
+        this.removeIgnoredPlaceWithId(place.getIdentifier());
+    }
+
+    public void removeIgnoredPlaceWithId(String identifier) {
+        this.executeJS("map.removeIgnorePlace('"+identifier+"');");
+    }
+
+    public void setIgnoredPlaces(List<MWZPlace> places) {
+        if (places == null) {
+            this.setIgnoredPlacesWithIds(null);
+        }
+        else {
+            List<String> placeIds = new ArrayList<>();
+            for (MWZPlace place : places) {
+                placeIds.add(place.getIdentifier());
+            }
+            this.setIgnoredPlacesWithIds(placeIds);
+        }
+    }
+
+    public void setIgnoredPlacesWithIds(List<String> placeIds) {
+        if (placeIds == null) {
+            this.executeJS("map.setIgnorePlaces(null);");
+        }
+        else {
+            try {
+                String jsonInString = new ObjectMapper().writeValueAsString(placeIds);
+                this.executeJS("map.setIgnorePlaces("+jsonInString+");");
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void setBottomMargin(@NonNull Integer margin) {
-        this.executeJS("map.setBottomMargin(" + margin + ")");
+        this.executeJS("map.setBottomMargin(" + margin + ");");
     }
 
     public void setTopMargin(@NonNull Integer margin) {
-        this.executeJS("map.setTopMargin(" + margin + ")");
+        this.executeJS("map.setTopMargin(" + margin + ");");
     }
 
 
@@ -816,4 +944,11 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
             return super.onConsoleMessage(consoleMessage);
         }
     }
+
+    public void onDestroy() {
+        if (this.options.isBeaconsEnabled()) {
+            beaconManager.unbind(this);
+        }
+    }
+
 }

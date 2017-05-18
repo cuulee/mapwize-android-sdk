@@ -78,12 +78,29 @@ The following custom attributes can be use :
 <attr name="maxBounds_latitudeMax" format="float"/>
 <attr name="maxBounds_longitudeMin" format="float"/>
 <attr name="maxBounds_longitudeMax" format="float"/>
+<attr name="bounds_latitudeMin" format="float"/>
+<attr name="bounds_latitudeMax" format="float"/>
+<attr name="bounds_longitudeMin" format="float"/>
+<attr name="bounds_longitudeMax" format="float"/>
+```
+
+### Life cycle
+To avoid any memory leak, and in particular if you are using the iBeacon positioning solution within the Mapwize SDK, 
+you need to call onDestroy on the mapview when its activity is destroyed. 
+
+```java
+@Override
+protected void onDestroy() {
+    super.onDestroy();
+    mapview.onDestroy();
+}
 ```
 
 ### Map options
 Options are defined using the class MWZMapOptions. The following options are available:
 
 - apiKey : [String] must be provided for the map to load, if it was not previously set in the MWZAccountManager. It can be obtained from the Mapwize Studio interface. If you don't have any, contact us at support@mapwize.io.
+- bounds : [MWZLatLonBounds] region that will be display when map is loading
 - maxBounds : [MWZLatLonBounds] region users are allowed to navigate in (default: entire world).
 - center: [MWZLatLon] coordiantes of the center of the map at start-up (default: 0,0).
 - zoom : [int] integer between 0 and 21 (default 0).
@@ -163,10 +180,39 @@ public void loadURL(String url)
 You can add markers on top of the map. A marker with floor null will be displayed on all floors
 
 ```java
+public void addMarker(MWZCoordinate coordinate)
+@Deprecated
 public void addMarker(Double latitude, Double longitude, Integer floor)
 public void addMarker(String placeId)
 public void removeMarkers()
 ```
+
+### Controlling places display
+
+You can promote places to increase their display priority.
+
+```java
+public void setPromotedPlaces(List<MWZPlace> places)
+public void setPromotedPlacesWithIds(List<String> placeIds)
+public void addPromotedPlace(MWZPlace place)
+public void addPromotedPlaceWithId(String placeId)
+public void addPromotedPlaces(List<MWZPlace> places)
+public void addPromotedPlacesWithIds(List<String> placeIds)
+public void removePromotedPlace(MWZPlace place)
+public void removePromotedPlaceWithId(String placeId)
+```
+
+You can ignore place to make them not visible
+
+```java
+public void addIgnoredPlace(MWZPlace place)
+public void addIgnoredPlaceWithId(String identifier)
+public void removeIgnoredPlace(MWZPlace place)
+public void removeIgnoredPlaceWithId(String identifier)
+public void setIgnoredPlaces(List<MWZPlace> places)
+public void setIgnoredPlacesWithIds(List<String> placeIds)
+```
+
 
 ### Universes
 
