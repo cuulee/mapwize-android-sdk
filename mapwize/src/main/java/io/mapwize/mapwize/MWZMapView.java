@@ -56,7 +56,7 @@ import java.util.List;
 public class MWZMapView extends WebView implements LocationListener, BeaconConsumer, SensorEventListener {
 
     final private String SERVER_URL = "https://www.mapwize.io";
-    final private String ANDROID_SDK_VERSION = "2.2.0";
+    final private String ANDROID_SDK_VERSION = "2.3.0";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
     private boolean isLoaded = false;
@@ -144,10 +144,34 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
             if (apiKey != null){
                 opts.setApiKey(apiKey);
             }
+            String mainColor = a.getString(R.styleable.MWZMapView_mainColor);
+            if (mainColor != null){
+                opts.setMainColor(mainColor);
+            }
             opts.setIsLocationEnabled(a.getBoolean(R.styleable.MWZMapView_isLocationEnabled, Boolean.TRUE));
             opts.setIsBeaconsEnabled(a.getBoolean(R.styleable.MWZMapView_isBeaconsEnabled, Boolean.TRUE));
             opts.setShowUserPositionControl(a.getBoolean(R.styleable.MWZMapView_showUserPositionControl, Boolean.TRUE));
+            opts.setDisplayFloorControl(a.getBoolean(R.styleable.MWZMapView_displayFloorControl, Boolean.TRUE));
             opts.setLanguage(a.getString(R.styleable.MWZMapView_language));
+
+            String iconUrl = a.getString(R.styleable.MWZMapView_iconUrl);
+            int xAnchor = a.getInteger(R.styleable.MWZMapView_x_iconAnchor, Integer.MAX_VALUE);
+            int yAnchor = a.getInteger(R.styleable.MWZMapView_y_iconAnchor, Integer.MAX_VALUE);
+            int xSize = a.getInteger(R.styleable.MWZMapView_x_iconSize, Integer.MAX_VALUE);
+            int ySize = a.getInteger(R.styleable.MWZMapView_y_iconSize, Integer.MAX_VALUE);
+            if (iconUrl != null) {
+                if (xAnchor != Integer.MAX_VALUE && yAnchor != Integer.MAX_VALUE && xSize != Integer.MAX_VALUE && ySize != Integer.MAX_VALUE) {
+                    Integer[] anchor = new Integer[2];
+                    anchor[0] = xAnchor;
+                    anchor[1] = yAnchor;
+                    Integer[] size = new Integer[2];
+                    size[0] = xSize;
+                    size[1] = ySize;
+                    opts.setDisplayMarkerOptions(new MWZCustomMarkerOptions(iconUrl, anchor, size));
+                }
+            }
+
+
             float centerLat = a.getFloat(R.styleable.MWZMapView_center_latitude, Float.MAX_VALUE);
             float centerLon = a.getFloat(R.styleable.MWZMapView_center_longitude, Float.MAX_VALUE);
             if (centerLat != Float.MAX_VALUE && centerLon != Float.MAX_VALUE) {
@@ -188,7 +212,6 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
                 MWZBounds bounds = new MWZBounds(new MWZCoordinate((double)latMinBounds, (double)lngMinBounds), new MWZCoordinate((double)latMaxBounds,(double)lngMaxBounds));
                 opts.setBounds(bounds);
             }
-
 
         } finally {
             a.recycle();
@@ -774,6 +797,15 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void addExternalPlaces(List<MWZPlace> places) {
+        try {
+            String jsonInString = new ObjectMapper().writeValueAsString(places);
+            this.executeJS("map.setExternalPlaces("+jsonInString+");");
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
         }
     }
 

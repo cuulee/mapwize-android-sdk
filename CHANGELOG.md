@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Version 2.3.0
+
+- Added mainColor options
+- Added support for external places
+- Added option displayFloorControl
+- Addes markerDisplay options
+
 ## Version 2.2.0
 
 - Deprecated methods using latitude, longitude and floor to be replaced by methods using MWZCoordinate or MWZUserPosition
