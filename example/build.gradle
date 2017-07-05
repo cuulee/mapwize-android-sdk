@@ -8,8 +8,8 @@ android {
         applicationId "io.mapwize.example"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 12
-        versionName "2.3.0"
+        versionCode 13
+        versionName "2.3.1"
     }
     buildTypes {
         release {

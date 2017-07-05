@@ -56,7 +56,7 @@ import java.util.List;
 public class MWZMapView extends WebView implements LocationListener, BeaconConsumer, SensorEventListener {
 
     final private String SERVER_URL = "https://www.mapwize.io";
-    final private String ANDROID_SDK_VERSION = "2.3.0";
+    final private String ANDROID_SDK_VERSION = "2.3.1";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
     private boolean isLoaded = false;
@@ -211,6 +211,10 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
             if (latMinBounds != Float.MAX_VALUE && latMaxBounds != Float.MAX_VALUE && lngMinBounds != Float.MAX_VALUE && lngMaxBounds != Float.MAX_VALUE) {
                 MWZBounds bounds = new MWZBounds(new MWZCoordinate((double)latMinBounds, (double)lngMinBounds), new MWZCoordinate((double)latMaxBounds,(double)lngMaxBounds));
                 opts.setBounds(bounds);
+            }
+
+            if (options.getZoom() != null) {
+                this.zoom = options.getZoom();
             }
 
         } finally {

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Version 2.3.1
+
+- Fixed bug with bounds map option
+- Fixed bug with zoom not set properly when passed as map option
+
 ## Version 2.3.0
 
 - Added mainColor options
