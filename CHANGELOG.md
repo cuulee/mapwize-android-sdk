@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version 2.3.2
+
+- Fixed bug with options
+
 ## Version 2.3.1
 
 - Fixed bug with bounds map option
