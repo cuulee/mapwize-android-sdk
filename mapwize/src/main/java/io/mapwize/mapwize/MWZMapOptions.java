@@ -11,14 +11,14 @@ public class MWZMapOptions {
     private MWZBounds maxBounds;
     private MWZBounds bounds;
     private MWZCoordinate center;
-    private int zoom;
-    private int floor;
+    private Integer zoom;
+    private Integer floor;
     private boolean zoomControl;
     private boolean showUserPositionControl = true;
     private boolean displayFloorControl = true;
     private String accessKey;
     private String language;
-    private int minZoom;
+    private Integer minZoom;
     private String outdoorMapProvider;
     private String mainColor;
     private boolean isLocationEnabled;
@@ -99,7 +99,7 @@ public class MWZMapOptions {
         this.zoomControl = zoomControl;
     }
 
-    public int getFloor() {
+    public Integer getFloor() {
         return floor;
     }
 
@@ -155,7 +155,7 @@ public class MWZMapOptions {
         this.language = language;
     }
 
-    public int getMinZoom() {
+    public Integer getMinZoom() {
         return minZoom;
     }
 

@@ -56,7 +56,7 @@ import java.util.List;
 public class MWZMapView extends WebView implements LocationListener, BeaconConsumer, SensorEventListener {
 
     final private String SERVER_URL = "https://www.mapwize.io";
-    final private String ANDROID_SDK_VERSION = "2.3.2";
+    final private String ANDROID_SDK_VERSION = "2.3.3";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
     private boolean isLoaded = false;
@@ -213,10 +213,6 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
                 opts.setBounds(bounds);
             }
 
-            if (opts.getZoom() != null) {
-                this.zoom = opts.getZoom();
-            }
-
         } finally {
             a.recycle();
         }
@@ -256,6 +252,20 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
         WebSettings webSettings = this.getSettings();
         webSettings.setJavaScriptEnabled(true);
         this.setWebChromeClient(new MWZMapView.GeoWebChromeClient());
+
+
+        if (options.getZoom() != null) {
+            this.zoom = options.getZoom();
+        }
+
+        if (options.getFloor() != null) {
+            this.floor = options.getFloor();
+        }
+
+        if (options.getCenter() != null) {
+            this.center = options.getCenter();
+        }
+
         this.loadUrl("file:///android_asset/mwzmap.html");
         this.setWebViewClient(new WebViewClient() {
             @Override
@@ -804,7 +814,7 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
         }
     }
 
-    public void addExternalPlaces(List<MWZPlace> places) {
+    public void setExternalPlaces(List<MWZPlace> places) {
         try {
             String jsonInString = new ObjectMapper().writeValueAsString(places);
             this.executeJS("map.setExternalPlaces("+jsonInString+");");

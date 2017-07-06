@@ -176,7 +176,9 @@ public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
     }
 
     public MWZCoordinate getMarker() {
-        this.marker.setFloor(this.floor);
+        if (this.marker != null) {
+            this.marker.setFloor(this.floor);
+        }
         return marker;
     }
 
@@ -193,7 +195,9 @@ public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
     }
 
     public MWZCoordinate getEntrance() {
-        this.entrance.setFloor(this.floor);
+        if (this.entrance != null) {
+            this.entrance.setFloor(this.floor);
+        }
         return entrance;
     }
 

@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## Version 2.3.3
+
+- Floor, zoom and center map options now accessible using getters on the map after init
+- Using Integer in MWZMapOptions instead of int
+- Fixed bug with click on external place
+- Limited required attributes for external place to : venueId, translations, floor and geometry
+- Removed highlight on place click
+
 ## Version 2.3.2
 
 - Fixed bug with options
