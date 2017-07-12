@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version 2.3.4
+
+- Fixed mainColor affects userPosition
+
 ## Version 2.3.3
 
 - Floor, zoom and center map options now accessible using getters on the map after init
