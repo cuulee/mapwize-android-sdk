@@ -465,48 +465,6 @@ public class MWZApi {
         });
     }
 
-    public static void getDirection(@NonNull MWZDirectionPoint from, @Nullable List<MWZDirectionPoint> to, @Nullable  List<MWZDirectionPoint> waypoints, @Nullable MWZDirectionOptions options, @NonNull final MWZCallback<MWZDirection> callback) {
-        MWZDirectionRequestObject requestObject = new MWZDirectionRequestObject();
-        requestObject.from = from.toDirectionWrapper();
-        if (to != null) {
-            List<MWZDirectionPointWrapper> toList = new ArrayList<>();
-            for (MWZDirectionPoint wp : to) {
-                toList.add(wp.toDirectionWrapper());
-            }
-            requestObject.to = toList;
-        }
-        if (waypoints != null) {
-            requestObject.waypoints = new ArrayList<>();
-            for (MWZDirectionPoint wp : waypoints) {
-                requestObject.waypoints.add(wp.toDirectionWrapper());
-            }
-        }
-        requestObject.options = options;
-
-        Call<MWZDirection> call = sApiInterface.getDirection(requestObject, sApiKey);
-        call.enqueue(new Callback<MWZDirection>(){
-
-            @Override
-            public void onResponse(Call<MWZDirection> call, Response<MWZDirection> response) {
-                if (response.isSuccessful()) {
-                    callback.onSuccess(response.body());
-                }
-                else {
-                    try {
-                        callback.onFailure(new Throwable(response.errorBody().string()));
-                    } catch (IOException e) {
-                        callback.onFailure(new Throwable("Mapwize request error"));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MWZDirection> call, Throwable t) {
-                callback.onFailure(new Throwable("Bad request " + t));
-            }
-        });
-    }
-
     public static void search(@NonNull MWZSearchParams searchParams, @NonNull final MWZCallback<List<MWZSearchable>> callback) {
         Call<MWZSearchResponse> call = sApiInterface.performSearch(sApiKey, searchParams);
         call.enqueue(new Callback<MWZSearchResponse>() {

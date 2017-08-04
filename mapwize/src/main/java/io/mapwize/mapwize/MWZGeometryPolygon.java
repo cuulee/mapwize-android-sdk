@@ -1,13 +1,8 @@
 package io.mapwize.mapwize;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class MWZGeometryPolygon extends MWZGeometry {
 
     private List<List<List<Double>>> coordinates = new ArrayList<List<List<Double>>>();

@@ -1,32 +1,8 @@
 # CHANGELOG
 
-## Version 2.3.4
+## Version 2.2.1
 
-- Fixed mainColor affects userPosition
-
-## Version 2.3.3
-
-- Floor, zoom and center map options now accessible using getters on the map after init
-- Using Integer in MWZMapOptions instead of int
-- Fixed bug with click on external place
-- Limited required attributes for external place to : venueId, translations, floor and geometry
-- Removed highlight on place click
-
-## Version 2.3.2
-
-- Fixed bug with options
-
-## Version 2.3.1
-
-- Fixed bug with bounds map option
-- Fixed bug with zoom not set properly when passed as map option
-
-## Version 2.3.0
-
-- Added mainColor options
-- Added support for external places
-- Added option displayFloorControl
-- Addes markerDisplay options
+- Fixed issues on some devices
 
 ## Version 2.2.0
 
