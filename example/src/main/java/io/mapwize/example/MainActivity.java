@@ -326,6 +326,18 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     }
 
     @Override
+    public void onVenueEnter(MWZVenue venue) {
+
+        Log.i("onVenueEnter", "" + venue.toString());
+    }
+
+    @Override
+    public void onVenueExit(MWZVenue venue) {
+        Log.i("onVenueExit", "done");
+    }
+
+
+    @Override
     public void onReceivedError(String error) {
         Log.i("OnReceivedError", error);
     }

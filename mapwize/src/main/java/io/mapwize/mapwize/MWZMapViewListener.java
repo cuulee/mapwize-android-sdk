@@ -22,4 +22,7 @@ public interface MWZMapViewListener {
 
     void onMissingPermission(String accessFineLocation);
     void onMapLoaded();
+
+    void onVenueEnter(MWZVenue venue);
+    void onVenueExit(MWZVenue venue);
 }

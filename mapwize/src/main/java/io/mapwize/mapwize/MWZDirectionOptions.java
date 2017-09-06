@@ -22,12 +22,12 @@ public class MWZDirectionOptions {
         isAccessible = accessible;
     }
 
-    @JsonGetter("isWaypointOptimize")
+    @JsonGetter("waypointOptimize")
     public boolean isWaypointOptimize() {
         return waypointOptimize;
     }
 
-    @JsonSetter("isWaypointOptimize")
+    @JsonSetter("waypointOptimize")
     public void setWaypointOptimize(boolean waypointOptimize) {
         this.waypointOptimize = waypointOptimize;
     }

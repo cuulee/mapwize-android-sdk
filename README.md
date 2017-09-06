@@ -56,24 +56,35 @@ app:center_latitude="51.508653"
 app:center_longitude="-0.124975"
 app:zoom="15"
 app:floor="1"
-app:apikey="YOUR API KEY"
 /> 
 ```
 
 The following custom attributes can be use :
 
 ```xml
-<attr name="apikey" format="string"/>
+<!-- Access -->
+<attr name="accesskey" format="string"/>
+
+<!-- Language -->
+<attr name="language" format="string"/>
+
+<!-- Controller display -->
+<attr name="showUserPositionControl" format="boolean"/>
+<attr name="displayFloorControl" format="boolean"/>
+<attr name="mainColor" format="string"/>
+
+<!-- Location -->
+<attr name="isLocationEnabled" format="boolean"/>
+<attr name="isBeaconsEnabled" format="boolean"/>
+
+<!-- Coordinates -->
 <attr name="center_latitude" format="float"/>
 <attr name="center_longitude" format="float"/>
 <attr name="zoom" format="integer"/>
 <attr name="floor" format="integer"/>
-<attr name="isLocationEnabled" format="boolean"/>
-<attr name="isBeaconsEnabled" format="boolean"/>
-<attr name="showUserPositionControl" format="boolean"/>
-<attr name="accesskey" format="string"/>
-<attr name="language" format="string"/>
 <attr name="minZoom" format="integer"/>
+
+<!-- Bounds -->
 <attr name="maxBounds_latitudeMin" format="float"/>
 <attr name="maxBounds_latitudeMax" format="float"/>
 <attr name="maxBounds_longitudeMin" format="float"/>
@@ -82,6 +93,13 @@ The following custom attributes can be use :
 <attr name="bounds_latitudeMax" format="float"/>
 <attr name="bounds_longitudeMin" format="float"/>
 <attr name="bounds_longitudeMax" format="float"/>
+
+<!-- Custom marker -->
+<attr name="iconUrl" format="string"/>
+<attr name="x_iconSize" format="integer"/>
+<attr name="y_iconSize" format="integer"/>
+<attr name="x_iconAnchor" format="integer"/>
+<attr name="y_iconAnchor" format="integer"/>
 ```
 
 ### Life cycle
@@ -110,6 +128,7 @@ Options are defined using the class MWZMapOptions. The following options are ava
 - isBeaconsEnabled : [BOOL] boolean defining if the iBeacon scanner should be turned on (default: false).
 - accessKey: [String] optional accessKey to be used during map load to be sure that access is granted to desired buildings at first map display.
 - language: [String] optional preferred language for the map. Used to display all venues supporting that language.
+- mainColor: [String] optional mainColor will be use to replace mapwize color in UI component as floor controller or direction.
 
 
 ### Moving the map
@@ -187,6 +206,8 @@ public void addMarker(String placeId)
 public void removeMarkers()
 ```
 
+You can change the default mapwize marker icon by passing options to the map. See map options.
+
 ### Controlling places display
 
 You can promote places to increase their display priority.
@@ -213,6 +234,19 @@ public void setIgnoredPlaces(List<MWZPlace> places)
 public void setIgnoredPlacesWithIds(List<String> placeIds)
 ```
 
+You can add places from your own data using this method. In order to make it works, you have to create a Mapwize formatted place object from your data and pass all the place as argument
+```java
+public void addExternalPlaces(List<MWZPlace> places)
+```
+
+The minimum attribute that should be specified to work propertly are the following :
+
+MWZPlace.geometry
+MWZPlace.venueId
+MWZPlace.floor
+MWZPlace.translations
+
+In order to use promote and ignore methods, you have to specify an uniq id (MWZPlace.identifier)
 
 ### Universes
 
@@ -385,7 +419,17 @@ To request a direction from one place to another, possibly with intermediate way
 
 ```java
 public static void getDirection(MWZDirectionPoint from, MWZDirectionPoint to, List<MWZDirectionPoint> waypoints, MWZDirectionOptions options, final MWZCallback<MWZDirection> callback)
+public static void getDirection(MWZDirectionPoint from, List<MWZDirectionPoint> to, List<MWZDirectionPoint> waypoints, MWZDirectionOptions options, final MWZCallback<MWZDirection> callback)
 ```
+
+- from (MWZPlace, MWZCoordinate, MWZUserPosition) : The starting point of the direction
+- to (MWZPlace, MWZPlaceList, MWZCoordinate, MWZUserPosition) : Can be a MWZDirectionPoint or a List<MWZDirectionPoint>. In the first case, the to object will be the destination point. In the second case, the nearest point of the list will be use as destination point.
+- waypoint (MWZPlace, MWZCoordinate, MWZUserPosition) : A list of intermediate point.
+
+Direction options :
+- isAccessible (boolean) :  Boolean defining if the direction should avoid inaccessible way for someone with reduced mobility.
+- waypointOptimize (boolean) : Boolean defining if the direction engine should optimize waypoint order to return the shortest way. 
+
 
 ### Search engine
 

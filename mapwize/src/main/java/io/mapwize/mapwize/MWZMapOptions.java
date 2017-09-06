@@ -11,17 +11,20 @@ public class MWZMapOptions {
     private MWZBounds maxBounds;
     private MWZBounds bounds;
     private MWZCoordinate center;
-    private int zoom;
-    private int floor;
+    private Integer zoom;
+    private Integer floor;
     private boolean zoomControl;
     private boolean showUserPositionControl = true;
+    private boolean displayFloorControl = true;
     private String accessKey;
     private String language;
-    private int minZoom;
+    private Integer minZoom;
     private String outdoorMapProvider;
+    private String mainColor;
     private boolean isLocationEnabled;
     private boolean isBeaconsEnabled;
     private boolean useBrowserLocation = false;
+    private MWZCustomMarkerOptions displayMarkerOptions;
 
     public boolean isUseBrowserLocation() {
         return useBrowserLocation;
@@ -30,6 +33,30 @@ public class MWZMapOptions {
     public MWZMapOptions() {
         this.isBeaconsEnabled = true;
         this.isLocationEnabled = true;
+    }
+
+    public String getMainColor() {
+        return mainColor;
+    }
+
+    public void setMainColor(String mainColor) {
+        this.mainColor = mainColor;
+    }
+
+    public MWZCustomMarkerOptions getDisplayMarkerOptions() {
+        return displayMarkerOptions;
+    }
+
+    public void setDisplayMarkerOptions(MWZCustomMarkerOptions displayMarkerOptions) {
+        this.displayMarkerOptions = displayMarkerOptions;
+    }
+
+    public boolean isDisplayFloorControl() {
+        return displayFloorControl;
+    }
+
+    public void setDisplayFloorControl(boolean displayFloorControl) {
+        this.displayFloorControl = displayFloorControl;
     }
 
     public boolean isLocationEnabled() {
@@ -72,7 +99,7 @@ public class MWZMapOptions {
         this.zoomControl = zoomControl;
     }
 
-    public int getFloor() {
+    public Integer getFloor() {
         return floor;
     }
 
@@ -128,7 +155,7 @@ public class MWZMapOptions {
         this.language = language;
     }
 
-    public int getMinZoom() {
+    public Integer getMinZoom() {
         return minZoom;
     }
 

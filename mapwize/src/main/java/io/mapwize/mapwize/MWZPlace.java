@@ -15,6 +15,7 @@ public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
     private String name;
     private String alias;
     private String venueId;
+    private MWZVenue venue;
     private Integer floor;
     private List<MWZTranslation> translations;
     private Integer order;
@@ -39,6 +40,14 @@ public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
         MWZDirectionPointWrapper wrapper = new MWZDirectionPointWrapper();
         wrapper.setPlaceId(identifier);
         return wrapper;
+    }
+
+    public MWZVenue getVenue() {
+        return venue;
+    }
+
+    public void setVenue(MWZVenue venue) {
+        this.venue = venue;
     }
 
     public String getIdentifier() {
@@ -167,6 +176,9 @@ public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
     }
 
     public MWZCoordinate getMarker() {
+        if (this.marker != null) {
+            this.marker.setFloor(this.floor);
+        }
         return marker;
     }
 
@@ -183,6 +195,9 @@ public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
     }
 
     public MWZCoordinate getEntrance() {
+        if (this.entrance != null) {
+            this.entrance.setFloor(this.floor);
+        }
         return entrance;
     }
 
