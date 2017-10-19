@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Version 2.3.6
+
+- Fixed followUserMode change on floorChange from sdk
+- Added method startDirection(Direction direction, boolean preventFitbounds)
+
 ## Version 2.3.5
 
 - Api key must be passed in MWZAccountManager. Api key in xml does not work anymore

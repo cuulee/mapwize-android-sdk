@@ -56,7 +56,7 @@ import java.util.List;
 public class MWZMapView extends WebView implements LocationListener, BeaconConsumer, SensorEventListener {
 
     final private String SERVER_URL = "https://www.mapwize.io";
-    final private String ANDROID_SDK_VERSION = "2.3.5";
+    final private String ANDROID_SDK_VERSION = "2.3.6";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
     private boolean isLoaded = false;
@@ -705,6 +705,10 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
 
     public void startDirections(@NonNull MWZDirection direction) {
         this.executeJS("map.startDirections(" + direction.toJSONString() + ")");
+    }
+
+    public void startDirections(@NonNull MWZDirection direction, boolean preventFitbounds) {
+        this.executeJS("map.startDirections(" + direction.toJSONString() + ",{preventFitBounds:"+preventFitbounds+"})");
     }
 
     public void stopDirections() {
