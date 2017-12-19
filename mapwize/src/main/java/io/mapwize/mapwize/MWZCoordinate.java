@@ -8,7 +8,7 @@ public class MWZCoordinate implements MWZDirectionPoint {
 
     private Double latitude;
     private Double longitude;
-    private Integer floor;
+    private Double floor;
 
     public MWZCoordinate() {
         super();
@@ -20,7 +20,7 @@ public class MWZCoordinate implements MWZDirectionPoint {
         this.longitude = longitude;
     }
 
-    public MWZCoordinate(Double latitude, Double longitude, Integer floor) {
+    public MWZCoordinate(Double latitude, Double longitude, Double floor) {
         super();
         this.latitude = latitude;
         this.longitude = longitude;
@@ -80,11 +80,11 @@ public class MWZCoordinate implements MWZDirectionPoint {
         this.longitude = longitude;
     }
 
-    public Integer getFloor() {
+    public Double getFloor() {
         return floor;
     }
 
-    public void setFloor(Integer floor) {
+    public void setFloor(Double floor) {
         this.floor = floor;
     }
 

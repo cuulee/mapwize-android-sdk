@@ -11,9 +11,9 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MWZRoute {
 
-    private Integer floor;
-    private Integer fromFloor;
-    private Integer toFloor;
+    private Double floor;
+    private Double fromFloor;
+    private Double toFloor;
     private Boolean isStart;
     private Boolean isEnd;
     private Double traveltime;
@@ -39,27 +39,27 @@ public class MWZRoute {
         return jsonInString;
     }
 
-    public Integer getFloor() {
+    public Double getFloor() {
         return floor;
     }
 
-    public void setFloor(Integer floor) {
+    public void setFloor(Double floor) {
         this.floor = floor;
     }
 
-    public Integer getFromFloor() {
+    public Double getFromFloor() {
         return fromFloor;
     }
 
-    public void setFromFloor(Integer fromFloor) {
+    public void setFromFloor(Double fromFloor) {
         this.fromFloor = fromFloor;
     }
 
-    public Integer getToFloor() {
+    public Double getToFloor() {
         return toFloor;
     }
 
-    public void setToFloor(Integer toFloor) {
+    public void setToFloor(Double toFloor) {
         this.toFloor = toFloor;
     }
 

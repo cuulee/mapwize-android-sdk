@@ -16,7 +16,7 @@ public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
     private String alias;
     private String venueId;
     private MWZVenue venue;
-    private Integer floor;
+    private Double floor;
     private List<MWZTranslation> translations;
     private Integer order;
     private String placeTypeId;
@@ -99,11 +99,11 @@ public class MWZPlace implements MWZDirectionPoint, MWZSearchable {
         this.data = data;
     }
 
-    public Integer getFloor() {
+    public Double getFloor() {
         return floor;
     }
 
-    public void setFloor(Integer floor) {
+    public void setFloor(Double floor) {
         this.floor = floor;
     }
 

@@ -55,7 +55,7 @@ android:layout_height="match_parent"
 app:center_latitude="51.508653"
 app:center_longitude="-0.124975"
 app:zoom="15"
-app:floor="1"
+app:floor="1.0"
 /> 
 ```
 
@@ -81,7 +81,7 @@ The following custom attributes can be use :
 <attr name="center_latitude" format="float"/>
 <attr name="center_longitude" format="float"/>
 <attr name="zoom" format="integer"/>
-<attr name="floor" format="integer"/>
+<attr name="floor" format="float"/>
 <attr name="minZoom" format="integer"/>
 
 <!-- Bounds -->
@@ -123,7 +123,7 @@ Options are defined using the class MWZMapOptions. The following options are ava
 - center: [MWZLatLon] coordiantes of the center of the map at start-up (default: 0,0).
 - zoom : [int] integer between 0 and 21 (default 0).
 - minZoom: [int] optional minimum zoom allowed by the map, usefull to limit the visible area.
-- floor : [int] integer representing the desired floor of the building (default 0).
+- floor : [double] double representing the desired floor of the building (default 0.0).
 - isLocationEnabled : [boolean] boolean defining if the GPS should be started and the user position displayed (default: true).
 - isBeaconsEnabled : [BOOL] boolean defining if the iBeacon scanner should be turned on (default: false).
 - accessKey: [String] optional accessKey to be used during map load to be sure that access is granted to desired buildings at first map display.
@@ -138,7 +138,7 @@ Once the map loaded, you can use the following functions on the map instance:
 public void fitBounds(MWZBounds bounds) 
 public void centerOnCoordinates()
 public void centerOnCoordinatesWithFloor()
-public void setFloor(Integer floor) 
+public void setFloor(Double floor)
 public void setZoom(Integer zoom)
 public void centerOnVenue(MWZVenue venue)
 public void centerOnVenue(String id)
@@ -152,8 +152,8 @@ public void centerOnUser(Integer zoom)
 ```java
 public Integer getZoom()
 public MWZCoordinate getCenter()
-public Integer getFloor()
-public Integer[] getFloors()
+public Double getFloor()
+public Double[] getFloors()
 ```
 
 ### User position
@@ -201,7 +201,7 @@ You can add markers on top of the map. A marker with floor null will be displaye
 ```java
 public void addMarker(MWZCoordinate coordinate)
 @Deprecated
-public void addMarker(Double latitude, Double longitude, Integer floor)
+public void addMarker(Double latitude, Double longitude, Double floor)
 public void addMarker(String placeId)
 public void removeMarkers()
 ```
@@ -288,8 +288,8 @@ void onReceivedError(String error);
 void onZoomEnd(Integer zoom);
 void onClick(MWZCoordinate latlon);
 void onContextMenu(MWZCoordinate latlon);
-void onFloorChange(Integer floor);
-void onFloorsChange(Integer[] floors);
+void onFloorChange(Double floor);
+void onFloorsChange(Double[] floors);
 void onPlaceClick(MWZPlace place);
 void onVenueClick(MWZVenue venue);
 void onMarkerClick(MWZCoordinate position);
@@ -422,9 +422,9 @@ public static void getDirection(MWZDirectionPoint from, MWZDirectionPoint to, Li
 public static void getDirection(MWZDirectionPoint from, List<MWZDirectionPoint> to, List<MWZDirectionPoint> waypoints, MWZDirectionOptions options, final MWZCallback<MWZDirection> callback)
 ```
 
-- from (MWZPlace, MWZCoordinate, MWZUserPosition) : The starting point of the direction
-- to (MWZPlace, MWZPlaceList, MWZCoordinate, MWZUserPosition) : Can be a MWZDirectionPoint or a List<MWZDirectionPoint>. In the first case, the to object will be the destination point. In the second case, the nearest point of the list will be use as destination point.
-- waypoint (MWZPlace, MWZCoordinate, MWZUserPosition) : A list of intermediate point.
+- from (MWZPlace, MWZCoordinate,MWZCoordinateInVenue, MWZUserPosition) : The starting point of the direction
+- to (MWZPlace, MWZPlaceList, MWZCoordinate,MWZCoordinateInVenue, MWZUserPosition) : Can be a MWZDirectionPoint or a List<MWZDirectionPoint>. In the first case, the to object will be the destination point. In the second case, the nearest point of the list will be use as destination point.
+- waypoint (MWZPlace, MWZCoordinate,MWZCoordinateInVenue, MWZUserPosition) : A list of intermediate point.
 
 Direction options :
 - isAccessible (boolean) :  Boolean defining if the direction should avoid inaccessible way for someone with reduced mobility.

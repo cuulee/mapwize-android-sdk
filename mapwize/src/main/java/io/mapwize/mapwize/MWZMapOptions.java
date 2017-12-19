@@ -12,7 +12,7 @@ public class MWZMapOptions {
     private MWZBounds bounds;
     private MWZCoordinate center;
     private Integer zoom;
-    private Integer floor;
+    private Double floor;
     private boolean zoomControl;
     private boolean showUserPositionControl = true;
     private boolean displayFloorControl = true;
@@ -99,11 +99,11 @@ public class MWZMapOptions {
         this.zoomControl = zoomControl;
     }
 
-    public Integer getFloor() {
+    public Double getFloor() {
         return floor;
     }
 
-    public void setFloor(Integer floor) {
+    public void setFloor(Double floor) {
         this.floor = floor;
     }
 

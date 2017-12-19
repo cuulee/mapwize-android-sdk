@@ -21,7 +21,7 @@
         <attr name="center_latitude" format="float"/>
         <attr name="center_longitude" format="float"/>
         <attr name="zoom" format="integer"/>
-        <attr name="floor" format="integer"/>
+        <attr name="floor" format="float"/>
         <attr name="minZoom" format="integer"/>
 
         <!-- Bounds -->

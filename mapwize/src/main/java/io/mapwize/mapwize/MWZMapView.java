@@ -56,14 +56,14 @@ import java.util.List;
 public class MWZMapView extends WebView implements LocationListener, BeaconConsumer, SensorEventListener {
 
     final private String SERVER_URL = "https://www.mapwize.io";
-    final private String ANDROID_SDK_VERSION = "2.3.6";
+    final private String ANDROID_SDK_VERSION = "2.4.0";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
     private boolean isLoaded = false;
     private MWZMapViewListener listener;
     private MWZMapOptions options;
-    private Integer floor;
-    private Integer[] floors;
+    private Double floor;
+    private Double[] floors;
     private Integer zoom;
     private boolean followUserMode;
     private MWZCoordinate center;
@@ -177,8 +177,8 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
             if (centerLat != Float.MAX_VALUE && centerLon != Float.MAX_VALUE) {
                 opts.setCenter(new MWZCoordinate(new Double(centerLat), new Double(centerLon)));
             }
-            int floor = a.getInteger(R.styleable.MWZMapView_floor, Integer.MAX_VALUE);
-            if (floor != Integer.MAX_VALUE) {
+            double floor = a.getFloat(R.styleable.MWZMapView_floor, Float.MAX_VALUE);
+            if (floor != Float.MAX_VALUE) {
                 opts.setFloor(floor);
             }
             int zoom = a.getInteger(R.styleable.MWZMapView_zoom, Integer.MAX_VALUE);
@@ -416,7 +416,7 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
     @JavascriptInterface
     public void onFloorChange(String value) {
         if (value != null){
-            this.floor = Integer.parseInt(value);
+            this.floor = Double.parseDouble(value);
         }
         else {
             this.floor = null;
@@ -429,7 +429,7 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
     @JavascriptInterface
     public void onFloorsChange(String value) {
         try {
-            this.floors = new ObjectMapper().readValue(value, Integer[].class);
+            this.floors = new ObjectMapper().readValue(value, Double[].class);
             if (this.listener != null) {
                 this.listener.onFloorsChange(this.floors);
             }
@@ -576,11 +576,11 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
     /**
      * Getters
      */
-    public Integer getFloor() {
+    public Double getFloor() {
         return floor;
     }
 
-    public Integer[] getFloors() {
+    public Double[] getFloors() {
         return floors;
     }
 
@@ -690,7 +690,7 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
     }
 
     @Deprecated
-    public void addMarker(@NonNull Double latitude, @NonNull Double longitude, @Nullable Integer floor) {
+    public void addMarker(@NonNull Double latitude, @NonNull Double longitude, @Nullable Double floor) {
         MWZCoordinate latLonFloor = new MWZCoordinate(latitude, longitude, floor);
         this.executeJS("map.addMarker(" + latLonFloor.toJSONString() + ")");
     }

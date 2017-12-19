@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Version 2.4.0
+
+- Floors can now have decimal (Double) values, handy for mezzanines or intermediate levels
+- Added class MWZCoordinatesInVenue that needs to be used to compute directions from coordinate to coordinate
+
 ## Version 2.3.6
 
 - Fixed followUserMode change on floorChange from sdk

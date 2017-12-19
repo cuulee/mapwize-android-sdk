@@ -13,7 +13,7 @@ public class MWZUserPosition extends MWZCoordinate implements  MWZDirectionPoint
         super();
     }
 
-    public MWZUserPosition(Double latitude, Double longitude, Integer floor, Integer accuracy) {
+    public MWZUserPosition(Double latitude, Double longitude, Double floor, Integer accuracy) {
         super(latitude, longitude, floor);
         this.accuracy = accuracy;
     }

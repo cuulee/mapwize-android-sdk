@@ -10,13 +10,13 @@ public class MWZMeasurement {
 
     private Double latitude;
     private Double longitude;
-    private Integer floor;
+    private Double floor;
     private Integer accuracy;
     private Long validUntil;
     private Integer valididy;
     private String source;
 
-    public MWZMeasurement(Double latitude, Double longitude, Integer floor, Integer accuracy, Long validUntil, Integer valididy, String source) {
+    public MWZMeasurement(Double latitude, Double longitude, Double floor, Integer accuracy, Long validUntil, Integer valididy, String source) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.floor = floor;
@@ -50,11 +50,11 @@ public class MWZMeasurement {
         this.longitude = longitude;
     }
 
-    public Integer getFloor() {
+    public Double getFloor() {
         return floor;
     }
 
-    public void setFloor(Integer floor) {
+    public void setFloor(Double floor) {
         this.floor = floor;
     }
 

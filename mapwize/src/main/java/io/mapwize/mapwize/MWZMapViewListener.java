@@ -8,8 +8,8 @@ public interface MWZMapViewListener {
     void onZoomEnd(Integer zoom);
     void onClick(MWZCoordinate latlon);
     void onContextMenu(MWZCoordinate latlon);
-    void onFloorChange(Integer floor);
-    void onFloorsChange(Integer[] floors);
+    void onFloorChange(Double floor);
+    void onFloorsChange(Double[] floors);
     void onPlaceClick(MWZPlace place);
     void onVenueClick(MWZVenue venue);
     void onMarkerClick(MWZCoordinate position);

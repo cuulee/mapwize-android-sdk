@@ -7,7 +7,7 @@ public class MWZDirectionPointWrapper {
 
     private Double latitude;
     private Double longitude;
-    private Integer floor;
+    private Double floor;
     private String venueId;
     private String placeId;
     private String placeListId;
@@ -36,11 +36,11 @@ public class MWZDirectionPointWrapper {
         this.longitude = longitude;
     }
 
-    public Integer getFloor() {
+    public Double getFloor() {
         return floor;
     }
 
-    public void setFloor(Integer floor) {
+    public void setFloor(Double floor) {
         this.floor = floor;
     }
 

@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     }
 
     public void centerOnCoordinatesWithFloor() {
-        MWZCoordinate coordinate = new MWZCoordinate(49.74252973220731, 4.599119424819946, 2);
+        MWZCoordinate coordinate = new MWZCoordinate(49.74252973220731, 4.599119424819946, 2d);
         this.mapview.centerOnCoordinates(coordinate, 18);
     }
 
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     }
 
     public void showDirections() {
-        MWZCoordinate coord = new MWZUserPosition(49.74271259569392, 4.599329978227616, 0, 15);
+        MWZCoordinate coord = new MWZUserPosition(49.74271259569392, 4.599329978227616, 0d, 15);
         MWZPlace from = new MWZPlace();
         from.setIdentifier("56c3426202275a0b00fb00b9");
         MWZPlace to = new MWZPlace();
@@ -260,12 +260,12 @@ public class MainActivity extends AppCompatActivity implements MWZMapViewListene
     }
 
     @Override
-    public void onFloorChange(Integer floor) {
+    public void onFloorChange(Double floor) {
         Log.i("OnFloorChange", "" + floor);
     }
 
     @Override
-    public void onFloorsChange(Integer[] floors) {
+    public void onFloorsChange(Double[] floors) {
         Log.i("OnFloorsChange", "floors");
     }
 
