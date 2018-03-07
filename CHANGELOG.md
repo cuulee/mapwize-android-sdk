@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version 2.5.0
+
+- Changing floors behaviour to only have in the floor selector the floors for which there is a layer visible on the screen. Changed the behaviour of getFloors and on didChangeFloors accordingly.
+
 ## Version 2.4.0
 
 - Floors can now have decimal (Double) values, handy for mezzanines or intermediate levels
