@@ -12,7 +12,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 class MWZRetrofitBuilder {
-    static final String BASE_URL = "https://www.mapwize.io/api/v1/";
+    static final String BASE_URL = "https://api.mapwize.io/v1/";
 
     static MWZApiInterface getComplexClient(Context ctx) {
         OkHttpClient client = getOkHttpClient(ctx);
