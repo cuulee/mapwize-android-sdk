@@ -55,8 +55,8 @@ import java.util.List;
 
 public class MWZMapView extends WebView implements LocationListener, BeaconConsumer, SensorEventListener {
 
-    final private String SERVER_URL = "https://www.mapwize.io";
-    final private String ANDROID_SDK_VERSION = "2.4.0";
+    final private String SERVER_URL = "https://api.mapwize.io";
+    final private String ANDROID_SDK_VERSION = "2.4.1";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
     private boolean isLoaded = false;
@@ -246,6 +246,10 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
             cookieManager.setAcceptThirdPartyCookies(this, true);
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            this.getSettings().setAllowUniversalAccessFromFileURLs(true);
+        }
+        
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         this.addJavascriptInterface(this, "android");
