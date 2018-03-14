@@ -12,11 +12,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 class MWZRetrofitBuilder {
-    static final String BASE_URL = "https://api.mapwize.io/v1/";
+    static String BASE_URL;
 
     static MWZApiInterface getComplexClient(Context ctx) {
         OkHttpClient client = getOkHttpClient(ctx);
-
+        BASE_URL = MWZAccountManager.getInstance().getServerUrl() + "/v1/";
         Retrofit raCustom = new Retrofit.Builder()
                 .client(client)
                 .baseUrl(BASE_URL)

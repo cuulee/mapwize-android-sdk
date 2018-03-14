@@ -55,8 +55,8 @@ import java.util.List;
 
 public class MWZMapView extends WebView implements LocationListener, BeaconConsumer, SensorEventListener {
 
-    final private String SERVER_URL = "https://api.mapwize.io";
-    final private String ANDROID_SDK_VERSION = "2.3.7";
+    private String SERVER_URL;
+    final private String ANDROID_SDK_VERSION = "2.3.8";
     final private String ANDROID_SDK_NAME = "ANDROID SDK";
     private static String CLIENT_APP_NAME;
     private boolean isLoaded = false;
@@ -237,6 +237,7 @@ public class MWZMapView extends WebView implements LocationListener, BeaconConsu
             this.options.setApiKey(am.getApiKey());
         }
 
+        SERVER_URL = am.getServerUrl();
         // Debugger
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);

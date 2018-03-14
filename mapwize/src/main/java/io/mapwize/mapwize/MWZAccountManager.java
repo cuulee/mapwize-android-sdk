@@ -11,6 +11,7 @@ public class MWZAccountManager {
 
     private String mApiKey;
     private Context mContext;
+    private String mServerUrl;
 
     private static MWZAccountManager sInstance = null;
 
@@ -21,9 +22,23 @@ public class MWZAccountManager {
         return sInstance;
     }
 
+    public static MWZAccountManager start(@NonNull Context ctx, @NonNull String apiKey, @NonNull String serverUrl) {
+        if (sInstance == null) {
+            sInstance = new MWZAccountManager(ctx, apiKey, serverUrl);
+        }
+        return sInstance;
+    }
+
     private MWZAccountManager(Context ctx, String apiKey) {
         this.mContext = ctx;
         this.mApiKey = apiKey;
+        this.mServerUrl = "https://api.mapwize.io";
+    }
+
+    private MWZAccountManager(Context ctx, String apiKey, String serverUrl) {
+        this.mContext = ctx;
+        this.mApiKey = apiKey;
+        this.mServerUrl = serverUrl;
     }
 
     static MWZAccountManager getInstance() {
@@ -38,4 +53,7 @@ public class MWZAccountManager {
         return mContext;
     }
 
+    public String getServerUrl() {
+        return mServerUrl;
+    }
 }

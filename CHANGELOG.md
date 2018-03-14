@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## Version 2.3.8
+
+- Adding possibility to set the server url
+
+## Version 2.3.7
+
+- Fixed google chrome update issue
+
 ## Version 2.3.6
 
 - Fixed followUserMode change on floorChange from sdk
